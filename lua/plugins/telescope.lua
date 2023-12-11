@@ -1,0 +1,44 @@
+return {
+--   'nvim-telescope/telescope.nvim',
+--   branch = '0.1.x',
+--   dependencies = {
+--   'nvim-lua/plenary.nvim',
+--   {
+--     'nvim-telescope/telescope-fzf-native.nvim',
+--     build = 'make',
+--     config = function()
+--     require('telescope').load_extension('fzf')
+--     end,
+--   },
+--   },
+--   init = function()
+--     local builtin = require('telescope.builtin')
+--     -- File Pickers
+--     vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+--     vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+--     vim.keymap.set('n', '<leader>fg', builtin.grep_string, {})
+--     vim.keymap.set('n', '<leader>fG', builtin.live_grep, {})
+--     -- Vim Pickers
+--     vim.keymap.set('n', '<leader>vc', builtin.commands, {})
+--     vim.keymap.set('n', '<leader>vC', builtin.command_history, {})
+--     vim.keymap.set('n', '<leader>vf', builtin.current_buffer_fuzzy_find, {})
+--     vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+--     vim.keymap.set('n', '<leader>vm', builtin.man_pages, {})
+--     vim.keymap.set('n', '<leader>vs', builtin.spell_suggest, {})
+--   end,
+--   opts = {
+--     extensions = {
+--       fzf = {
+--       fuzzy = true,
+--       override_generic_sorter = true,
+--       override_file_sorter = true,
+--       },
+--     },
+--     pickers = {
+--       buffers = {
+--         ignore_current_buffer = true,
+--         sort_mru = true,
+--       },
+--     },
+--   },
+}
