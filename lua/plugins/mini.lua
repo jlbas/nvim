@@ -21,6 +21,12 @@ return {
           hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
         },
       })
+      require('mini.indentscope').setup({
+        draw = {
+          animation = require('mini.indentscope').gen_animation.none(),
+        },
+        symbol = '│',
+      })
       require('mini.pairs').setup({
         mappings = {
           [' '] = { action = 'open', pair = '  ', neigh_pattern = '[%(%[{][%)%]}]' },
@@ -60,6 +66,17 @@ return {
         }
       })
       require('mini.surround').setup()
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          local enabled_fts = { 'c', 'cpp', 'lua', 'python' }
+          for _, ft in ipairs(enabled_fts) do
+            if vim.bo.filetype == ft then
+              return
+            end
+          end
+          vim.b.miniindentscope_disable = true
+        end,
+      })
     end,
   },
 }
