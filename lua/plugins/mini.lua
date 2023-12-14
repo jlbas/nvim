@@ -9,7 +9,11 @@ return {
       require('mini.comment').setup()
       require('mini.completion').setup()
       require('mini.extra').setup()
-      require('mini.files').setup()
+      require('mini.files').setup({
+        mappings = {
+          close = '<C-c>',
+        },
+      })
       require('mini.hipatterns').setup({
         highlighters = {
           todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
@@ -25,6 +29,18 @@ return {
       require('mini.pick').setup({
         options = {
           content_from_bottom = true,
+        },
+        mappings = {
+          choose_in_split = '<C-x>',
+          mark = '<C-m>',
+          choose_marked = '<C-CR>',
+        },
+        source = {
+          choose_marked = function(items)
+            for _, item in ipairs(items) do
+              vim.cmd.badd(item)
+            end
+          end,
         },
         window = {
           config = function()

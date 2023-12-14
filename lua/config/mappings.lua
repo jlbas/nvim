@@ -6,9 +6,8 @@ local keymap = function(mode, keys, cmd, desc, opts)
 end
 
 -- System clipboard ------------------------------------------------------------
-keymap({'n', 'x'}, 'gy', '"+y', 'Copy to system clipboard')
--- keymap('n', 'gp', '"+p', 'Paste from system clipboard') -- not supported in Wezterm
--- keymap('x', 'gp', '"+P', 'Paste from system clipboard') -- not supported in Wezterm
+keymap({'n', 'x'}, '<leader>cy', '"+y', 'Copy to system clipboard')
+-- keymap({'n', 'x'}, '<leader>cp', '"+p', 'Paste from system clipboard') -- not supported in Wezterm
 
 -- Search ----------------------------------------------------------------------
 keymap('n', '<leader>i', ':let v:hlsearch = 1 - v:hlsearch<CR>', 'Toggle hlsearch')
@@ -43,21 +42,29 @@ keymap('t', '<M-l>', '<right>', 'Right')
 keymap('v', '>', '>gv', 'Shift lines right', { noremap = true })
 keymap('v', '<', '<gv', 'Shift lines left', { noremap = true })
 
+-- Filesystem navigation
+keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
+
 -- Buffer ----------------------------------------------------------------------
 keymap('n', '<BS>',      '<C-^>', 'Open previous file')
 keymap('n', '<leader>bd', [[<cmd>bdelete<CR>]], 'Delete')
 keymap('n', '<leader>bD', [[<cmd>bdelete<CR>]], 'Delete!')
+keymap('n', '<C-n>', [[<cmd>bnext<CR>]], 'Next buffer')
+keymap('n', '<C-p>', [[<cmd>bprevious<CR>]], 'Previous buffer')
 
 -- Mini file explorer ----------------------------------------------------------
 keymap('n', '<leader>ed', [[<cmd>lua MiniFiles.open()<CR>]],                             'Directory'     )
 keymap('n', '<leader>ef', [[<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>]], 'File directory')
 
 -- Mini pick -------------------------------------------------------------------
+keymap('n', '<leader>do', [[<cmd>DiffviewOpen<CR>]],                           'Open Diffview')
+keymap('n', '<leader>dc', [[<cmd>DiffviewClose<CR>]],                          'Close Diffview')
+keymap('n', '<leader>dh', [[<cmd>DiffviewFileHistory<CR>]],                    'Open diffview file history')
 keymap('n', '<leader>f/', [[<cmd>Pick history scope='/'<CR>]],                 '"/" history')
 keymap('n', '<leader>f:', [[<cmd>Pick history scope=':'<CR>]],                 '":" history')
 keymap('n', '<leader>fa', [[<cmd>Pick git_hunks scope='staged'<CR>]],          'Added hunks (all)')
 keymap('n', '<leader>fA', [[<cmd>Pick git_hunks path='%' scope='staged'<CR>]], 'Added hunks (current)')
-keymap('n', '<leader>fb', [[<cmd>Pick buffers<CR>]],                           'Buffers')
+keymap('n', '<leader>fb', [[<cmd>Pick buffers include_current=false<CR>]],     'Buffers')
 keymap('n', '<leader>fc', [[<cmd>Pick git_commits<CR>]],                       'Commits (all)')
 keymap('n', '<leader>fC', [[<cmd>Pick git_commits path='%'<CR>]],              'Commits (current)')
 keymap('n', '<leader>fd', [[<cmd>Pick diagnostic scope='all'<CR>]],            'Diagnostic workspace')
@@ -67,6 +74,7 @@ keymap('n', '<leader>fg', [[<cmd>Pick grep_live<CR>]],                         '
 keymap('n', '<leader>fG', [[<cmd>Pick grep pattern='<cword>'<CR>]],            'Grep current word')
 keymap('n', '<leader>fh', [[<cmd>Pick help<CR>]],                              'Help tags')
 keymap('n', '<leader>fi', [[<cmd>Pick hl_groups<CR>]],                         'Highlight groups')
+keymap('n', '<leader>fk', [[<cmd>Pick keymaps<CR>]],                           'Highlight groups')
 keymap('n', '<leader>fm', [[<cmd>Pick git_hunks<CR>]],                         'Modified hunks (all)')
 keymap('n', '<leader>fM', [[<cmd>Pick git_hunks path='%'<CR>]],                'Modified hunks (current)')
 keymap('n', '<leader>fr', [[<cmd>Pick lsp scope='references'<CR>]],            'References (LSP)')
