@@ -25,6 +25,7 @@ keymap('n', '<M-j>', '"<cmd>resize -" . v:count1 . "<CR>"', 'Decrease window hei
 keymap('n', '<M-k>', '"<cmd>resize +" . v:count1 . "<CR>"', 'Increase window height', { expr = true, replace_keycodes = false })
 keymap('n', '<M-l>', '"<cmd>vertical resize +" . v:count1 . "<CR>"', 'Increase window width', { expr = true, replace_keycodes = false })
 keymap('n', '<M-=>', '<C-w>=', 'Make windows equally sized')
+keymap('n', '<M-z>', [[<cmd>if winnr('$') == 1 | silent! close! | else | tab split | endif<CR>]])
 
 -- Move with alt ---------------------------------------------------------------
 keymap('c', '<M-h>', '<left>', 'Left', { silent = false })

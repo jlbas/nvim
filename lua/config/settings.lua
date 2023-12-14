@@ -19,6 +19,7 @@ vim.o.relativenumber = true
 vim.o.scrolloff = 5
 vim.o.showbreak = '↪ '
 vim.o.showmode = false
+vim.o.showtabline = 0
 vim.o.signcolumn = 'yes'
 vim.o.smoothscroll = true
 vim.o.splitbelow = true
