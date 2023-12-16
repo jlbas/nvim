@@ -8,6 +8,7 @@ return {
       -- require('mini.base16').setup()
       require('mini.comment').setup()
       require('mini.completion').setup()
+      require('mini.cursorword').setup()
       require('mini.extra').setup()
       require('mini.files').setup({
         mappings = {
@@ -75,6 +76,7 @@ return {
             end
           end
           vim.b.miniindentscope_disable = true
+          vim.b.minicursorword_disable = true
         end,
       })
     end,
