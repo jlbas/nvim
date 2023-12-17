@@ -17,6 +17,17 @@ return {
     end,
     cmd = 'Copilot',
     event = 'InsertEnter',
-    opts = {},
+    config = function()
+      require('copilot').setup({
+        suggestions = { enabled = false },
+        panel = {
+          auto_refresh = true,
+          keymap = {
+            jump_next = '<C-l>',
+            jump_prev = '<C-h>',
+          }
+        },
+      })
+    end,
   },
 }

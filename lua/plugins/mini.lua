@@ -7,12 +7,14 @@ return {
       require('mini.align').setup()
       -- require('mini.base16').setup()
       require('mini.comment').setup()
-      require('mini.completion').setup()
       require('mini.cursorword').setup()
       require('mini.extra').setup()
       require('mini.files').setup({
         mappings = {
           close = '<C-c>',
+        },
+        windows = {
+          max_number = 1,
         },
       })
       require('mini.hipatterns').setup({
@@ -67,6 +69,17 @@ return {
         }
       })
       require('mini.surround').setup()
+      require('mini.visits').setup()
+
+      local map_vis = function(keys, call, desc)
+        local rhs = '<Cmd>lua MiniVisits.' .. call .. '<CR>'
+        vim.keymap.set('n', '<Leader>' .. keys, rhs, { desc = desc })
+      end
+      map_vis('vv', 'add_label()',          'Add label')
+      map_vis('vV', 'remove_label()',       'Remove label')
+      map_vis('vl', 'select_label("", "")', 'Select label (all)')
+      map_vis('vL', 'select_label()',       'Select label (cwd)')
+
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
           local enabled_fts = { 'c', 'cpp', 'lua', 'python' }
