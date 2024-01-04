@@ -5,3 +5,10 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     end
   end
 })
+
+vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  pattern = { '*onedrive/*' },
+  callback = function()
+    io.popen('odpush')
+  end
+})
