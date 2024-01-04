@@ -19,4 +19,5 @@ opts = {
 
 require('config.settings')
 require('config.mappings')
+require('config.autocmd')
 require('lazy').setup('plugins', opts)
