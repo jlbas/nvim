@@ -8,6 +8,7 @@ vim.o.undofile = true
 
 -- UI --------------------------------------------------------------------------
 vim.o.breakindent = true
+vim.o.conceallevel = 2
 vim.o.cursorline = true
 vim.o.cursorlineopt = 'number'
 vim.o.equalalways = false
