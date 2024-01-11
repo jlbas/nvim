@@ -11,11 +11,15 @@ return {
       require('lualine').setup({
         options = {
           globalstatus = true,
-          component_separators = '│',
+          -- component_separators = '│',
           section_separators = '',
         },
-        winbar = {
+        sections = {
           lualine_c = {
+            {
+              'filename',
+              path = 1,
+            },
             {
               function()
                 return navic.get_location()
