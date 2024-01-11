@@ -5,13 +5,25 @@ local keymap = function(mode, keys, cmd, desc, opts)
   vim.keymap.set(mode, keys, cmd, opts)
 end
 
+local M = {}
+
+M.get_selected_text = function()
+  local old_reg = vim.fn.getreg('"')
+  local old_reg_type = vim.fn.getregtype('"')
+  vim.cmd('norm gvy')
+  local ret = vim.fn.getreg('"')
+  vim.fn.setreg('"', old_reg, old_reg_type)
+  vim.cmd([[norm \<ESC>]])
+  return tostring(ret)
+end
+
 -- System clipboard ------------------------------------------------------------
 keymap({'n', 'x'}, '<leader>cy', '"+y', 'Copy to system clipboard')
 -- keymap({'n', 'x'}, '<leader>cp', '"+p', 'Paste from system clipboard') -- not supported in Wezterm
 
 -- Search ----------------------------------------------------------------------
 keymap('n', '<leader>i', ':let v:hlsearch = 1 - v:hlsearch<CR>', 'Toggle hlsearch')
-keymap('x', '/', '<esc>/\\%V', 'Search inside visual selection', { silent = false  })
+keymap('x', '/', [[<esc>/\%V]], 'Search inside visual selection', { silent = false  })
 
 -- Window navigation -----------------------------------------------------------
 keymap('n', '<C-h>', '<C-w>h', 'Focus on left window' )
@@ -71,7 +83,10 @@ keymap('n', '<leader>fF', [[<cmd>GFiles<CR>]], '')
 keymap('n', '<leader>fb', [[<cmd>Buffers<CR>]], '')
 keymap('n', '<leader>fh', [[<cmd>Colors<CR>]], '')
 keymap('n', '<leader>fr', [[<cmd>Rg<CR>]], '')
+keymap('x', '<leader>fr', [[:lua vim.cmd('Rg ' .. require('config.mappings').get_selected_text())<CR>]], '')
+keymap('n', '<leader>fR', [[:Rg <C-R><C-W><CR>]], '')
 keymap('n', '<leader>fl', [[<cmd>Lines<CR>]], '')
+keymap('n', '<leader>fL', [[<cmd>BLines<CR>]], '')
 keymap('n', '<leader>fg', [[<cmd>Changes<CR>]], '')
 keymap('n', '<leader>fm', [[<cmd>Marks<CR>]], '')
 keymap('n', '<leader>fj', [[<cmd>Jumps<CR>]], '')
@@ -108,3 +123,5 @@ keymap('n', '<leader>fh', [[<cmd>Helptags<CR>]], '')
 -- keymap('n', '<leader>fP', [[<cmd>Pick visit_paths<CR>]],                       'Visit paths (cwd)')
 -- keymap('n', '<leader>fv', [[<cmd>Pick visit_labels cwd=''<CR>]],               'Visit labels (all)')
 -- keymap('n', '<leader>fV', [[<cmd>Pick visit_labels<CR>]],                      'Visit labels (cwd)')
+
+return M
