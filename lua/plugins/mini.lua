@@ -30,11 +30,11 @@ return {
         },
         symbol = '│',
       })
-      require('mini.pairs').setup({
-        mappings = {
-          [' '] = { action = 'open', pair = '  ', neigh_pattern = '[%(%[{][%)%]}]' },
-        },
-      })
+      -- require('mini.pairs').setup({
+      --   mappings = {
+      --     [' '] = { action = 'open', pair = '  ', neigh_pattern = '[%(%[{][%)%]}]' },
+      --   },
+      -- })
       require('mini.pick').setup({
         options = {
           content_from_bottom = true,
