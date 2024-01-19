@@ -18,12 +18,26 @@ return {
   },
   {
     'EdenEast/nightfox.nvim',
-    opts = {
-      palettes = {
-        carbonfox = { bg1 = '#000000' },
-        nightfox = { bg1 = '#000000' },
-      },
-    },
+    config = function()
+      local C = require('nightfox.lib.color')
+      local bg = C('#000000')
+      require('nightfox').setup({
+        palettes = {
+          carbonfox = {
+            bg0 = bg:brighten(6):to_css(),
+            bg1 = bg:to_css(),
+            bg2 = bg:brighten(6):to_css(),
+            bg3 = bg:brighten(12):to_css(),
+            bg4 = bg:brighten(24):to_css(),
+          },
+        },
+        groups = {
+          carbonfox = {
+            WinSeparator = { fg = bg:brighten(24):to_css() }
+          }
+        }
+      })
+    end,
     init = function()
       vim.cmd.colorscheme 'carbonfox'
     end,
