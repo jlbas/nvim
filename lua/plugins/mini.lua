@@ -63,22 +63,22 @@ return {
           end,
         },
       })
-      require('mini.splitjoin').setup({
-        mappings = {
-          toggle = 'gs'
-        }
-      })
-      require('mini.surround').setup()
-      require('mini.visits').setup()
-
-      local map_vis = function(keys, call, desc)
-        local rhs = '<Cmd>lua MiniVisits.' .. call .. '<CR>'
-        vim.keymap.set('n', '<Leader>' .. keys, rhs, { desc = desc })
-      end
-      map_vis('vv', 'add_label()',          'Add label')
-      map_vis('vV', 'remove_label()',       'Remove label')
-      map_vis('vl', 'select_label("", "")', 'Select label (all)')
-      map_vis('vL', 'select_label()',       'Select label (cwd)')
+      -- require('mini.splitjoin').setup({
+      --   mappings = {
+      --     toggle = 'gs'
+      --   }
+      -- })
+      -- require('mini.surround').setup() -- using nvim-surround instead
+      -- require('mini.visits').setup()
+      --
+      -- local map_vis = function(keys, call, desc)
+      --   local rhs = '<Cmd>lua MiniVisits.' .. call .. '<CR>'
+      --   vim.keymap.set('n', '<Leader>' .. keys, rhs, { desc = desc })
+      -- end
+      -- map_vis('vv', 'add_label()',          'Add label')
+      -- map_vis('vV', 'remove_label()',       'Remove label')
+      -- map_vis('vl', 'select_label("", "")', 'Select label (all)')
+      -- map_vis('vL', 'select_label()',       'Select label (cwd)')
 
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
