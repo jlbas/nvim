@@ -34,9 +34,9 @@ return {
             symbol_map = { Copilot = '' },
           }),
         },
-        experimental = {
-          ghost_text = true,
-        },
+        -- experimental = {
+        --   ghost_text = true,
+        -- },
         snippet = {
           expand = function(args)
             require('luasnip').lsp_expand(args.body)
