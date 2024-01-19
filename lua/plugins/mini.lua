@@ -3,8 +3,8 @@ return {
     'echasnovski/mini.nvim',
     version = false,
     config = function()
-      require('mini.ai').setup()
-      require('mini.align').setup()
+      -- require('mini.ai').setup()
+      -- require('mini.align').setup()
       -- require('mini.base16').setup()
       require('mini.comment').setup()
       require('mini.cursorword').setup()
