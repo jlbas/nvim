@@ -66,15 +66,21 @@ return {
   },
   {
     'stevearc/conform.nvim',
-    opts = {
-      formatters_by_ft = {
-        c = { 'clang-format' },
-        cpp = { 'clang-format' },
-        lua = { 'stylua' },
-        markdown = { 'prettier' },
-        python = { 'isort', 'black' },
-      },
-    },
+    config = function()
+      local conform = require('conform')
+      conform.setup({
+        formatters_by_ft = {
+          c = { 'clang-format' },
+          cpp = { 'clang-format' },
+          lua = { 'stylua' },
+          markdown = { 'prettier' },
+          python = { 'isort', 'black' },
+        },
+      })
+      conform.formatters.black = {
+        prepend_args = { '--line-length', '120' }
+      }
+    end,
   },
   {
     'mfussenegger/nvim-lint',
