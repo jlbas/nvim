@@ -21,6 +21,8 @@ return {
     config = function()
       local C = require('nightfox.lib.color')
       local bg = C('#000000')
+      local palette = require('nightfox.palette').load('carbonfox')
+      local group = require('nightfox.group').load('carbonfox')
       require('nightfox').setup({
         palettes = {
           carbonfox = {
@@ -33,7 +35,10 @@ return {
         },
         groups = {
           carbonfox = {
-            WinSeparator = { fg = bg:brighten(24):to_css() }
+            WinSeparator = { fg = bg:brighten(24):to_css() },
+            DapBreakpoint = { fg = palette.red },
+            DapStoppedText = { fg = palette.magenta },
+            DapStoppedLine = { bg = group.DiagnosticVirtualTextWarn.bg },
           }
         }
       })
