@@ -74,9 +74,9 @@ keymap('n', '<leader>ed', [[<cmd>lua MiniFiles.open()<CR>]],                    
 keymap('n', '<leader>ef', [[<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>]], 'File directory')
 
 -- Diffview --------------------------------------------------------------------
-keymap('n', '<leader>do', [[<cmd>DiffviewOpen<CR>]],                           'Open Diffview')
-keymap('n', '<leader>dc', [[<cmd>DiffviewClose<CR>]],                          'Close Diffview')
-keymap('n', '<leader>dh', [[<cmd>DiffviewFileHistory<CR>]],                    'Open diffview file history')
+keymap('n', '<leader>go', [[<cmd>DiffviewOpen<CR>]],                           'Open Diffview')
+keymap('n', '<leader>gc', [[<cmd>DiffviewClose<CR>]],                          'Close Diffview')
+keymap('n', '<leader>gh', [[<cmd>DiffviewFileHistory<CR>]],                    'Open diffview file history')
 
 -- FZF -------------------------------------------------------------------------
 keymap('n', '<leader>ff', [[<cmd>Files<CR>]], '')
@@ -99,6 +99,19 @@ keymap('n', '<leader>fB', [[<cmd>BCommits<CR>]], '')
 keymap('n', '<leader>fc', [[<cmd>Commands<CR>]], '')
 keymap('n', '<leader>fk', [[<cmd>Maps<CR>]], '')
 keymap('n', '<leader>fh', [[<cmd>Helptags<CR>]], '')
+
+-- DAP -------------------------------------------------------------------------
+keymap('n', '<leader>db', require('dap').toggle_breakpoint, '')
+keymap('n', '<leader>dB', require('dap').clear_breakpoints, '')
+keymap('n', '<leader>dc', require('dap').continue, '')
+keymap('n', '<leader>dC', require('dap').run_to_cursor, '')
+keymap('n', '<leader>di', require('dap').step_into, '')
+keymap('n', '<leader>dl', require('dap').list_breakpoints, '')
+keymap('n', '<leader>dL', [[<cmd>require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], '')
+keymap('n', '<leader>dq', require('dap').terminate, '')
+keymap('n', '<leader>dr', require('dap').repl.toggle, '')
+keymap('n', '<leader>dn', require('dap').step_over, '')
+keymap('n', '<leader>do', require('dap').step_out, '')
 
 -- Mini pick -------------------------------------------------------------------
 -- keymap('n', '<leader>f/', [[<cmd>Pick history scope='/'<CR>]],                 '"/" history')
