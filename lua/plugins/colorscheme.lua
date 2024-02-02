@@ -39,6 +39,7 @@ return {
             DapBreakpoint = { fg = palette.red },
             DapStoppedText = { fg = palette.magenta },
             DapStoppedLine = { bg = group.DiagnosticVirtualTextWarn.bg },
+            LspSignatureActiveParameter = { fg = palette.magenta, style = "italic,bold" },
           }
         }
       })

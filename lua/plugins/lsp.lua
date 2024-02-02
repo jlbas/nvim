@@ -41,6 +41,18 @@ return {
           virtual_text = false,
         }
       )
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+        vim.lsp.handlers.signature_help, {
+          border = "single",
+          title = "Signature Help",
+        }
+      )
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+        vim.lsp.handlers.hover, {
+          border = "single",
+          title = "Hover",
+        }
+      )
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -48,15 +60,15 @@ return {
           vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
           local opts = { buffer = ev.buf }
-          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-          vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
-          vim.keymap.set('n', '<leader>li', vim.lsp.buf.hover, opts)
-          vim.keymap.set('n', '<leader>lk', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
-          vim.keymap.set({ 'n', 'v' }, '<leader>la', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
+          vim.keymap.set('x', '<leader>la', vim.lsp.buf.code_action, opts)
+          vim.keymap.set('n', '<leader>lk', vim.lsp.buf.signature_help, opts)
+          vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
+          vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'x' }, '<leader>lf', function()
             require('conform').format({ lsp_fallback = true })
           end, opts)
