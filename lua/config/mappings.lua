@@ -56,8 +56,8 @@ keymap('t', '<M-l>', '<right>', 'Right')
 keymap('v', '>', '>gv', 'Shift lines right', { noremap = true })
 keymap('v', '<', '<gv', 'Shift lines left', { noremap = true })
 
--- Quickfix --------------------------------------------------------------------
-keymap('n', '<leader>q', 'empty(filter(getwininfo(), "v:val.quickfix")) ? ":cope<CR>" : ":ccl<CR>"', 'Toggle quickfix', { expr = true })
+-- Quit faster -----------------------------------------------------------------
+keymap('n', '<leader>q', vim.cmd.quit, 'Toggle quickfix')
 
 -- Filesystem navigation
 keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
