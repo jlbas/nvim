@@ -12,3 +12,9 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
     io.popen('odpush')
   end
 })
+
+vim.cmd([[
+  command! -bang -nargs=* Rgf call fzf#vim#grep('
+  \ rg --column --line-number --no-heading --fixed-strings --color=always --smart-case
+  \ '.shellescape(<q-args>), 1, <bang>0)
+]])
