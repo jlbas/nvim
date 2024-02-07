@@ -12,11 +12,16 @@ return {
         options = {
           globalstatus = true,
           -- component_separators = '│',
+          component_separators = '',
           section_separators = '',
         },
         sections = {
+          lualine_b = {
+            {'branch', 'diff'},
+          },
           lualine_c = {
             {
+              'diagnostics',
               'filename',
               path = 1,
             },
