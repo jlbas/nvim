@@ -29,10 +29,10 @@ return {
         lspconfig[lsp].setup({})
       end
       vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float)
-      vim.keymap.set('n', '[D', vim.diagnostic.goto_prev)
-      vim.keymap.set('n', ']D', vim.diagnostic.goto_next)
-      vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
-      vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
+      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+      vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+      vim.keymap.set('n', '[D', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
+      vim.keymap.set('n', ']D', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
       vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist)
 
       vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
