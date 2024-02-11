@@ -17,11 +17,11 @@ return {
         },
         sections = {
           lualine_b = {
-            {'branch', 'diff'},
+            { 'branch', 'diff' },
           },
           lualine_c = {
+            { 'diagnostics' },
             {
-              'diagnostics',
               'filename',
               path = 1,
             },
