@@ -40,6 +40,11 @@ return {
             DapStoppedText = { fg = palette.magenta },
             DapStoppedLine = { bg = group.DiagnosticVirtualTextWarn.bg },
             LspSignatureActiveParameter = { fg = palette.magenta, style = "italic,bold" },
+            DiagnosticVirtualTextError = { bg = "none" },
+            DiagnosticVirtualTextWarn = { bg = "none" },
+            DiagnosticVirtualTextInfo = { bg = "none" },
+            DiagnosticVirtualTextHint = { bg = "none" },
+            DiagnosticVirtualTextOk = { bg = "none" },
           }
         }
       })

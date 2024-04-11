@@ -59,8 +59,14 @@ return {
 
       vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {
+          signs = false,
           underline = false,
-          virtual_text = false,
+          virtual_text = {
+            format = function()
+              return ""
+            end,
+            spacing = 0,
+          },
         }
       )
       vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
