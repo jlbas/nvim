@@ -26,7 +26,29 @@ return {
       })
       local lspconfig = require('lspconfig')
       for _, lsp in ipairs(lsp_servers) do
-        lspconfig[lsp].setup({})
+        if lsp == 'clangd' then
+          lspconfig[lsp].setup({
+            -- cmd = {
+            --   "clangd",
+            --   "--header-insertion=never",
+            --   "--background-index",
+            --   "--background-index-priority=background",
+            --   "--log=error",
+            --   "--limit-results=100",
+            --   "-j=10",
+            -- },
+            cmd = {
+              "/usr/local/timostools/build/linux/llvm/14.0/bin/clangd",
+              "--header-insertion=never",
+              "--background-index",
+              "--log=error",
+              "--limit-results=100",
+              "-j=10",
+            },
+          })
+        else
+          lspconfig[lsp].setup({})
+        end
       end
       vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
