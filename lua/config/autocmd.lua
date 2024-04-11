@@ -6,13 +6,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
-vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-  pattern = { '*onedrive/*' },
-  callback = function()
-    io.popen('odpush')
-  end
-})
-
 vim.cmd([[
   command! -bang -nargs=* Rgf call fzf#vim#grep('
   \ rg --column --line-number --no-heading --fixed-strings --color=always --smart-case
