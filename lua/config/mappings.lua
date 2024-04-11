@@ -77,6 +77,14 @@ keymap('n', '<leader>ef', [[<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0)
 keymap('n', '<leader>go', [[<cmd>DiffviewOpen<CR>]],                           'Open Diffview')
 keymap('n', '<leader>gc', [[<cmd>DiffviewClose<CR>]],                          'Close Diffview')
 keymap('n', '<leader>gh', [[<cmd>DiffviewFileHistory<CR>]],                    'Open diffview file history')
+keymap('n', '<leader>gg', function()
+    local ns_id = vim.api.nvim_get_namespaces()["gitsigns_blame"]
+    local extmarks = vim.api.nvim_buf_get_extmarks(0, ns_id, 0, -1, {details=true})[1]
+    if extmarks then
+      local sha = extmarks[4]["virt_text"][1][1]:sub(2,9)
+      vim.cmd("DiffviewOpen " .. sha .. "^!")
+    end
+  end, 'Open commit hash in diffview')
 
 -- FZF -------------------------------------------------------------------------
 keymap('n', '<leader>ff', [[<cmd>Files<CR>]], '')
