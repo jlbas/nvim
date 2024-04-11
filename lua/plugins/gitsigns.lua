@@ -1,6 +1,11 @@
 return {
-	'lewis6991/gitsigns.nvim',
-	opts = {
+  'lewis6991/gitsigns.nvim',
+  opts = {
+    current_line_blame = true,
+    current_line_blame_opts = {
+      virt_text_priority = 10000,
+    },
+    current_line_blame_formatter = '(<abbrev_sha>) <author>, <author_time:%Y-%m-%d> - <summary>',
     on_attach = function(bufnr)
       local gs = package.loaded.gitsigns
 
