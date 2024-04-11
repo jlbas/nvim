@@ -35,7 +35,6 @@ vim.o.cindent = true
 vim.o.completeopt = 'menuone,noinsert,noselect'
 vim.o.expandtab = true
 vim.o.ignorecase = true
-vim.o.iskeyword = '@,48-57,_,192-255,-'
 vim.o.shiftwidth = 2
 vim.o.smartcase = true
 vim.o.tabstop = 2
