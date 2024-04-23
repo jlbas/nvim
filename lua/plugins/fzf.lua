@@ -1,9 +1,12 @@
 return {
   {
-    "ibhagwan/fzf-lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    'ibhagwan/fzf-lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require("fzf-lua").setup({
+        fzf_opts = {
+          ['--cycle'] = '',
+        },
         winopts = {
           border = 'single',
         },
