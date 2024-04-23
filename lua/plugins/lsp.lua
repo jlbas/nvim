@@ -28,11 +28,19 @@ return {
       for _, lsp in ipairs(lsp_servers) do
         if lsp == 'clangd' then
           lspconfig[lsp].setup({
+            cmd = {
+              "clangd",
+              "--header-insertion=never",
+              "--background-index",
+              "--background-index-priority=background",
+              -- "--log=verbose",
+              "--limit-results=100",
+              "-j=10",
+            },
             -- cmd = {
-            --   "clangd",
+            --   "/usr/local/timostools/build/linux/llvm/14.0/bin/clangd",
             --   "--header-insertion=never",
             --   "--background-index",
-            --   "--background-index-priority=background",
             --   "--log=error",
             --   "--limit-results=100",
             --   "-j=10",
