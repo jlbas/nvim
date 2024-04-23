@@ -37,14 +37,10 @@ return {
             --   "--limit-results=100",
             --   "-j=10",
             -- },
-            cmd = {
-              "/usr/local/timostools/build/linux/llvm/14.0/bin/clangd",
-              "--header-insertion=never",
-              "--background-index",
-              "--log=error",
-              "--limit-results=100",
-              "-j=10",
-            },
+            on_error = function()
+              print("Restarting lsp!")
+              vim.cmd('edit')
+            end,
           })
         else
           lspconfig[lsp].setup({})
