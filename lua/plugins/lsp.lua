@@ -89,6 +89,7 @@ return {
           vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
           vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
+          vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
           vim.keymap.set('x', '<leader>la', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', '<leader>lk', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
