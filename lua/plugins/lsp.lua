@@ -46,9 +46,12 @@ return {
             --   "-j=10",
             -- },
             on_error = function()
-              print("Restarting lsp!")
-              vim.cmd('edit')
+              print("LSP Error!")
             end,
+            on_exit = vim.schedule_wrap(function()
+              print("Restarting lsp!")
+              vim.cmd('LspStart')
+            end),
           })
         else
           lspconfig[lsp].setup({})
