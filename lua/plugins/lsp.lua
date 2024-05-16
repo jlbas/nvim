@@ -36,6 +36,7 @@ return {
               -- "--log=verbose",
               "--limit-results=100",
               "-j=10",
+              "--clang-tidy",
             },
             -- cmd = {
             --   "/usr/local/timostools/build/linux/llvm/14.0/bin/clangd",
