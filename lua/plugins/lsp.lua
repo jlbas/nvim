@@ -46,12 +46,18 @@ return {
             --   "--limit-results=100",
             --   "-j=10",
             -- },
-            on_error = function()
-              print("LSP Error!")
+            on_error = function(code, err)
+              print("vim.lsp.rpc.client_errors[code]=", vim.lsp.rpc.client_errors[code])
+              print("err=", err)
             end,
-            on_exit = vim.schedule_wrap(function()
-              print("Restarting lsp!")
-              vim.cmd('LspStart')
+            on_exit = vim.schedule_wrap(function(code, signal, client_id)
+              print("code=", code)
+              print("signal=", signal)
+              print("client_id=", client_id)
+              if code == 0 and signal == 11 then
+                print("Restarting lsp!")
+                vim.cmd('LspStart')
+              end
             end),
           })
         else
