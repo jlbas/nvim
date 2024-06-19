@@ -20,6 +20,30 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'fzf',
   command = 'tunmap <ESC><ESC>'
 })
+
+vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+  callback = function()
+    local base_dir = vim.system({ 'git', 'rev-parse', '--show-toplevel' }, { text = true }):wait()
+    if base_dir.code ~= 128 and base_dir.stdout:find('panos') then
+      local branch = vim.system({ 'git', 'branch', '--show-current' }):wait().stdout:gsub('\n', '')
+      local file = vim.fn.expand('~/.local/state/nvim/session/' .. branch .. '.vim')
+      if vim.fn.filereadable(file) == 0 then
+        print('Creating new session for ' .. branch .. ' workspace')
+        vim.cmd.mksession(file)
+      elseif vim.fn.argc() == 0 then
+        vim.cmd.source(file)
+        vim.cmd.bufdo('filetype detect')
+      end
+    end
+  end
+})
+
+vim.api.nvim_create_autocmd({ 'BufWritePre', 'VimLeave' }, {
+  callback = function()
+    if vim.v.this_session ~= '' then
+      vim.cmd.mksession({ vim.v.this_session, bang = true })
+    end
+  end
 })
 
 vim.cmd([[
