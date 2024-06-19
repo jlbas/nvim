@@ -47,10 +47,6 @@ keymap('i', '<M-h>', '<left>', 'Left', { noremap = false })
 keymap('i', '<M-j>', '<down>', 'Down', { noremap = false })
 keymap('i', '<M-k>', '<up>', 'Up', { noremap = false })
 keymap('i', '<M-l>', '<right>', 'Right', { noremap = false })
-keymap('t', '<M-h>', '<left>', 'Left')
-keymap('t', '<M-j>', '<down>', 'Down')
-keymap('t', '<M-k>', '<up>', 'Up')
-keymap('t', '<M-l>', '<right>', 'Right')
 
 -- Indenting -------------------------------------------------------------------
 keymap('v', '>', '>gv', 'Shift lines right', { noremap = true })
@@ -58,6 +54,13 @@ keymap('v', '<', '<gv', 'Shift lines left', { noremap = true })
 
 -- Quit faster -----------------------------------------------------------------
 keymap('n', '<leader>q', vim.cmd.quit, 'Toggle quickfix')
+
+-- Terminal --------------------------------------------------------------------
+keymap('t', '<ESC><ESC>', '<C-\\><C-n>')
+keymap('t', '<C-h>', '<C-\\><C-n><C-w>h', 'Focus on left window' )
+keymap('t', '<C-j>', '<C-\\><C-n><C-w>j', 'Focus on below window')
+keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', 'Focus on above window')
+keymap('t', '<C-l>', '<C-\\><C-n><C-w>l', 'Focus on right window')
 
 -- Filesystem navigation
 keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')

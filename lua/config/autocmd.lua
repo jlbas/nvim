@@ -6,6 +6,11 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'TermOpen' }, {
+  pattern = "term://*",
+  command = "startinsert",
+})
+
 vim.cmd([[
   command! -bang -nargs=* Rgf call fzf#vim#grep('
   \ rg --column --line-number --no-heading --fixed-strings --color=always --smart-case
