@@ -84,7 +84,9 @@ keymap('n', '<leader>gg', function()
     local extmarks = vim.api.nvim_buf_get_extmarks(0, ns_id, 0, -1, {details=true})[1]
     if extmarks then
       local sha = extmarks[4]["virt_text"][1][1]:sub(2,9)
-      vim.cmd("DiffviewOpen " .. sha .. "^!")
+      if sha:find('%w%w%w%w%w%w%w%w') then
+        vim.cmd("DiffviewOpen " .. sha .. "^!")
+      end
     end
   end, 'Open commit hash in diffview')
 
