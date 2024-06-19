@@ -91,8 +91,8 @@ keymap('n', '<leader>gg', function()
 
 -- FZF -------------------------------------------------------------------------
 keymap('n', '<leader>f', require('fzf-lua').builtin, '')
-keymap('n', '<leader>f/', require('fzf-lua').command_history, '')
-keymap('n', '<leader>f:', require('fzf-lua').search_history, '')
+keymap('n', '<leader>f:', require('fzf-lua').command_history, '')
+keymap('n', '<leader>f/', require('fzf-lua').search_history, '')
 keymap('n', '<leader>fB', require('fzf-lua').lines, '')
 keymap('n', '<leader>fC', require('fzf-lua').changes, '')
 keymap('n', '<leader>fI', require('fzf-lua').colorschemes, '')
