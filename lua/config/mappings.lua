@@ -56,7 +56,6 @@ keymap('v', '<', '<gv', 'Shift lines left', { noremap = true })
 keymap('n', '<leader>q', vim.cmd.quit, 'Toggle quickfix')
 
 -- Terminal --------------------------------------------------------------------
-keymap('t', '<ESC><ESC>', '<C-\\><C-n>')
 keymap('t', '<C-h>', '<C-\\><C-n><C-w>h', 'Focus on left window' )
 keymap('t', '<C-j>', '<C-\\><C-n><C-w>j', 'Focus on below window')
 keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', 'Focus on above window')

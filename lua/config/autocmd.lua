@@ -6,9 +6,20 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
-vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter', 'TermOpen' }, {
-  pattern = "term://*",
-  command = "startinsert",
+vim.api.nvim_create_autocmd({ 'TermEnter', 'TermOpen' }, {
+  pattern = 'term://*',
+  command = 'startinsert',
+})
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = 'term://*',
+  command = 'tnoremap <ESC><ESC> <C-\\><C-n>'
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'fzf',
+  command = 'tunmap <ESC><ESC>'
+})
 })
 
 vim.cmd([[
