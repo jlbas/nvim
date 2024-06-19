@@ -32,7 +32,6 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
         vim.cmd.mksession(file)
       elseif vim.fn.argc() == 0 then
         vim.cmd.source(file)
-        vim.cmd.bufdo('filetype detect')
       end
     end
   end

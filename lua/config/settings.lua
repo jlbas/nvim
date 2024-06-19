@@ -32,6 +32,7 @@ vim.o.splitright = true
 vim.o.termguicolors = true
 vim.o.winblend = 10
 vim.opt.fillchars:append({ diff = '╱' })
+vim.opt.sessionoptions:append("localoptions")
 
 -- Editing ---------------------------------------------------------------------
 vim.o.cindent = true
