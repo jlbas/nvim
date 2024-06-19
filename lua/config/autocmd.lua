@@ -29,12 +29,13 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
       local file = vim.fn.expand('~/.local/state/nvim/session/' .. branch .. '.vim')
       if vim.fn.filereadable(file) == 0 then
         print('Creating new session for ' .. branch .. ' workspace')
-        vim.cmd.mksession(file)
+        vim.cmd.mksession({ file, bang = true })
       elseif vim.fn.argc() == 0 then
         vim.cmd.source(file)
       end
     end
-  end
+  end,
+  nested = true,
 })
 
 vim.api.nvim_create_autocmd({ 'BufWritePre', 'VimLeave' }, {
