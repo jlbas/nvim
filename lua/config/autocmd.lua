@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.cmd.tnoremap('<ESC><ESC>', '<C-\\><C-n>')
     vim.o.relativenumber = false
     vim.o.number = false
+    vim.b.miniindentscope_disable = true
   end
 })
 
