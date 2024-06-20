@@ -13,7 +13,11 @@ vim.api.nvim_create_autocmd({ 'TermEnter', 'TermOpen', 'BufEnter' }, {
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = 'term://*',
-  command = 'tnoremap <ESC><ESC> <C-\\><C-n>'
+  callback = function()
+    vim.cmd.tnoremap('<ESC><ESC>', '<C-\\><C-n>')
+    vim.o.relativenumber = false
+    vim.o.number = false
+  end
 })
 
 vim.api.nvim_create_autocmd('FileType', {
