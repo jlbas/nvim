@@ -16,22 +16,18 @@ return {
       end
 
       require("fzf-lua").setup({
-        fzf_opts = {
-          ['--cycle'] = '',
-        },
+        fzf_opts = { ['--cycle'] = '' },
         args = { actions = { ["ctrl-x"] = false } },
-        buffers = {
-          actions = {
-            ["ctrl-x"] = false,
-            ["ctrl-o"] = actions.buf_pick_window,
-          },
+        actions = {
+          buffers = { ["ctrl-o"] = actions.buf_pick_window },
+          files = { ["ctrl-o"] = actions.file_pick_window },
         },
+        buffers = { actions = { ["ctrl-x"] = false } },
         git = {
           stash = { actions = { ["ctrl-x"] = false } },
           branches = { actions = { ["ctrl-x"] = false } },
           status = { actions = { ["ctrl-x"] = false } },
         },
-        files = { actions = { ["ctrl-o"] = actions.file_pick_window } },
         keymap = {
           builtin = {
             ["ctrl-d"] = "preview-page-down",
@@ -42,15 +38,9 @@ return {
             ["ctrl-u"] = "preview-page-up",
           },
         },
-        previewers = {
-          builtin = {
-            syntax_limit_b = 2048*2048,
-          },
-        },
+        previewers = { builtin = { syntax_limit_b = 2048*2048 } },
         tabs = { actions = { ["ctrl-x"] = false } },
-        winopts = {
-          border = 'single',
-        },
+        winopts = { border = 'single' },
       })
       vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
     end
