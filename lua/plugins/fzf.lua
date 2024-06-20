@@ -4,24 +4,25 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local actions = require('fzf-lua.actions')
+      local default_actions = require('fzf-lua').defaults.actions
+      local nvim_window = require('nvim-window')
 
       function actions.file_pick_window(selected, opts)
-        require('nvim-window').pick()
+        nvim_window.pick()
         actions.file_edit(selected, opts)
       end
 
       function actions.buf_pick_window(selected, opts)
-        require('nvim-window').pick()
+        nvim_window.pick()
         actions.buf_edit(selected, opts)
       end
+
+      default_actions.buffers["ctrl-o"] = actions.buf_pick_window
+      default_actions.files["ctrl-o"] = actions.file_pick_window
 
       require("fzf-lua").setup({
         fzf_opts = { ['--cycle'] = '' },
         args = { actions = { ["ctrl-x"] = false } },
-        actions = {
-          buffers = { ["ctrl-o"] = actions.buf_pick_window },
-          files = { ["ctrl-o"] = actions.file_pick_window },
-        },
         buffers = { actions = { ["ctrl-x"] = false } },
         git = {
           stash = { actions = { ["ctrl-x"] = false } },
