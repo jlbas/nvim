@@ -13,12 +13,15 @@ return {
       end
 
       function actions.buf_pick_window(selected, opts)
+        local last_win = vim.fn.win_getid()
         nvim_window.pick()
-        actions.buf_edit(selected, opts)
+        if vim.fn.win_getid() ~= last_win then
+          actions.buf_edit(selected, opts)
+        end
       end
 
-      default_actions.buffers["ctrl-o"] = actions.buf_pick_window
-      default_actions.files["ctrl-o"] = actions.file_pick_window
+      default_actions.buffers["ctrl-m"] = actions.buf_pick_window
+      default_actions.files["ctrl-m"] = actions.file_pick_window
 
       require("fzf-lua").setup({
         fzf_opts = { ['--cycle'] = '' },
