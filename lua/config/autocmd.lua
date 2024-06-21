@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd({ 'TermEnter', 'TermOpen', 'BufEnter' }, {
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = 'term://*',
   callback = function()
-    vim.cmd.tnoremap('<ESC><ESC>', '<C-\\><C-n>')
+    vim.cmd.tnoremap('<buffer>', '<ESC><ESC>', '<C-\\><C-n>')
     vim.o.relativenumber = false
     vim.o.number = false
     vim.b.miniindentscope_disable = true
@@ -23,7 +23,10 @@ vim.api.nvim_create_autocmd('TermOpen', {
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'fzf',
-  command = 'tunmap <ESC><ESC>'
+  callback = function()
+    vim.cmd.tunmap('<buffer>', '<ESC><ESC>')
+    vim.cmd.tnoremap('<buffer>', '<ESC>', '<C-c>')
+  end
 })
 
 vim.api.nvim_create_autocmd({ 'VimEnter' }, {
