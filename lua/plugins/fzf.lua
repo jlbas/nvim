@@ -20,8 +20,8 @@ return {
         end
       end
 
-      default_actions.buffers["ctrl-m"] = actions.buf_pick_window
-      default_actions.files["ctrl-m"] = actions.file_pick_window
+      default_actions.buffers["ctrl-]"] = actions.buf_pick_window
+      default_actions.files["ctrl-]"] = actions.file_pick_window
 
       require("fzf-lua").setup({
         fzf_opts = { ['--cycle'] = '' },
