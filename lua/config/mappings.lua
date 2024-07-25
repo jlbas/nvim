@@ -71,8 +71,7 @@ keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
 
 -- Buffer ----------------------------------------------------------------------
 keymap('n', '<BS>',      '<C-^>', 'Open previous file')
-keymap('n', '<leader>bd', [[<cmd>bdelete<CR>]], 'Delete')
-keymap('n', '<leader>bD', [[<cmd>bdelete<CR>]], 'Delete!')
+keymap('n', '<C-x>', [[<cmd>bdelete<CR>]], 'Delete')
 keymap('n', '<C-n>', [[<cmd>bnext<CR>]], 'Next buffer')
 keymap('n', '<C-p>', [[<cmd>bprevious<CR>]], 'Previous buffer')
 
