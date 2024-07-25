@@ -64,6 +64,7 @@ keymap('t', '<C-h>', '<C-\\><C-n><C-w>h', 'Focus on left window' )
 keymap('t', '<C-j>', '<C-\\><C-n><C-w>j', 'Focus on below window')
 keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', 'Focus on above window')
 keymap('t', '<C-l>', '<C-\\><C-n><C-w>l', 'Focus on right window')
+keymap('t', '<C-;>', '<C-\\><C-n><C-w>p', 'Go to previous window')
 
 -- Filesystem navigation
 keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
