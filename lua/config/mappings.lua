@@ -94,6 +94,23 @@ keymap('n', '<leader>gg', function()
     end
   end, 'Open commit hash in diffview')
 
+local function fzf_notes()
+  require('fzf-lua').files({ cwd = '~/onedrive/notes/' })
+end
+
+local function open_ws_notes()
+  local branch = require('lualine.components.branch.git_branch').get_branch()
+  if branch ~= '' then
+    local file = vim.fn.expand('~/onedrive/notes/' .. branch .. '.md')
+    if vim.fn.filereadable(file) == 0 then
+      vim.fn.writefile({ '# ' .. string.gsub("-"..branch, "%W%l", string.upper):sub(2) }, file)
+    end
+    vim.cmd('edit ' .. file)
+  else
+    fzf_notes()
+  end
+end
+
 -- FZF -------------------------------------------------------------------------
 keymap('n', '<leader>f', require('fzf-lua').builtin, '')
 keymap('n', '<leader>f:', require('fzf-lua').command_history, '')
@@ -128,6 +145,8 @@ keymap('n', '<leader>flr', require('fzf-lua').lsp_references, '')
 keymap('n', '<leader>fls', require('fzf-lua').lsp_document_symbols, '')
 keymap('n', '<leader>flt', require('fzf-lua').lsp_typedefs, '')
 keymap('n', '<leader>fm', require('fzf-lua').marks, '')
+keymap('n', '<leader>fn', open_ws_notes, '')
+keymap('n', '<leader>fN', fzf_notes, '')
 keymap('n', '<leader>fp', require('fzf-lua').resume, '')
 keymap('n', '<leader>fr', require('fzf-lua').live_grep_native, '')
 keymap('n', '<leader>fs', require('fzf-lua').spell_suggest, '')
