@@ -11,7 +11,7 @@ return {
       'onsails/lspkind-nvim',
       'rafamadriz/friendly-snippets',
       'saadparwaiz1/cmp_luasnip',
-      { 'zbirenbaum/copilot-cmp', opts = {} },
+      { 'zbirenbaum/copilot-cmp', cond = false, opts = {} },
     },
     config = function()
       local cmp = require('cmp')
@@ -24,6 +24,7 @@ return {
             menu = {
               buffer = '[buf]',
               cmdline = '[cmd]',
+              codeium = '[cod]',
               copilot = '[cop]',
               buffer = '[buf]',
               luasnip = '[snip]',
@@ -64,6 +65,7 @@ return {
         },
         sources = {
           { name = 'buffer' },
+          -- { name = 'codeium' },
           { name = 'copilot', group_index = 2 },
           { name = 'luasnip' },
           { name = 'nvim_lsp' },
