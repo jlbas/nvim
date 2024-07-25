@@ -33,7 +33,7 @@ keymap('n', '<C-l>', '<C-w>l', 'Focus on right window')
 keymap('n', '<C-;>', '<C-w>p', 'Go to previous window')
 
 -- Window-Pick -----------------------------------------------------------------
-keymap('n', '<C-]>', require('nvim-window').pick, 'Pick window')
+keymap('n', '<C-q>', require('nvim-window').pick, 'Pick window')
 
 -- Window resizing -------------------------------------------------------------
 keymap('n', '<M-h>', '"<cmd>vertical resize -" . v:count1 . "<CR>"', 'Decrease window width', { expr = true, replace_keycodes = false })
