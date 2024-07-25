@@ -33,8 +33,8 @@ return {
         },
         keymap = {
           builtin = {
-            ["ctrl-d"] = "preview-page-down",
-            ["ctrl-u"] = "preview-page-up",
+            ["<C-d>"] = "preview-page-down",
+            ["<C-u>"] = "preview-page-up",
           },
           fzf = {
             ["ctrl-d"] = "preview-page-down",
