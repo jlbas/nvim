@@ -6,6 +6,24 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  callback = function()
+    local buf = vim.api.nvim_buf_get_name(0)
+    local base_dir = vim.system({ 'git', '-C', vim.fs.dirname(buf), 'rev-parse', '--show-toplevel' }, { text = true }):wait()
+    if base_dir.code ~= 128 then
+      local stripped = string.gsub(base_dir.stdout, '\n', '')
+      vim.api.nvim_set_current_dir(stripped)
+    else
+      local base_dirs = { '/home/bastarac/onedrive' }
+      for _, dir in pairs(base_dirs) do
+        if buf:find(dir) then
+          vim.api.nvim_set_current_dir(dir)
+        end
+      end
+    end
+  end
+})
+
 vim.api.nvim_create_autocmd({ 'TermEnter', 'TermOpen', 'BufEnter' }, {
   pattern = 'term://*',
   command = 'startinsert',
