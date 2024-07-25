@@ -77,3 +77,26 @@ vim.cmd([[
   \ rg --column --line-number --no-heading --fixed-strings --color=always --smart-case
   \ '.shellescape(<q-args>), 1, <bang>0)
 ]])
+
+local exec_line = function(string, opts)
+  opts = opts or {}
+  string = string .. vim.api.nvim_replace_termcodes('<CR>', true, false, true)
+  wait_cnt = wait_cnt + 1000 * (opts['wait'] or 0)
+  vim.defer_fn(function() vim.fn.feedkeys(string) end, wait_cnt)
+end
+
+vim.api.nvim_create_user_command("Flex",
+  function()
+    wait_cnt = 0
+    vim.cmd.startinsert()
+    exec_line('/configure port 1/1/c1 shutdown')
+    exec_line('/configure port 1/1/c1 connector no breakout', { wait = 3 })
+    exec_line('/configure port 1/1/c1 connector breakout c1-400g-flex', { wait = 5 })
+    exec_line('/configure card 1 mda 1 flex 1 create', { wait = 5 })
+    exec_line('member 1/1/c1/1 phy-number 1 create', { wait = 3 })
+    exec_line('client 1 create', { wait = 3 })
+    -- exec_line('/admin save', { wait = 3 })
+    -- exec_line('/admin reboot standby now', { wait = 3 })
+    -- exec_line('/admin reboot active now')
+  end,
+{})
