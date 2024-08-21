@@ -5,7 +5,6 @@ return {
     config = function()
       local fzf_lua = require('fzf-lua')
       local actions = fzf_lua.actions
-      local default_actions = fzf_lua.defaults.actions
       local nvim_window = require('nvim-window')
 
       function actions.pick_window(selected, opts)
@@ -20,8 +19,8 @@ return {
         end
       end
 
-      default_actions.buffers["ctrl-q"] = actions.pick_window
-      default_actions.files["ctrl-q"] = actions.pick_window
+      fzf_lua.defaults.buffers.actions["ctrl-q"] = actions.pick_window
+      fzf_lua.defaults.actions.files["ctrl-q"] = actions.pick_window
 
       fzf_lua.setup({
         fzf_opts = { ['--cycle'] = '' },
