@@ -27,17 +27,25 @@ return {
       local lspconfig = require('lspconfig')
       for _, lsp in ipairs(lsp_servers) do
         if lsp == 'clangd' then
+          cmd = {
+            "clangd",
+            "--header-insertion=never",
+            "--background-index",
+            "--background-index-priority=background",
+            "--log=error",
+            "--limit-results=20",
+            "--limit-references=20",
+            "-j=10",
+            "--clang-tidy",
+            "--malloc-trim",
+            "--pch-storage=memory",
+          }
+          local url = vim.system({ 'git', 'remote', 'get-url', 'origin' }, { text = true }):wait()
+          if url.code ~= 128 and url.stdout == 'ssh://git@gitpanos.mv.usa.alcatel.com/sr/srlinux.git\n' then
+            table.insert(cmd, '--compile-commands-dir=build/debug/')
+          end
           lspconfig[lsp].setup({
-            cmd = {
-              "clangd",
-              "--header-insertion=never",
-              "--background-index",
-              "--background-index-priority=background",
-              -- "--log=verbose",
-              "--limit-results=100",
-              "-j=10",
-              "--clang-tidy",
-            },
+            cmd = cmd,
             -- cmd = {
             --   "/usr/local/timostools/build/linux/llvm/14.0/bin/clangd",
             --   "--header-insertion=never",
