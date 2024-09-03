@@ -62,6 +62,10 @@ keymap('t', '<C-j>', '<C-\\><C-n><C-w>j', 'Focus on below window')
 keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', 'Focus on above window')
 keymap('t', '<C-l>', '<C-\\><C-n><C-w>l', 'Focus on right window')
 keymap('t', '<C-;>', '<C-\\><C-n><C-w>p', 'Go to previous window')
+keymap('n', '<leader>t', [[<cmd>terminal<CR>]], 'New terminal')
+keymap('n', '<leader>tt', [[<cmd>terminal<CR>]], 'New terminal')
+keymap('n', '<leader>ts', [[<cmd>split | terminal<CR>]], 'New terminal in split')
+keymap('n', '<leader>tv', [[<cmd>vsplit | terminal<CR>]], 'New terminal in vertical split')
 
 -- Filesystem navigation
 keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
