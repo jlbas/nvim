@@ -41,7 +41,6 @@ return {
           },
         },
         previewers = { builtin = { syntax_limit_b = 2048*2048 } },
-        tabs = { actions = { ["ctrl-x"] = false } },
         winopts = { border = 'single' },
       })
       vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
