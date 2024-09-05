@@ -72,9 +72,11 @@ keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
 
 -- Buffer ----------------------------------------------------------------------
 keymap('n', '<BS>',      '<C-^>', 'Open previous file')
-keymap('n', '<C-x>', [[<cmd>bdelete<CR>]], 'Delete')
 keymap('n', '<C-n>', [[<cmd>bnext<CR>]], 'Next buffer')
 keymap('n', '<C-p>', [[<cmd>bprevious<CR>]], 'Previous buffer')
+keymap('n', '<C-t>', [[<cmd>tabnew<CR>]], 'New tab')
+keymap('n', '<C-]>', [[<cmd>tabnext<CR>]], 'Next tab')
+keymap('n', '<C-[>', [[<cmd>tabprevious<CR>]], 'Previous tab')
 
 -- Mini file explorer ----------------------------------------------------------
 keymap('n', '<leader>ed', [[<cmd>lua MiniFiles.open()<CR>]],                             'Directory'     )
@@ -132,6 +134,7 @@ keymap('n', '<leader>fm', require('fzf-lua').marks, '')
 keymap('n', '<leader>fp', require('fzf-lua').resume, '')
 keymap('n', '<leader>fr', require('fzf-lua').live_grep_native, '')
 keymap('n', '<leader>fs', require('fzf-lua').spell_suggest, '')
+keymap('n', '<leader>ft', require('fzf-lua').tabs, '')
 keymap('n', '<leader>fy', require('fzf-lua').registers, '')
 keymap('x', '<leader>fr', require('fzf-lua').grep_visual, '')
 
