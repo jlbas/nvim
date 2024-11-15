@@ -74,6 +74,7 @@ keymap('n', '<BS>',      '<C-^>', 'Open previous file')
 keymap('n', '<C-n>', [[<cmd>bnext<CR>]], 'Next buffer')
 keymap('n', '<C-p>', [[<cmd>bprevious<CR>]], 'Previous buffer')
 keymap('n', '<C-t>', [[<cmd>tabnew<CR>]], 'New tab')
+keymap('n', '<C-x>', [[<cmd>tabclose<CR>]], 'New tab')
 keymap('n', '<C-]>', [[<cmd>tabnext<CR>]], 'Next tab')
 keymap('n', '<C-[>', [[<cmd>tabprevious<CR>]], 'Previous tab')
 
