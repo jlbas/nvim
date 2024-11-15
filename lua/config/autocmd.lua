@@ -6,18 +6,10 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
-vim.api.nvim_create_autocmd({ 'TermEnter', 'TermOpen', 'BufEnter' }, {
-  pattern = 'term://*',
-  command = 'startinsert',
-})
-
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = 'term://*',
   callback = function()
     vim.cmd.tnoremap('<buffer>', '<ESC><ESC>', '<C-\\><C-n>')
-    vim.o.relativenumber = false
-    vim.o.number = false
-    vim.b.miniindentscope_disable = true
   end
 })
 
