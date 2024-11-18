@@ -34,6 +34,15 @@ keymap('n', '<C-;>', '<C-w>p', 'Go to previous window')
 
 -- Window-Pick -----------------------------------------------------------------
 keymap('n', '<C-q>', require('nvim-window').pick, 'Pick window')
+keymap('n', '<M-q>', function()
+  local prev_win = vim.api.nvim_get_current_win()
+  require('nvim-window').pick()
+  local cur_win = vim.api.nvim_get_current_win()
+  if prev_win ~= cur_win then
+    vim.api.nvim_win_set_buf(cur_win, vim.api.nvim_win_get_buf(prev_win))
+    vim.api.nvim_win_close(prev_win, false)
+  end
+end, 'Move window to another pane')
 
 -- Window resizing -------------------------------------------------------------
 keymap('n', '<M-h>', '"<cmd>vertical resize -" . v:count1 . "<CR>"', 'Decrease window width', { expr = true, replace_keycodes = false })
@@ -87,15 +96,15 @@ keymap('n', '<leader>go', [[<cmd>DiffviewOpen<CR>]],                           '
 keymap('n', '<leader>gc', [[<cmd>DiffviewClose<CR>]],                          'Close Diffview')
 keymap('n', '<leader>gh', [[<cmd>DiffviewFileHistory<CR>]],                    'Open diffview file history')
 keymap('n', '<leader>gg', function()
-    local ns_id = vim.api.nvim_get_namespaces()["gitsigns_blame"]
-    local extmarks = vim.api.nvim_buf_get_extmarks(0, ns_id, 0, -1, {details=true})[1]
-    if extmarks then
-      local sha = extmarks[4]["virt_text"][1][1]:sub(2,9)
-      if sha:find('%w%w%w%w%w%w%w%w') then
-        vim.cmd("DiffviewOpen " .. sha .. "^!")
-      end
+  local ns_id = vim.api.nvim_get_namespaces()["gitsigns_blame"]
+  local extmarks = vim.api.nvim_buf_get_extmarks(0, ns_id, 0, -1, {details=true})[1]
+  if extmarks then
+    local sha = extmarks[4]["virt_text"][1][1]:sub(2,9)
+    if sha:find('%w%w%w%w%w%w%w%w') then
+      vim.cmd("DiffviewOpen " .. sha .. "^!")
     end
-  end, 'Open commit hash in diffview')
+  end
+end, 'Open commit hash in diffview')
 
 -- FZF -------------------------------------------------------------------------
 keymap('n', '<leader>f', require('fzf-lua').builtin, '')
