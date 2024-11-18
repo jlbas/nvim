@@ -80,18 +80,22 @@ return {
       -- map_vis('vl', 'select_label("", "")', 'Select label (all)')
       -- map_vis('vL', 'select_label()',       'Select label (cwd)')
 
+      local function mini_enable(module, fts)
+        for _, ft in ipairs(fts) do
+          if vim.bo.filetype == ft then
+            return
+          end
+        end
+        vim.b[module .. '_disable'] = true
+      end
+
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
-          local enabled_fts = { 'c', 'cpp', 'lua', 'python' }
-          for _, ft in ipairs(enabled_fts) do
-            if vim.bo.filetype == ft then
-              return
-            end
-          end
-          vim.b.miniindentscope_disable = true
-          vim.b.minicursorword_disable = true
-        end,
+          mini_enable('miniindentscope', { 'c', 'cpp', 'lua', 'python' })
+          mini_enable('minicursorword', { 'c', 'cpp', 'lua', 'python', 'text' })
+        end
       })
+
     end,
   },
 }
