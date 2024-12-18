@@ -38,6 +38,12 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
   nested = true,
 })
 
+vim.api.nvim_create_autocmd({ 'VimResized' }, {
+  callback = function()
+    vim.cmd('wincmd =')
+  end
+})
+
 vim.api.nvim_create_autocmd({ 'BufWritePre', 'VimLeave' }, {
   callback = function()
     if vim.v.this_session ~= '' then
