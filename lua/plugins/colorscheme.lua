@@ -18,6 +18,7 @@ return {
   -- },
   {
     'EdenEast/nightfox.nvim',
+    enabled = false,
     config = function()
       local C = require('nightfox.lib.color')
       local bg = C('#000000')
@@ -35,9 +36,11 @@ return {
         },
         groups = {
           carbonfox = {
-            DapBreakpoint = { fg = palette.red },
-            DapStoppedText = { fg = palette.magenta },
-            DapStoppedLine = { bg = group.DiagnosticVirtualTextWarn.bg },
+            -- WinSeparator = { fg = bg:brighten(24):to_css() },
+            -- DapBreakpoint = { fg = palette.red },
+            -- DapStoppedText = { fg = palette.magenta },
+            -- DapStoppedLine = { bg = group.DiagnosticVirtualTextWarn.bg },
+            -- LspSignatureActiveParameter = { fg = palette.magenta, style = "italic,bold" },
             DiagnosticVirtualTextError = { bg = "none" },
             DiagnosticVirtualTextWarn = { bg = "none" },
             DiagnosticVirtualTextInfo = { bg = "none" },
@@ -77,9 +80,28 @@ return {
   --     },
   --   },
   -- },
-  -- {
-  --   'miikanissi/modus-themes.nvim',
-  -- },
+  {
+    'miikanissi/modus-themes.nvim',
+    enabled = true,
+    init = function()
+      vim.cmd.colorscheme('modus_vivendi')
+    end,
+    opts = {
+      on_colors = function (colors)
+        colors.bg_status_line_active = colors.bg_alt
+      end,
+      on_highlights = function(highlight, color)
+        highlight.CursorLineNr   = { bg = color.bg_hl_line, bold = true }
+        highlight.LineNr         = { fg = color.fg_dim, bg = nil }
+        highlight.LineNrAbove    = { fg = color.fg_dim, bg = nil }
+        highlight.LineNrBelow    = { fg = color.fg_dim, bg = nil }
+        -- highlight.GitSignsAdd    = { fg = color.fg_added_intense, bg = nil }
+        -- highlight.GitSignsChange = { fg = color.fg_changed_intense, bg = nil }
+        -- highlight.GitSignsDelete = { fg = color.fg_removed_intense, bg = nil }
+      end,
+    },
+    priority = 1000,
+  },
   -- {
   --   'Mofiqul/vscode.nvim',
   --   opts = {
