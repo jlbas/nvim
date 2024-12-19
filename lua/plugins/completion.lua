@@ -29,7 +29,7 @@ return {
       'onsails/lspkind-nvim',
       'rafamadriz/friendly-snippets',
       'saadparwaiz1/cmp_luasnip',
-      { 'zbirenbaum/copilot-cmp', cond = false, opts = {} },
+      { 'zbirenbaum/copilot-cmp', opts = {} },
     },
     enabled = false,
     config = function()
@@ -43,9 +43,7 @@ return {
             menu = {
               buffer = '[buf]',
               cmdline = '[cmd]',
-              codeium = '[cod]',
               copilot = '[cop]',
-              buffer = '[buf]',
               luasnip = '[snip]',
               nvim_lsp = '[lsp]',
               nvim_lua = '[api]',
@@ -82,13 +80,16 @@ return {
           ['<C-e>'] = cmp.mapping.abort(),
           ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         },
+        performance = {
+          debounce = 0,
+          throttle = 0,
+        },
         sources = {
-          { name = 'buffer' },
-          -- { name = 'codeium' },
-          { name = 'copilot', group_index = 2 },
-          { name = 'luasnip' },
+          { name = 'copilot' },
           { name = 'nvim_lsp' },
+          { name = 'luasnip' },
           { name = 'nvim_lua' },
+          { name = 'buffer' },
           { name = 'path' },
         },
       })
