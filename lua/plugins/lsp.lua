@@ -2,7 +2,6 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'folke/neodev.nvim', opts = {} },
       { 'j-hui/fidget.nvim', opts = {} },
       'saghen/blink.cmp',
       { 'williamboman/mason.nvim', opts = {} },
@@ -11,6 +10,7 @@ return {
     config = function()
       local lsp_servers = {
           'bashls',
+          'buf_ls',
           'clangd',
           'cmake',
           'dockerls',
