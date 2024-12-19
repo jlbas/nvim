@@ -96,6 +96,12 @@ return {
         end
       })
 
+      vim.api.nvim_create_autocmd("TermOpen", {
+        callback = function(args)
+          vim.b[args.buf].miniindentscope_disable = true
+        end
+      })
+
     end,
   },
 }
