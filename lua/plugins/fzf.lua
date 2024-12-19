@@ -30,6 +30,16 @@ return {
           branches = { actions = { ["ctrl-x"] = false } },
           status = { actions = { ["ctrl-x"] = false } },
         },
+        keymap = {
+          builtin = {
+            ["<C-f>"] = "preview-page-down",
+            ["<C-b>"] = "preview-page-up",
+          },
+          fzf = {
+            ["ctrl-f"] = "preview-page-down",
+            ["ctrl-b"] = "preview-page-up",
+          },
+        },
         previewers = { builtin = { syntax_limit_b = 2048*2048 } },
         winopts = { border = 'single' },
       })
