@@ -64,3 +64,15 @@ vim.api.nvim_create_user_command('Rmsession', function()
     vim.v.this_session = ''
   end
 end, {})
+
+vim.api.nvim_create_user_command('CloseFugitiveTabs', function()
+  for tabnr = vim.fn.tabpagenr('$'), 1, -1 do
+    local buflist = vim.fn.tabpagebuflist(tabnr)
+    if #buflist == 2 then
+      local bnames = { vim.fn.bufname(buflist[1]), vim.fn.bufname(buflist[2]) }
+      if (bnames[1]:match('^fugitive://') and bnames[1]:find(bnames[2])) or (bnames[2]:match('^fugitive://') and bnames[2]:find(bnames[1])) then
+        vim.cmd('tabclose ' .. tabnr)
+      end
+    end
+  end
+end, {})
