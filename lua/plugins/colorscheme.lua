@@ -92,16 +92,17 @@ return {
       end,
       on_highlights = function(highlight, color)
         highlight.CursorLineNr   = { bg = color.bg_hl_line, bold = true }
-        highlight.LineNr         = { fg = color.fg_dim, bg = nil }
-        highlight.LineNrAbove    = { fg = color.fg_dim, bg = nil }
-        highlight.LineNrBelow    = { fg = color.fg_dim, bg = nil }
-        highlight.DiffAdd        = { bg = color.bg_added_faint }
-        highlight.DiffChange     = { bg = color.bg_changed_faint }
-        highlight.DiffDelete     = { bg = color.bg_removed_faint }
-        highlight.DiffText       = { bg = color.bg_changed_faint }
-        highlight.GitSignsAdd    = { fg = color.fg_added, bg = nil }
-        highlight.GitSignsChange = { fg = color.fg_changed, bg = nil }
-        highlight.GitSignsDelete = { fg = color.fg_removed, bg = nil }
+        highlight.DiffAdd        = { bg = color.bg_added_faint          }
+        highlight.DiffChange     = { bg = color.bg_changed_faint        }
+        highlight.DiffDelete     = { bg = color.bg_removed_faint        }
+        highlight.DiffText       = { bg = color.bg_changed_faint        }
+        highlight.GitSignsAdd    = { fg = color.fg_added, bg = nil      }
+        highlight.GitSignsChange = { fg = color.fg_changed, bg = nil    }
+        highlight.GitSignsDelete = { fg = color.fg_removed, bg = nil    }
+        highlight.LineNr         = { fg = color.fg_dim, bg = nil        }
+        highlight.LineNrAbove    = { fg = color.fg_dim, bg = nil        }
+        highlight.LineNrBelow    = { fg = color.fg_dim, bg = nil        }
+        highlight.WinSeparator   = { fg = color.border, bg = nil        }
       end,
     },
     priority = 1000,
