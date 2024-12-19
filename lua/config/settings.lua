@@ -13,7 +13,6 @@ vim.fn.matchadd('@comment.error', [[DO_NOT_PUSH]])
 vim.o.breakindent = true
 vim.o.conceallevel = 2
 vim.o.cursorline = true
-vim.o.cursorlineopt = 'number'
 vim.o.equalalways = true
 vim.o.list = true
 vim.o.number = true
