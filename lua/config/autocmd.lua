@@ -57,3 +57,10 @@ vim.cmd([[
   \ rg --column --line-number --no-heading --fixed-strings --color=always --smart-case
   \ '.shellescape(<q-args>), 1, <bang>0)
 ]])
+
+vim.api.nvim_create_user_command('Rmsession', function()
+  if vim.v.this_session ~= '' then
+    vim.cmd('!rm ' .. vim.v.this_session)
+    vim.v.this_session = ''
+  end
+end, {})
