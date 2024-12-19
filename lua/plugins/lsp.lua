@@ -26,8 +26,9 @@ return {
       })
       local lspconfig = require('lspconfig')
       for _, lsp in ipairs(lsp_servers) do
+        local cfg = {}
         if lsp == 'clangd' then
-          cmd = {
+          local cmd = {
             "clangd",
             "--header-insertion=never",
             "--background-index",
@@ -44,16 +45,11 @@ return {
           if url.code ~= 128 and url.stdout == 'ssh://git@gitpanos.mv.usa.alcatel.com/sr/srlinux.git\n' then
             table.insert(cmd, '--compile-commands-dir=build/debug/')
           end
-          lspconfig[lsp].setup({
+          cfg = {
             cmd = cmd,
-            -- cmd = {
-            --   "/usr/local/timostools/build/linux/llvm/14.0/bin/clangd",
-            --   "--header-insertion=never",
-            --   "--background-index",
-            --   "--log=error",
-            --   "--limit-results=100",
-            --   "-j=10",
-            -- },
+            capabilities = {
+              offsetEncoding = { "utf-16" },
+            },
             on_error = function(code, err)
               print("vim.lsp.rpc.client_errors[code]=", vim.lsp.rpc.client_errors[code])
               print("err=", err)
@@ -67,42 +63,29 @@ return {
                 vim.cmd('LspStart')
               end
             end),
-          })
-        else
-          lspconfig[lsp].setup({})
+          }
         end
+        lspconfig[lsp].setup(cfg)
       end
       vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float)
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-      vim.keymap.set('n', '[D', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
-      vim.keymap.set('n', ']D', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
+      vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+      vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+      vim.keymap.set('n', '[D', function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
+      vim.keymap.set('n', ']D', function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
       vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist)
 
-      vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-          signs = false,
-          underline = false,
-          virtual_text = {
-            format = function()
-              return ""
-            end,
-            spacing = 0,
-          },
-        }
-      )
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help, {
-          border = "single",
-          title = "Signature Help",
-        }
-      )
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-        vim.lsp.handlers.hover, {
-          border = "single",
-          title = "Hover",
-        }
-      )
+      vim.diagnostic.config({
+        signs = false,
+        underline = false,
+        virtual_text = {
+          format = function()
+            return ""
+          end,
+          prefix = "● ",
+          spacing = 1,
+          virt_text_pos = "right_align",
+        },
+      })
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
