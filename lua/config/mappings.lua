@@ -95,10 +95,6 @@ keymap('n', 'tl', [[<cmd>+tabmove<CR>]], 'Move tab to the right')
 keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
 keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
--- Mini file explorer ----------------------------------------------------------
-keymap('n', '<leader>ed', [[<cmd>lua MiniFiles.open()<CR>]],                             'Directory'     )
-keymap('n', '<leader>ef', [[<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>]], 'File directory')
-
 -- Diffview --------------------------------------------------------------------
 keymap('n', '<leader>go', [[<cmd>DiffviewOpen<CR>]],                           'Open Diffview')
 keymap('n', '<leader>gc', [[<cmd>DiffviewClose<CR>]],                          'Close Diffview')
