@@ -109,8 +109,6 @@ return {
           vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
           vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
           vim.keymap.set('x', '<leader>la', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', '<leader>lk', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'x' }, '<leader>lf', function()
             require('conform').format({ lsp_fallback = true })
