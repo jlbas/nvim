@@ -84,10 +84,16 @@ keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
 keymap('n', '<BS>',      '<C-^>', 'Open previous file')
 keymap('n', '<C-n>', [[<cmd>bnext<CR>]], 'Next buffer')
 keymap('n', '<C-p>', [[<cmd>bprevious<CR>]], 'Previous buffer')
-keymap('n', '<C-t>', [[<cmd>tabnew<CR>]], 'New tab')
-keymap('n', '<C-x>', [[<cmd>tabclose<CR>]], 'New tab')
-keymap('n', '<C-]>', [[<cmd>tabnext<CR>]], 'Next tab')
-keymap('n', '<C-[>', [[<cmd>tabprevious<CR>]], 'Previous tab')
+
+-- Tabs ------------------------------------------------------------------------
+keymap('n', 'tt', [[<cmd>tabnew<CR>]], 'New tab')
+keymap('n', 'tc', [[<cmd>tabclose<CR>]], 'New tab')
+keymap('n', 'tn', [[<cmd>tabnext<CR>]], 'Next tab')
+keymap('n', 'tp', [[<cmd>tabprevious<CR>]], 'Previous tab')
+keymap('n', 'tm', [[:tabmove<space>]], 'Move tab')
+keymap('n', 'tl', [[<cmd>+tabmove<CR>]], 'Move tab to the right')
+keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
+keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
 -- Mini file explorer ----------------------------------------------------------
 keymap('n', '<leader>ed', [[<cmd>lua MiniFiles.open()<CR>]],                             'Directory'     )
