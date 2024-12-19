@@ -83,13 +83,13 @@ local exec_line = function(string, opts)
   vim.defer_fn(function() vim.fn.feedkeys(string) end, wait_cnt)
 end
 
-vim.api.nvim_create_user_command("Flex",
-  function()
-    wait_cnt = 0
-    vim.cmd.startinsert()
-    exec_line('/configure port 1/1/c1 shutdown')
-    exec_line('/configure port 1/1/c1 connector no breakout', { wait = 3 })
-    exec_line('/configure port 1/1/c1 connector breakout c1-400g-flex', { wait = 5 })
+vim.api.nvim_create_user_command('Rmsession', function()
+  if vim.v.this_session ~= '' then
+    vim.cmd('!rm ' .. vim.v.this_session)
+    vim.v.this_session = ''
+  end
+end, {})
+
     exec_line('/configure card 1 mda 1 flex 1 create', { wait = 5 })
     exec_line('member 1/1/c1/1 phy-number 1 create', { wait = 3 })
     exec_line('client 1 create', { wait = 3 })
