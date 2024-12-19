@@ -1,5 +1,23 @@
 return {
   {
+    'saghen/blink.cmp',
+    lazy = false,
+    dependencies = 'rafamadriz/friendly-snippets',
+    version = 'v0.*',
+    opts = {
+      keymap = {
+        preset = 'default',
+      },
+      appearance = {
+        use_nvim_cmp_as_default = true,
+      },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+      signature = { enabled = true }
+    },
+  },
+  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'L3MON4D3/LuaSnip',
@@ -13,6 +31,7 @@ return {
       'saadparwaiz1/cmp_luasnip',
       { 'zbirenbaum/copilot-cmp', cond = false, opts = {} },
     },
+    enabled = false,
     config = function()
       local cmp = require('cmp')
       local luasnip = require('luasnip')

@@ -4,6 +4,7 @@ return {
     dependencies = {
       { 'folke/neodev.nvim', opts = {} },
       { 'j-hui/fidget.nvim', opts = {} },
+      'saghen/blink.cmp',
       { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
     },
@@ -65,6 +66,7 @@ return {
             end),
           }
         end
+        cfg.capabilities = vim.tbl_extend('keep', cfg.capabilities or {}, require('blink.cmp').get_lsp_capabilities())
         lspconfig[lsp].setup(cfg)
       end
       vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float)
