@@ -2,26 +2,16 @@ return {
   {
     'zbirenbaum/copilot.lua',
     build = ':Copilot auth',
-    cond = function()
-      local whoami_match = 'jbastara'
-      local uname_match = 'T495'
-      local whoami = string.sub(
-        vim.system({ 'whoami' }, { text = true }):wait().stdout,
-        1, string.len(whoami_match)
-      )
-      local uname = string.sub(
-        vim.system({ 'uname', '-n' }, { text = true }):wait().stdout,
-        1, string.len(uname_match)
-      )
-      return whoami == whoami_match and uname == uname_match
-    end,
     cmd = 'Copilot',
     event = 'InsertEnter',
     config = function()
       require('copilot').setup({
-        suggestions = { enabled = false },
+        suggestions = {
+          enabled = false,
+        },
         panel = {
           auto_refresh = true,
+          enabled = false,
           keymap = {
             jump_next = '<C-l>',
             jump_prev = '<C-h>',
@@ -30,4 +20,13 @@ return {
       })
     end,
   },
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'zbirenbaum/copilot.lua' },
+      { 'nvim-lua/plenary.nvim' },
+    },
+    build = 'make tiktoken',
+    opts = {},
+  }
 }
