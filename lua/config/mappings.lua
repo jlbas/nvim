@@ -39,8 +39,10 @@ keymap('n', '<M-q>', function()
   require('nvim-window').pick()
   local cur_win = vim.api.nvim_get_current_win()
   if prev_win ~= cur_win then
-    vim.api.nvim_win_set_buf(cur_win, vim.api.nvim_win_get_buf(prev_win))
-    vim.api.nvim_win_close(prev_win, false)
+    local prev_buf = vim.api.nvim_win_get_buf(prev_win);
+    local cur_buf = vim.api.nvim_win_get_buf(cur_win);
+    vim.api.nvim_win_set_buf(cur_win, prev_buf)
+    vim.api.nvim_win_set_buf(prev_win, cur_buf)
   end
 end, 'Move window to another pane')
 
