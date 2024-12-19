@@ -43,7 +43,6 @@ return {
         previewers = { builtin = { syntax_limit_b = 2048*2048 } },
         winopts = { border = 'single' },
       })
-      vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
     end
   },
 }
