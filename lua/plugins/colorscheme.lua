@@ -26,20 +26,18 @@ return {
       require('nightfox').setup({
         palettes = {
           carbonfox = {
-            bg0 = bg:brighten(6):to_css(),
+            bg0 = bg:brighten(10):to_css(),
             bg1 = bg:to_css(),
-            bg2 = bg:brighten(6):to_css(),
-            bg3 = bg:brighten(12):to_css(),
+            bg2 = bg:brighten(10):to_css(),
+            bg3 = bg:brighten(6):to_css(),
             bg4 = bg:brighten(24):to_css(),
           },
         },
         groups = {
           carbonfox = {
-            WinSeparator = { fg = bg:brighten(24):to_css() },
             DapBreakpoint = { fg = palette.red },
             DapStoppedText = { fg = palette.magenta },
             DapStoppedLine = { bg = group.DiagnosticVirtualTextWarn.bg },
-            LspSignatureActiveParameter = { fg = palette.magenta, style = "italic,bold" },
             DiagnosticVirtualTextError = { bg = "none" },
             DiagnosticVirtualTextWarn = { bg = "none" },
             DiagnosticVirtualTextInfo = { bg = "none" },
