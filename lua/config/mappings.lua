@@ -106,10 +106,6 @@ keymap('x', '<leader>cf', [[<cmd>CopilotChatFix<CR>]], 'CopilotChat - Fix')
 keymap('x', '<leader>co', [[<cmd>CopilotChatOptimize<CR>]], 'CopilotChat - Optimize')
 keymap('x', '<leader>ct', [[<cmd>CopilotChatTests<CR>]], 'CopilotChat - Tests')
 
--- Mini file explorer ----------------------------------------------------------
-keymap('n', '<leader>ed', [[<cmd>lua MiniFiles.open()<CR>]],                             'Directory'     )
-keymap('n', '<leader>ef', [[<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>]], 'File directory')
-
 -- Diffview --------------------------------------------------------------------
 keymap('n', '<leader>go', [[<cmd>DiffviewOpen<CR>]],                           'Open Diffview')
 keymap('n', '<leader>gc', [[<cmd>DiffviewClose<CR>]],                          'Close Diffview')

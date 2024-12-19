@@ -9,14 +9,6 @@ return {
       -- require('mini.comment').setup()
       -- require('mini.cursorword').setup()
       require('mini.extra').setup()
-      require('mini.files').setup({
-        mappings = {
-          close = '<C-c>',
-        },
-        windows = {
-          max_number = 1,
-        },
-      })
       require('mini.hipatterns').setup({
         highlighters = {
           todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
