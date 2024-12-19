@@ -90,11 +90,14 @@ vim.api.nvim_create_user_command('Rmsession', function()
   end
 end, {})
 
-    exec_line('/configure card 1 mda 1 flex 1 create', { wait = 5 })
-    exec_line('member 1/1/c1/1 phy-number 1 create', { wait = 3 })
-    exec_line('client 1 create', { wait = 3 })
-    -- exec_line('/admin save', { wait = 3 })
-    -- exec_line('/admin reboot standby now', { wait = 3 })
-    -- exec_line('/admin reboot active now')
-  end,
-{})
+vim.api.nvim_create_user_command('CloseFugitiveTabs', function()
+  for tabnr = vim.fn.tabpagenr('$'), 1, -1 do
+    local buflist = vim.fn.tabpagebuflist(tabnr)
+    if #buflist == 2 then
+      local bnames = { vim.fn.bufname(buflist[1]), vim.fn.bufname(buflist[2]) }
+      if (bnames[1]:match('^fugitive://') and bnames[1]:find(bnames[2])) or (bnames[2]:match('^fugitive://') and bnames[2]:find(bnames[1])) then
+        vim.cmd('tabclose ' .. tabnr)
+      end
+    end
+  end
+end, {})
