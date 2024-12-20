@@ -122,6 +122,11 @@ keymap('n', '<leader>gg', [[<cmd>Git<CR>]])
 keymap('n', '<leader>gm', [[<cmd>Git mergetool<CR>]])
 keymap('n', '<leader>gl', [[<cmd>Git log<CR>]])
 
+-- Oil -------------------------------------------------------------------------
+keymap('n', '<tab>', function()
+  require('oil.actions')[(vim.bo.filetype == 'oil') and 'close' or 'open_cwd'].callback()
+end)
+
 -- FZF -------------------------------------------------------------------------
 keymap('n', '<leader>f', require('fzf-lua').builtin, '')
 keymap('n', '<leader>f:', require('fzf-lua').command_history, '')
