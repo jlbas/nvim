@@ -138,6 +138,18 @@ local function open_ws_notes()
   end
 end
 
+-- Fugitive --------------------------------------------------------------------
+keymap('n', '<leader>gb', [[<cmd>0,1Git blame<CR>]])
+keymap('n', '<leader>g<CR>', [[<cmd>0,1Git ++curwin blame<CR>]])
+keymap('n', '<leader>gv', [[<cmd>0,4Git blame<CR>]])
+keymap('n', '<leader>gO', [[<cmd>0,5Git blame<CR>]])
+keymap('n', '<leader>go', [[<cmd>Git difftool -y<CR>]])
+keymap('n', '<leader>gq', [[<cmd>CloseFugitiveTabs<CR>]])
+keymap('n', '<leader>gc', [[<cmd>Git commit<CR>]])
+keymap('n', '<leader>gg', [[<cmd>Git<CR>]])
+keymap('n', '<leader>gm', [[<cmd>Git mergetool<CR>]])
+keymap('n', '<leader>gl', [[<cmd>Git log<CR>]])
+
 -- FZF -------------------------------------------------------------------------
 keymap('n', '<leader>f', require('fzf-lua').builtin, '')
 keymap('n', '<leader>f:', require('fzf-lua').command_history, '')
