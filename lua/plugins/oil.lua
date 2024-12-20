@@ -1,13 +1,14 @@
 return {
-  -- 'stevearc/oil.nvim',
-  -- dependencies = { { 'nvim-tree/nvim-web-devicons', opts = { color_icons = false } } },
-  -- opts = {
-  --   keymaps = {
-  --     ['<C-x>'] = 'actions.select_split',
-  --     ['<C-v>'] = 'actions.select_vsplit',
-  --   },
-  --   view_options = {
-  --     show_hidden = true,
-  --   },
-  -- },
+  'stevearc/oil.nvim',
+  opts = {
+    keymaps = {
+      ["<C-v>"] = { "actions.select", opts = { vertical = true } },
+      ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
+      ["<C-f>"] = { "actions.preview_scroll_down" },
+      ["<C-b>"] = { "actions.preview_scroll_up" },
+    },
+    view_options = {
+      show_hidden = true,
+    },
+  },
 }
