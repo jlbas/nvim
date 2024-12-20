@@ -9,6 +9,7 @@ return {
       -- require('mini.comment').setup()
       -- require('mini.cursorword').setup()
       require('mini.extra').setup()
+      require('mini.icons').setup()
       require('mini.hipatterns').setup({
         highlighters = {
           todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },

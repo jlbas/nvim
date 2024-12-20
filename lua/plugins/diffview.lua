@@ -1,7 +1,7 @@
 return {
   {
     'sindrets/diffview.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    -- dependencies = { 'nvim-tree/nvim-web-devicons' },
     enabled = false,
     opts = {
       enhanced_diff_hl = true,
