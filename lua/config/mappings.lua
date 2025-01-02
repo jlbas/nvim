@@ -123,7 +123,7 @@ keymap('n', '<leader>gm', [[<cmd>Git mergetool<CR>]])
 keymap('n', '<leader>gl', [[<cmd>Git log<CR>]])
 
 -- Oil -------------------------------------------------------------------------
-keymap('n', '<tab>', function()
+keymap('n', '<leader>o', function()
   require('oil.actions')[(vim.bo.filetype == 'oil') and 'close' or 'open_cwd'].callback()
 end)
 
