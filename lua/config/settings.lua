@@ -7,7 +7,6 @@ vim.o.undodir = vim.fn.stdpath('config') .. '/misc/undodir'
 vim.o.undofile = true
 
 -- UI --------------------------------------------------------------------------
-vim.fn.matchadd('errorMsg', [[\s\+$]])
 vim.fn.matchadd('@comment.error', [[DO_NOT_COMMIT]])
 vim.fn.matchadd('@comment.error', [[DO_NOT_PUSH]])
 vim.o.breakindent = true
