@@ -6,13 +6,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
-vim.api.nvim_create_autocmd('TermOpen', {
-  pattern = 'term://*',
-  callback = function()
-    vim.cmd.tnoremap('<buffer>', '<ESC><ESC>', '<C-\\><C-n>')
-  end
-})
-
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'fzf',
   callback = function()

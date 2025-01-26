@@ -68,6 +68,7 @@ keymap('v', '>', '>gv', 'Shift lines right', { noremap = true })
 keymap('v', '<', '<gv', 'Shift lines left', { noremap = true })
 
 -- Terminal --------------------------------------------------------------------
+keymap('t', '<C-[><C-[>', '<C-\\><C-n>', 'Exit terminal mode' )
 keymap('t', '<C-h>', '<C-\\><C-n><C-w>h', 'Focus on left window' )
 keymap('t', '<C-j>', '<C-\\><C-n><C-w>j', 'Focus on below window')
 keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', 'Focus on above window')
