@@ -12,8 +12,10 @@ return {
       require('mini.icons').setup()
       require('mini.hipatterns').setup({
         highlighters = {
-          todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+          do_not_commit = { pattern = '%f[%w]()DO_NOT_COMMIT()%f[%W]', group = '@comment.error' },
+          do_not_push = { pattern = '%f[%w]()DO_NOT_PUSH()%f[%W]', group = '@comment.error' },
           note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+          todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
           hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
         },
       })
