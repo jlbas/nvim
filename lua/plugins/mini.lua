@@ -20,45 +20,45 @@ return {
         },
       })
       require('mini.trailspace').setup()
-      require('mini.indentscope').setup({
-        draw = {
-          animation = require('mini.indentscope').gen_animation.none(),
-        },
-        symbol = '│',
-      })
+      -- require('mini.indentscope').setup({
+      --   draw = {
+      --     animation = require('mini.indentscope').gen_animation.none(),
+      --   },
+      --   symbol = '│',
+      -- })
       -- require('mini.pairs').setup({
       --   mappings = {
       --     [' '] = { action = 'open', pair = '  ', neigh_pattern = '[%(%[{][%)%]}]' },
       --   },
       -- })
-      require('mini.pick').setup({
-        options = {
-          content_from_bottom = true,
-        },
-        mappings = {
-          choose_in_split = '<C-x>',
-          mark = '<C-m>',
-          choose_marked = '<C-CR>',
-        },
-        source = {
-          choose_marked = function(items)
-            for _, item in ipairs(items) do
-              vim.cmd.badd(item)
-            end
-          end,
-        },
-        window = {
-          config = function()
-            local height = math.floor(0.314 * vim.o.lines)
-            local width = math.floor(0.618 * vim.o.columns)
-            return {
-              anchor = 'NW', height = height, width = width,
-              row = math.floor(0.5 * (vim.o.lines - height)),
-              col = math.floor(0.5 * (vim.o.columns - width)),
-            }
-          end,
-        },
-      })
+      -- require('mini.pick').setup({
+      --   options = {
+      --     content_from_bottom = true,
+      --   },
+      --   mappings = {
+      --     choose_in_split = '<C-x>',
+      --     mark = '<C-m>',
+      --     choose_marked = '<C-CR>',
+      --   },
+      --   source = {
+      --     choose_marked = function(items)
+      --       for _, item in ipairs(items) do
+      --         vim.cmd.badd(item)
+      --       end
+      --     end,
+      --   },
+      --   window = {
+      --     config = function()
+      --       local height = math.floor(0.314 * vim.o.lines)
+      --       local width = math.floor(0.618 * vim.o.columns)
+      --       return {
+      --         anchor = 'NW', height = height, width = width,
+      --         row = math.floor(0.5 * (vim.o.lines - height)),
+      --         col = math.floor(0.5 * (vim.o.columns - width)),
+      --       }
+      --     end,
+      --   },
+      -- })
       -- require('mini.splitjoin').setup({
       --   mappings = {
       --     toggle = 'gs'
