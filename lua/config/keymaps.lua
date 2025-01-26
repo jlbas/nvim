@@ -32,6 +32,9 @@ keymap('n', '<C-k>', '<C-w>k', 'Focus on above window')
 keymap('n', '<C-l>', '<C-w>l', 'Focus on right window')
 keymap('n', '<C-;>', '<C-w>p', 'Go to previous window')
 
+-- LSP other -------------------------------------------------------------------
+keymap('n', '<C-}>', '<cmd>horizontal winc ]<CR>')
+
 -- Window-Pick -----------------------------------------------------------------
 keymap('n', '<C-q>', require('nvim-window').pick, 'Pick window')
 keymap('n', '<M-q>', function()
