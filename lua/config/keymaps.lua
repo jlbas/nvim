@@ -126,13 +126,13 @@ keymap('n', '<leader>gg', function()
 end, 'Open commit hash in diffview')
 
 local function fzf_notes()
-  require('fzf-lua').files({ cwd = '~/onedrive/notes/' })
+  require('snacks').picker.files({ cwd = '~/OneDrive/notes/' })
 end
 
 local function open_ws_notes()
   local branch = require('lualine.components.branch.git_branch').get_branch()
   if branch ~= '' then
-    local file = vim.fn.expand('~/onedrive/notes/' .. branch .. '.md')
+    local file = vim.fn.expand('~/OneDrive/notes/' .. branch .. '.md')
     if vim.fn.filereadable(file) == 0 then
       vim.fn.writefile({ '# ' .. string.gsub("-"..branch, "%W%l", string.upper):sub(2) }, file)
     end
@@ -141,6 +141,10 @@ local function open_ws_notes()
     fzf_notes()
   end
 end
+
+-- Notes -----------------------------------------------------------------------
+keymap('n', '<leader>fn', open_ws_notes, '')
+keymap('n', '<leader>fN', fzf_notes, '')
 
 -- Fugitive --------------------------------------------------------------------
 keymap('n', '<leader>gb', [[<cmd>0,1Git blame<CR>]])
