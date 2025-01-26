@@ -89,20 +89,30 @@ return {
     opts = {
       on_colors = function (colors)
         colors.bg_status_line_active = colors.bg_alt
+        vim.g.terminal_color_8 = colors.fg_dim
       end,
-      on_highlights = function(highlight, color)
-        highlight.CursorLineNr   = { bg = color.bg_hl_line, bold = true }
-        highlight.DiffAdd        = { bg = color.bg_added_faint          }
-        highlight.DiffChange     = { bg = color.bg_changed_faint        }
-        highlight.DiffDelete     = { bg = color.bg_removed_faint        }
-        highlight.DiffText       = { bg = color.bg_changed_faint        }
-        highlight.GitSignsAdd    = { fg = color.fg_added, bg = nil      }
-        highlight.GitSignsChange = { fg = color.fg_changed, bg = nil    }
-        highlight.GitSignsDelete = { fg = color.fg_removed, bg = nil    }
-        highlight.LineNr         = { fg = color.fg_dim, bg = nil        }
-        highlight.LineNrAbove    = { fg = color.fg_dim, bg = nil        }
-        highlight.LineNrBelow    = { fg = color.fg_dim, bg = nil        }
-        highlight.WinSeparator   = { fg = color.border, bg = nil        }
+      on_highlights = function(hl, color)
+        hl.CursorLineNr       = { bg = color.bg_hl_line, bold = true }
+        hl.DiffAdd            = { bg = color.bg_added_faint          }
+        hl.DiffChange         = { bg = color.bg_changed_faint        }
+        hl.DiffDelete         = { bg = color.bg_removed_faint        }
+        hl.DiffText           = { bg = color.bg_changed_faint        }
+        hl.FloatBorder        = { fg = color.border, bg = nil        }
+        hl.FloatTitle         = { fg = color.border, bg = nil        }
+        hl.GitSignsAdd        = { fg = color.fg_added, bg = nil      }
+        hl.GitSignsChange     = { fg = color.fg_changed, bg = nil    }
+        hl.GitSignsDelete     = { fg = color.fg_removed, bg = nil    }
+        hl.LineNr             = { fg = color.fg_dim, bg = nil        }
+        hl.LineNrAbove        = { fg = color.fg_dim, bg = nil        }
+        hl.LineNrBelow        = { fg = color.fg_dim, bg = nil        }
+        hl.NormalFloat        = { bg = nil                           }
+        hl.Pmenu              = { bg = nil                           }
+        hl.BlinkCmpMenuBorder = { fg = color.border                  }
+        hl.BlinkCmpLabelMatch = { fg = color.cyan_cooler             }
+        hl.PmenuSel           = { bg = color.visual                  }
+        hl.PmenuSbar          = { fg = color.border, bg = nil        }
+        hl.PmenuThumb         = { fg = nil, bg = color.border        }
+        hl.WinSeparator       = { fg = color.border, bg = nil        }
       end,
     },
     priority = 1000,
