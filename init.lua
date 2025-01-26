@@ -20,4 +20,4 @@ local opts = {
 require('config.settings')
 require('config.autocmd')
 require('lazy').setup('plugins', opts)
-require('config.mappings')
+require('config.keymaps')
