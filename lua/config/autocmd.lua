@@ -34,6 +34,12 @@ vim.api.nvim_create_autocmd('FileType', {
 
 vim.api.nvim_create_autocmd({ 'VimEnter' }, {
   callback = function()
+    for _, arg in ipairs(vim.v.argv) do
+      if arg == '+Man!' then
+        return
+      end
+    end
+
     local base_dir = vim.system({ 'git', 'remote', 'get-url', 'origin' }, { text = true }):wait()
     if base_dir.code ~= 128 and base_dir.stdout:find('panos') then
       local branch = vim.system({ 'git', 'branch', '--show-current' }):wait().stdout:gsub('\n', '')
