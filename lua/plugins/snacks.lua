@@ -17,7 +17,31 @@ return {
             not vim.tbl_contains({'help', 'markdown'}, vim.bo[buf].filetype)
         end,
       },
-      picker = {},
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ['<C-,>'] = { 'pick_open', mode = { 'n', 'i' } },
+              ['<C-t>'] = { 'edit_tab', mode = { 'n', 'i' } },
+              ['<C-l>'] = { 'focus_preview', mode = { 'n', 'i' } },
+            },
+          },
+          preview = {
+            keys = {
+              ['<C-l>'] = { 'focus_input', mode = { 'n', 'i' } },
+            },
+            wo = { signcolumn = "no" },
+          },
+        },
+        actions = {
+          pick_open = function(picker, item)
+            picker:close()
+            require('nvim-window').pick()
+            picker.main = vim.fn.win_getid()
+            picker:action("edit")
+          end
+        },
+      },
     },
   },
 }
