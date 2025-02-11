@@ -85,9 +85,7 @@ keymap('n', '<leader>tv', [[<cmd>vsplit | terminal<CR>]], 'New terminal in verti
 keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
 
 -- Buffer ----------------------------------------------------------------------
-keymap('n', '<BS>',      '<C-^>', 'Open previous file')
-keymap('n', '<C-n>', [[<cmd>bnext<CR>]], 'Next buffer')
-keymap('n', '<C-p>', [[<cmd>bprevious<CR>]], 'Previous buffer')
+keymap('n', '<C-p>', '<C-^>', 'Open previous file')
 
 -- Tabs ------------------------------------------------------------------------
 keymap('n', 'tt', [[<cmd>tabnew<CR>]], 'New tab')
