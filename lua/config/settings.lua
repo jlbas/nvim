@@ -26,7 +26,7 @@ vim.o.splitbelow = true
 vim.o.splitkeep = 'screen'
 vim.o.splitright = true
 vim.o.termguicolors = true
-vim.o.winblend = 10
+vim.o.winblend = 0
 vim.opt.fillchars:append({ diff = '╱' })
 
 -- Editing ---------------------------------------------------------------------

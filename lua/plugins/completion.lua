@@ -22,11 +22,6 @@ return {
       appearance = {
         use_nvim_cmp_as_default = true,
       },
-      completion = {
-        menu = { border = 'single' },
-        -- documentation = { window = { border = 'single' } },
-      },
-      -- signature = { window = { border = 'single' } },
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
         providers = {
