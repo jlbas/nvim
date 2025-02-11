@@ -36,18 +36,18 @@ keymap('n', '<C-;>', '<C-w>p', 'Go to previous window')
 keymap('n', '<C-}>', '<cmd>horizontal winc ]<CR>')
 
 -- Window-Pick -----------------------------------------------------------------
-keymap('n', '<C-q>', require('nvim-window').pick, 'Pick window')
-keymap('n', '<M-q>', function()
-  local prev_win = vim.api.nvim_get_current_win()
-  require('nvim-window').pick()
-  local cur_win = vim.api.nvim_get_current_win()
-  if prev_win ~= cur_win then
-    local prev_buf = vim.api.nvim_win_get_buf(prev_win);
-    local cur_buf = vim.api.nvim_win_get_buf(cur_win);
-    vim.api.nvim_win_set_buf(cur_win, prev_buf)
-    vim.api.nvim_win_set_buf(prev_win, cur_buf)
-  end
-end, 'Move window to another pane')
+keymap('n', '<C-,>', require('nvim-window').pick, 'Pick window')
+keymap('n', '<M-,>', function()
+  vim.api.nvim_feedkeys('mT', 'n', true)
+  vim.schedule(function()
+    vim.cmd('lua require("nvim-window").pick()')
+    vim.api.nvim_feedkeys('mY', 'n', true)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w><C-p>', true, false, true), 'n', true)
+    vim.api.nvim_feedkeys("'Y", 'n', true)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w><C-p>', true, false, true), 'n', true)
+    vim.api.nvim_feedkeys("'T", 'n', true)
+  end)
+end, 'Swap windows')
 
 -- Window resizing -------------------------------------------------------------
 keymap('n', '<M-h>', '"<cmd>vertical resize -" . v:count1 . "<CR>"', 'Decrease window width', { expr = true, replace_keycodes = false })
