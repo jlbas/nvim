@@ -36,17 +36,26 @@ keymap('n', '<C-;>', '<C-w>p', 'Go to previous window')
 keymap('n', '<C-}>', '<cmd>horizontal winc ]<CR>')
 
 -- Window-Pick -----------------------------------------------------------------
-keymap('n', '<C-,>', require('nvim-window').pick, 'Pick window')
+keymap('n', '<C-,>', function()
+  local win = require('snacks').picker.util.pick_win()
+  if win ~= nil and win ~= vim.api.nvim_get_current_win() then
+    vim.api.nvim_set_current_win(win)
+  end
+end, 'Pick window')
 keymap('n', '<M-,>', function()
-  vim.api.nvim_feedkeys('mT', 'n', true)
-  vim.schedule(function()
-    vim.cmd('lua require("nvim-window").pick()')
-    vim.api.nvim_feedkeys('mY', 'n', true)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w><C-p>', true, false, true), 'n', true)
-    vim.api.nvim_feedkeys("'Y", 'n', true)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w><C-p>', true, false, true), 'n', true)
-    vim.api.nvim_feedkeys("'T", 'n', true)
-  end)
+  local win1 = vim.api.nvim_get_current_win()
+  local win2 = require('snacks').picker.util.pick_win()
+  if win2 ~= nil and win1 ~= win2 then
+    vim.api.nvim_feedkeys('mT', 'n', true)
+    vim.schedule(function()
+      vim.api.nvim_set_current_win(win2)
+      vim.api.nvim_feedkeys('mY', 'n', true)
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w><C-p>', true, false, true), 'n', true)
+      vim.api.nvim_feedkeys("'Y", 'n', true)
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w><C-p>', true, false, true), 'n', true)
+      vim.api.nvim_feedkeys("'T", 'n', true)
+    end)
+  end
 end, 'Swap windows')
 
 -- Window resizing -------------------------------------------------------------
