@@ -30,7 +30,6 @@ return {
             keys = {
               ['<C-l>'] = { 'focus_input', mode = { 'n', 'i' } },
             },
-            wo = { signcolumn = "no" },
           },
         },
         actions = {
