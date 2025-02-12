@@ -18,6 +18,12 @@ return {
         end,
       },
       picker = {
+        sources = {
+          explorer = {
+            replace_netrw = true,
+            auto_close = true,
+          },
+        },
         win = {
           input = {
             keys = {
