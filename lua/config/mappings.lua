@@ -149,6 +149,7 @@ keymap({'n', 'x'}, '<leader>f:', require('snacks').picker.command_history, "Comm
 keymap('n', '<leader>fc', require('snacks').picker.commands, "Commands")
 keymap('n', '<leader>fC', function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, "Find Config File")
 keymap('n', '<leader>fd', require('snacks').picker.diagnostics, "Diagnostics")
+keymap('n', '<leader>e', require('snacks').picker.explorer, "Explorer")
 keymap('n', '<leader>ff', require('snacks').picker.files, "Find Files")
 keymap('n', '<leader>fgb', require('snacks').picker.git_branches, "Git Branches")
 keymap('n', '<leader>fgd', require('snacks').picker.git_diff, "Git Diff")
