@@ -92,27 +92,28 @@ return {
         vim.g.terminal_color_8 = colors.fg_dim
       end,
       on_highlights = function(hl, color)
-        hl.CursorLineNr       = { bg = color.bg_hl_line, bold = true }
-        hl.CursorLineSign     = { bg = color.bg_hl_line              }
-        hl.DiffAdd            = { bg = color.bg_added_faint          }
-        hl.DiffChange         = { bg = color.bg_changed_faint        }
-        hl.DiffDelete         = { bg = color.bg_removed_faint        }
-        hl.DiffText           = { bg = color.bg_changed_faint        }
-        hl.FloatBorder        = { fg = color.bg_alt, bg = color.bg_alt                 }
-        hl.FloatTitle         = { fg = color.border_highlight, bg = color.bg_alt        }
-        hl.GitSignsAdd        = { fg = color.fg_added, bg = nil      }
-        hl.GitSignsChange     = { fg = color.fg_changed, bg = nil    }
-        hl.GitSignsDelete     = { fg = color.fg_removed, bg = nil    }
-        hl.LineNr             = { fg = color.fg_dim, bg = nil        }
-        hl.LineNrAbove        = { fg = color.fg_dim, bg = nil        }
-        hl.LineNrBelow        = { fg = color.fg_dim, bg = nil        }
-        hl.NormalFloat        = { bg = color.bg_alt                  }
-        hl.Pmenu              = { bg = color.bg_alt                  }
-        hl.BlinkCmpMenuBorder = { fg = color.border                  }
-        hl.BlinkCmpLabelMatch = { fg = color.cyan_cooler             }
-        hl.PmenuSel           = { bg = color.visual                  }
-        hl.PmenuSbar          = { fg = color.border_highlight, bg = color.bg_alt        }
-        hl.PmenuThumb         = { fg = color.bg_alt, bg = color.border_highlight        }
+        hl.CursorLineNr       = { bg = color.bg_hl_line, bold = true             }
+        hl.CursorLineSign     = { bg = color.bg_hl_line                          }
+        hl.DiffAdd            = { bg = color.bg_added_faint                      }
+        hl.DiffChange         = { bg = color.bg_changed_faint                    }
+        hl.DiffDelete         = { bg = color.bg_removed_faint                    }
+        hl.DiffText           = { bg = color.bg_changed_faint                    }
+        hl.FloatBorder        = { fg = color.bg_alt, bg = color.bg_alt           }
+        hl.FloatTitle         = { fg = color.border_highlight, bg = color.bg_alt }
+        hl.GitSignsAdd        = { fg = color.fg_added, bg = nil                  }
+        hl.GitSignsChange     = { fg = color.fg_changed, bg = nil                }
+        hl.GitSignsDelete     = { fg = color.fg_removed, bg = nil                }
+        hl.LineNr             = { fg = color.fg_dim, bg = color.bg_alt           }
+        hl.LineNrAbove        = { fg = color.fg_dim, bg = color.bg_alt           }
+        hl.LineNrBelow        = { fg = color.fg_dim, bg = color.bg_alt           }
+        hl.SignColumn         = { bg = color.bg_alt                              }
+        hl.NormalFloat        = { bg = color.bg_alt                              }
+        hl.Pmenu              = { bg = color.bg_alt                              }
+        hl.BlinkCmpMenuBorder = { fg = color.border                              }
+        hl.BlinkCmpLabelMatch = { fg = color.cyan_cooler                         }
+        hl.PmenuSel           = { bg = color.visual                              }
+        hl.PmenuSbar          = { fg = color.border_highlight, bg = color.bg_alt }
+        hl.PmenuThumb         = { fg = color.bg_alt, bg = color.border_highlight }
       end,
     },
     priority = 1000,
