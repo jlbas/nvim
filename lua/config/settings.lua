@@ -25,7 +25,6 @@ vim.o.signcolumn = 'yes:1'
 vim.o.statuscolumn = '%l%s'
 vim.o.smoothscroll = true
 vim.o.splitbelow = true
-vim.o.splitkeep = 'screen'
 vim.o.splitright = true
 vim.o.termguicolors = true
 vim.o.winblend = 0
