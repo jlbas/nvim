@@ -114,6 +114,7 @@ return {
         hl.PmenuSel           = { bg = color.visual                              }
         hl.PmenuSbar          = { fg = color.border_highlight, bg = color.bg_alt }
         hl.PmenuThumb         = { fg = color.bg_alt, bg = color.border_highlight }
+        hl.WinSeparator       = { fg = color.bg_alt, bg = color.bg_alt           }
       end,
     },
     priority = 1000,
