@@ -140,14 +140,15 @@ local function fzf_notes()
   require('snacks').picker.files({ cwd = '~/OneDrive/notes/' })
 end
 
-local function open_ws_notes()
+local function open_ws_notes(action)
+  action = action or 'edit'
   local branch = require('lualine.components.branch.git_branch').get_branch()
   if branch ~= '' then
     local file = vim.fn.expand('~/OneDrive/notes/' .. branch .. '.md')
     if vim.fn.filereadable(file) == 0 then
       vim.fn.writefile({ '# ' .. string.gsub("-"..branch, "%W%l", string.upper):sub(2) }, file)
     end
-    vim.cmd('edit ' .. file)
+    vim.cmd(action .. ' ' .. file)
   else
     fzf_notes()
   end
@@ -161,8 +162,12 @@ keymap({'n', 'x'}, ']x', function() find_conflict('/') end, 'Next git conflict')
 keymap({'n', 'x'}, '[x', function() find_conflict('?') end, 'Next git conflict')
 
 -- Notes -----------------------------------------------------------------------
-keymap('n', '<leader>fn', open_ws_notes, '')
-keymap('n', '<leader>fN', fzf_notes, '')
+keymap('n', '<leader>fn', fzf_notes, '')
+keymap('n', '<leader>nn', function() open_ws_notes() end, '')
+keymap('n', '<leader>n<CR>', function() open_ws_notes() end, '')
+keymap('n', '<leader>ns', function() open_ws_notes('split') end, '')
+keymap('n', '<leader>nv', function() open_ws_notes('vsplit') end, '')
+keymap('n', '<leader>nt', function() open_ws_notes('tabedit') end, '')
 
 -- Fugitive --------------------------------------------------------------------
 keymap('n', '<leader>gb', [[<cmd>0,1Git blame<CR>]])
