@@ -6,6 +6,15 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = 'term://*',
+  callback = function()
+    vim.wo.number = true
+    vim.wo.relativenumber = true
+    vim.wo.signcolumn = "yes:1"
+  end
+})
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'fzf',
   callback = function()
