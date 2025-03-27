@@ -92,6 +92,8 @@ return {
         vim.g.terminal_color_8 = colors.fg_dim
       end,
       on_highlights = function(hl, color)
+        hl.BlinkCmpLabelMatch = { fg = color.cyan_cooler                         }
+        hl.BlinkCmpMenuBorder = { fg = color.border                              }
         hl.CursorLineNr       = { bg = color.bg_hl_line, bold = true             }
         hl.CursorLineSign     = { bg = color.bg_hl_line                          }
         hl.DiffAdd            = { bg = color.bg_added_faint                      }
@@ -106,15 +108,14 @@ return {
         hl.LineNr             = { fg = color.fg_dim, bg = color.bg_alt           }
         hl.LineNrAbove        = { fg = color.fg_dim, bg = color.bg_alt           }
         hl.LineNrBelow        = { fg = color.fg_dim, bg = color.bg_alt           }
-        hl.SignColumn         = { bg = color.bg_alt                              }
         hl.NormalFloat        = { bg = color.bg_alt                              }
         hl.Pmenu              = { bg = color.bg_alt                              }
-        hl.BlinkCmpMenuBorder = { fg = color.border                              }
-        hl.BlinkCmpLabelMatch = { fg = color.cyan_cooler                         }
-        hl.PmenuSel           = { bg = color.visual                              }
         hl.PmenuSbar          = { fg = color.border_highlight, bg = color.bg_alt }
+        hl.PmenuSel           = { bg = color.visual                              }
         hl.PmenuThumb         = { fg = color.bg_alt, bg = color.border_highlight }
-        hl.WinSeparator       = { fg = color.bg_alt, bg = color.bg_alt           }
+        hl.SignColumn         = { bg = color.bg_alt                              }
+        hl.SnacksPicker       = { bg = color.bg_alt                              }
+        hl.WinSeparator       = { fg = "#444444", bold = true                    }
       end,
     },
     priority = 1000,
