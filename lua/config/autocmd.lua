@@ -24,6 +24,15 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = 'term://*',
+  callback = function()
+    vim.wo.number = true
+    vim.wo.relativenumber = true
+    vim.wo.signcolumn = "yes:1"
+  end
+})
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'fzf',
   callback = function()
@@ -74,13 +83,6 @@ vim.cmd([[
   \ rg --column --line-number --no-heading --fixed-strings --color=always --smart-case
   \ '.shellescape(<q-args>), 1, <bang>0)
 ]])
-
-local exec_line = function(string, opts)
-  opts = opts or {}
-  string = string .. vim.api.nvim_replace_termcodes('<CR>', true, false, true)
-  wait_cnt = wait_cnt + 1000 * (opts['wait'] or 0)
-  vim.defer_fn(function() vim.fn.feedkeys(string) end, wait_cnt)
-end
 
 vim.api.nvim_create_user_command('Rmsession', function()
   if vim.v.this_session ~= '' then
