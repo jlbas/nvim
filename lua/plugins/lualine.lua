@@ -8,6 +8,9 @@ return {
     },
     config = function()
       local navic = require('nvim-navic')
+      local function scrollbind_status()
+        return vim.wo.scrollbind and '⇵ ' or ''
+      end
       require('lualine').setup({
         options = {
           globalstatus = true,
@@ -24,6 +27,9 @@ return {
             {
               'filename',
               path = 1,
+            },
+            {
+              scrollbind_status,
             },
             {
               function()
