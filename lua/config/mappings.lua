@@ -36,7 +36,7 @@ keymap('n', '<C-;>', '<C-w>p', 'Go to previous window')
 keymap('n', '<C-}>', '<cmd>horizontal winc ]<CR>')
 
 -- Window-Pick -----------------------------------------------------------------
-keymap('n', '<C-,>', function()
+keymap({'i', 'n', 't'}, '<C-,>', function()
   local win = require('snacks').picker.util.pick_win()
   if win ~= nil and win ~= vim.api.nvim_get_current_win() then
     vim.api.nvim_set_current_win(win)
@@ -57,6 +57,9 @@ keymap('n', '<M-,>', function()
     end)
   end
 end, 'Swap windows')
+
+-- Scrolling --------------------------------------------------------------------
+keymap('n', '<leader>s', '<cmd>set scrollbind!<CR>', 'Toggle scrollbind')
 
 -- Window resizing -------------------------------------------------------------
 keymap('n', '<M-h>', '"<cmd>vertical resize -" . v:count1 . "<CR>"', 'Decrease window width', { expr = true, replace_keycodes = false })
@@ -86,7 +89,8 @@ keymap('t', '<C-j>', '<C-\\><C-n><C-w>j', 'Focus on below window')
 keymap('t', '<C-k>', '<C-\\><C-n><C-w>k', 'Focus on above window')
 keymap('t', '<C-l>', '<C-\\><C-n><C-w>l', 'Focus on right window')
 keymap('t', '<C-;>', '<C-\\><C-n><C-w>p', 'Go to previous window')
-keymap('n', '<leader>tt', [[<cmd>terminal<CR>]], 'New terminal')
+keymap('n', '<leader>t<CR>', [[<cmd>terminal<CR>]], 'New terminal')
+keymap('n', '<leader>tt', [[<cmd>tabnew | terminal<CR>]], 'New terminal tab')
 keymap('n', '<leader>ts', [[<cmd>split | terminal<CR>]], 'New terminal in split')
 keymap('n', '<leader>tv', [[<cmd>vsplit | terminal<CR>]], 'New terminal in vertical split')
 
@@ -120,6 +124,13 @@ keymap('n', '<leader>gg', function()
     end
   end
 end, 'Open commit hash in diffview')
+
+local function find_conflict(dir)
+  vim.cmd('silent! ' .. dir .. '\\v^[<=>|]{7}.*')
+  vim.cmd('nohlsearch')
+end
+keymap({'n', 'x'}, ']x', function() find_conflict('/') end, 'Next git conflict')
+keymap({'n', 'x'}, '[x', function() find_conflict('?') end, 'Next git conflict')
 
 -- Fugitive --------------------------------------------------------------------
 keymap('n', '<leader>gb', [[<cmd>0,1Git blame<CR>]])
