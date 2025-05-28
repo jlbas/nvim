@@ -60,6 +60,9 @@ end, 'Swap windows')
 
 -- Scrolling --------------------------------------------------------------------
 keymap('n', '<leader>s', '<cmd>set scrollbind!<CR>', 'Toggle scrollbind')
+keymap('n', '<leader>v', function()
+  vim.o.scrolloff = vim.o.scrolloff == 5 and 999 or 5
+end, 'Toggle vertical centering')
 
 -- Window resizing -------------------------------------------------------------
 keymap('n', '<M-h>', '"<cmd>vertical resize -" . v:count1 . "<CR>"', 'Decrease window width', { expr = true, replace_keycodes = false })
