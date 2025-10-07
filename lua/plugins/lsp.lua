@@ -4,71 +4,68 @@ return {
     dependencies = {
       { 'j-hui/fidget.nvim', opts = {} },
       'saghen/blink.cmp',
-      { 'williamboman/mason.nvim', opts = {} },
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', opts = {} },
+      'mason-org/mason-lspconfig.nvim',
     },
     config = function()
-      local lsp_servers = {
-          'bashls',
-          'buf_ls',
-          'clangd',
-          'cmake',
-          'dockerls',
-          'docker_compose_language_service',
-          'lua_ls',
-          'marksman',
-          'perlnavigator',
-          'pyright',
-          'vimls',
-      }
       require('mason-lspconfig').setup({
         automatic_installation = true,
-        ensure_installed = lsp_servers,
+        automatic_enable = false,
       })
-      local lspconfig = require('lspconfig')
-      for _, lsp in ipairs(lsp_servers) do
-        local cfg = {}
-        if lsp == 'clangd' then
+      local lsp_servers = {
+        bashls = { filetypes = { 'sh', 'bash', 'zsh' } },
+        buf_ls = { filetypes = { 'proto' } },
+        clangd = { filetypes = { 'c', 'cpp', 'objc', 'objcpp' } },
+        cmake = { filetypes = { 'cmake' } },
+        dockerls = { filetypes = { 'dockerfile' } },
+        docker_compose_language_service = { filetypes = { 'yaml' } },
+        lua_ls = { filetypes = { 'lua' } },
+        marksman = { filetypes = { 'markdown' } },
+        perlnavigator = { filetypes = { 'perl' } },
+        -- protols = { filetypes = { 'proto' } },
+        pyright = { filetypes = { 'python' } },
+        vimls = { filetypes = { 'vim' } },
+      }
+      for lsp_name, cfg in pairs(lsp_servers) do
+        if lsp_name == 'clangd' then
           local cmd = {
             "clangd",
             "--header-insertion=never",
             "--background-index",
             "--background-index-priority=background",
             "--log=error",
-            "--limit-results=20",
-            "--limit-references=20",
-            "-j=10",
+            -- "--limit-results=20",
+            -- "--limit-references=20",
+            -- "-j=10",
             "--clang-tidy",
-            "--malloc-trim",
-            "--pch-storage=memory",
+            -- "--malloc-trim",
+            -- "--pch-storage=memory",
           }
           local url = vim.system({ 'git', 'remote', 'get-url', 'origin' }, { text = true }):wait()
           if url.code ~= 128 and url.stdout == 'ssh://git@gitpanos.mv.usa.alcatel.com/sr/srlinux.git\n' then
-            table.insert(cmd, '--compile-commands-dir=build/debug/')
+            table.insert(cmd, '--compile-commands-dir=build/amd64/debug/')
           end
-          cfg = {
-            cmd = cmd,
-            capabilities = {
-              offsetEncoding = { "utf-16" },
-            },
-            on_error = function(code, err)
-              print("vim.lsp.rpc.client_errors[code]=", vim.lsp.rpc.client_errors[code])
-              print("err=", err)
-            end,
-            on_exit = vim.schedule_wrap(function(code, signal, client_id)
-              print("code=", code)
-              print("signal=", signal)
-              print("client_id=", client_id)
-              if code == 0 and signal == 11 then
-                print("Restarting lsp!")
-                vim.cmd('LspStart')
-              end
-            end),
-          }
+          cfg.cmd = cmd
+          cfg.capabilities = { offsetEncoding = { "utf-16" } }
+          cfg.on_error = function(code, err)
+            print("vim.lsp.rpc.client_errors[code]=", vim.lsp.rpc.client_errors[code])
+            print("err=", err)
+          end
+          cfg.on_exit = vim.schedule_wrap(function(code, signal, client_id)
+            print("code=", code)
+            print("signal=", signal)
+            print("client_id=", client_id)
+            if code == 0 and signal == 11 then
+              print("Restarting lsp!")
+              vim.cmd('LspStart')
+            end
+          end)
         end
         cfg.capabilities = vim.tbl_extend('keep', cfg.capabilities or {}, require('blink.cmp').get_lsp_capabilities())
-        lspconfig[lsp].setup(cfg)
+        vim.lsp.config[lsp_name] = cfg
+        vim.lsp.enable(lsp_name)
       end
+
       vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
       vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
