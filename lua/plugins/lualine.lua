@@ -3,8 +3,14 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'SmiteshP/nvim-navic',
       opts = {
-        lsp = { auto_attach = true }
-      }
+        lsp = {
+          auto_attach = true,
+          preference = {
+            "clangd",
+            "protols",
+          },
+        },
+      },
     },
     config = function()
       local navic = require('nvim-navic')
