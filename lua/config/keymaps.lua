@@ -5,6 +5,13 @@ local keymap = function(mode, keys, cmd, desc, opts)
   vim.keymap.set(mode, keys, cmd, opts)
 end
 
+local function feedkeys(keys, replace_termcodes)
+  if replace_termcodes then
+    keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
+  end
+  vim.api.nvim_feedkeys(keys, 'n', true)
+end
+
 local M = {}
 
 M.get_selected_text = function()
@@ -49,14 +56,14 @@ keymap('n', '<M-,>', function()
   local win1 = vim.api.nvim_get_current_win()
   local win2 = require('snacks').picker.util.pick_win()
   if win2 ~= nil and win1 ~= win2 then
-    vim.api.nvim_feedkeys('mT', 'n', true)
+    feedkeys('mT')
     vim.schedule(function()
       vim.api.nvim_set_current_win(win2)
-      vim.api.nvim_feedkeys('mY', 'n', true)
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w><C-p>', true, false, true), 'n', true)
-      vim.api.nvim_feedkeys("'Y", 'n', true)
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w><C-p>', true, false, true), 'n', true)
-      vim.api.nvim_feedkeys("'T", 'n', true)
+      feedkeys('mY')
+      feedkeys('<C-w><C-p>', true)
+      feedkeys("'Y", true)
+      feedkeys('<C-w><C-p>', true)
+      feedkeys("'T")
     end)
   end
 end, 'Swap windows')
@@ -126,13 +133,24 @@ keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
 keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
 -- CodeCompanion ---------------------------------------------------------------
-keymap('n', '<leader>ca', [[<cmd>CodeCompanionActions<CR>]], 'Open CodeCompanion action palette')
-keymap({'n', 'v'}, '<leader>cc', [[<cmd>CodeCompanionChat Toggle<CR>]], 'Toggle CodeCompanion chat')
-keymap('v', '<leader>ca', [[<cmd>CodeCompanionChat Add<CR>]], 'Add visually selected text to chat')
-keymap('v', '<leader>cp', [[<cmd>CodeCompanion<CR>]], 'CodeCompanion prompt')
+if package.loaded['codecompanion'] then
+  local function goto_last_chat_buffer()
+    local bufnr = require("codecompanion.strategies.chat").last_chat().bufnr
+    local wins = vim.fn.win_findbuf(bufnr)
+    if wins[1] then
+      vim.fn.win_gotoid(wins[1])
+    end
+  end
 
--- Copilot ---------------------------------------------------------------------
-if package.loaded['copilot'] then
+  keymap('n', '<leader>ca', [[<cmd>CodeCompanionActions<CR>]], 'Open CodeCompanion action palette')
+  keymap({'n', 'v'}, '<leader>cc', [[<cmd>CodeCompanionChat Toggle<CR>]], 'Toggle CodeCompanion chat')
+  keymap('v', '<leader>ca', function()
+    vim.cmd('CodeCompanionChat Add')
+    feedkeys('<Esc>', true)
+    goto_last_chat_buffer()
+  end, 'Add visually selected text to chat')
+  keymap('v', '<leader>cp', [[<cmd>CodeCompanion<CR>]], 'CodeCompanion prompt')
+
   keymap('i', '<C-\'>', '<Plug>(copilot-next)', 'Next suggestion', { silent = true })
   keymap('i', '<C-;>', '<Plug>(copilot-previous)', 'Previous suggestion', { silent = true })
   keymap('i', '<C-h>', '<Plug>(copilot-dismiss)', 'Dismiss suggestion', { silent = true })

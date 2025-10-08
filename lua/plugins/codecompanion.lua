@@ -21,27 +21,7 @@ return {
         vim.g.copilot_no_tab_map = true
         vim.g.copilot_assume_mapped = true
       end,
-      enabled = IS_WORK,
     }
-    -- { 'zbirenbaum/copilot.lua',
-    --   build = ':Copilot auth',
-    --   cmd = 'Copilot',
-    --   event = 'InsertEnter',
-    --   config = function()
-    --     require('copilot').setup({
-    --       -- suggestions = {
-    --       --   enabled = true,
-    --       -- },
-    --       -- panel = {
-    --       --   auto_refresh = true,
-    --       --   enabled = false,
-    --       --   keymap = {
-    --       --     jump_next = '<C-l>',
-    --       --     jump_prev = '<C-h>',
-    --       --   }
-    --       -- },
-    --     })
-    --   end,
-    -- },
   },
+  enabled = IS_WORK,
 }
