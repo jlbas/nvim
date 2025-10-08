@@ -85,6 +85,18 @@ keymap('i', '<M-l>', '<right>', 'Right', { noremap = false })
 keymap('v', '>', '>gv', 'Shift lines right', { noremap = true })
 keymap('v', '<', '<gv', 'Shift lines left', { noremap = true })
 
+-- Comments --------------------------------------------------------------------
+keymap('n', 'gdd', function()
+  local line = vim.api.nvim_get_current_line()
+  local marker = '// DO_NOT_COMMIT'
+  if line:find(marker, 1, true) then
+    local new_line = line:gsub('%s*' .. marker .. ".*$", "")
+    vim.api.nvim_set_current_line(new_line)
+  else
+    vim.api.nvim_set_current_line(line:gsub('%s*$', '') .. ' ' .. marker)
+  end
+end, 'Toggle DO_NOT_COMMIT comment')
+
 -- Terminal --------------------------------------------------------------------
 keymap('t', '<C-{>', '<C-\\><C-n>', 'Exit terminal mode' )
 keymap('n', '<leader>t<CR>', [[<cmd>terminal<CR>]], 'New terminal')
