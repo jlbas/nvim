@@ -33,6 +33,7 @@ keymap('n', '<C-j>', '<C-w>j', 'Focus on below window')
 keymap('n', '<C-k>', '<C-w>k', 'Focus on above window')
 keymap('n', '<C-l>', '<C-w>l', 'Focus on right window')
 keymap('n', '<C-;>', '<C-w>p', 'Go to previous window')
+keymap('i', '<C-;>', '<Esc>', 'Exit insert mode')
 
 -- LSP other -------------------------------------------------------------------
 keymap('n', '<C-}>', '<cmd>horizontal winc ]<CR>')
@@ -102,7 +103,7 @@ if IS_WORK then
 end
 
 -- Terminal --------------------------------------------------------------------
-keymap('t', '<C-{>', '<C-\\><C-n>', 'Exit terminal mode' )
+keymap('t', '<C-;>', '<C-\\><C-n>', 'Exit terminal mode' )
 keymap('n', '<leader>t<CR>', [[<cmd>terminal<CR>]], 'New terminal')
 keymap('n', '<leader>tt', [[<cmd>tabnew | terminal<CR>]], 'New terminal tab')
 keymap('n', '<leader>ts', [[<cmd>split | terminal<CR>]], 'New terminal in split')
