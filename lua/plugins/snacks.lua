@@ -4,7 +4,9 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
-      bigfile = {},
+      bigfile = {
+        notify = false,
+      },
       bufdelete = {},
       indent = {
         indent = {
