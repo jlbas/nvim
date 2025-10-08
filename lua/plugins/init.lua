@@ -1,5 +1,23 @@
-return {
-  { 'godlygeek/tabular' },
-  { 'tpope/vim-fugitive' },
-  { 'tpope/vim-sleuth' },
-}
+vim.pack.add({
+  'https://github.com/godlygeek/tabular',
+  'https://github.com/tpope/vim-fugitive',
+  'https://github.com/tpope/vim-sleuth',
+})
+
+require('plugins.autopairs')
+require('plugins.colorscheme')
+require('plugins.completion')
+require('plugins.codecompanion')
+require('plugins.conform')
+require('plugins.dap')
+require('plugins.diffview')
+require('plugins.gitsigns')
+require('plugins.lint')
+require('plugins.lsp')
+require('plugins.lualine')
+require('plugins.mini')
+require('plugins.oil')
+require('plugins.snacks')
+require('plugins.surround')
+require('plugins.treesitter')
+require('plugins.zenmode')

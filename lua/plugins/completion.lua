@@ -1,41 +1,20 @@
-return {
-  {
-    'saghen/blink.cmp',
-    lazy = false,
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-      {
-        "folke/lazydev.nvim",
-        ft = "lua",
-        opts = {
-          library = {
-            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-          },
-        },
-      }
-    },
-    version = 'v0.*',
-    opts = {
-      keymap = {
-        preset = 'default',
-      },
-      appearance = {
-        use_nvim_cmp_as_default = true,
-      },
-      sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
-        per_filetype = {
-          codecompanion = { 'codecompanion' },
-        },
-        providers = {
-          lazydev = {
-            name = 'LazyDev',
-            module = 'lazydev.integrations.blink',
-            score_offset = 100,
-          },
-        },
-      },
-      -- signature = { enabled = true }
+vim.pack.add({
+  'https://github.com/rafamadriz/friendly-snippets',
+  'https://github.com/saghen/blink.cmp',
+})
+
+require('blink.cmp').setup({
+  keymap = {
+    preset = 'default',
+  },
+  appearance = {
+    use_nvim_cmp_as_default = true,
+  },
+  sources = {
+    default = { 'lsp', 'path', 'snippets', 'buffer' },
+    per_filetype = {
+      codecompanion = { 'codecompanion' },
     },
   },
-}
+  -- signature = { enabled = true }
+})

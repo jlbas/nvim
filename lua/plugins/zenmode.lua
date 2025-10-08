@@ -1,12 +1,8 @@
-return {
-  {
-    'folke/zen-mode.nvim',
-    opts = {
-      window = {
-          backdrop = 1,
-          width = 170,
-        },
-        plugins = {},
-    }
-  }
-}
+vim.pack.add({'https://github.com/folke/zen-mode.nvim'})
+
+require('zen-mode').setup({
+  window = {
+    backdrop = 1,
+    width = 170,
+  },
+})

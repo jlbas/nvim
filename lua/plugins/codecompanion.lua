@@ -1,6 +1,15 @@
-return {
-  'olimorris/codecompanion.nvim',
-  opts = {
+if IS_WORK then
+  vim.pack.add({
+    'https://github.com/olimorris/codecompanion.nvim',
+    'https://github.com/nvim-lua/plenary.nvim',
+    'https://github.com/nvim-treesitter/nvim-treesitter',
+    'https://github.com/github/copilot.vim',
+  })
+
+  vim.g.copilot_no_tab_map = true
+  vim.g.copilot_assume_mapped = true
+
+  require('codecompanion').setup({
     display = {
       action_palette = {
         provider = 'snacks',
@@ -11,17 +20,5 @@ return {
         },
       },
     },
-  },
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'nvim-treesitter/nvim-treesitter',
-    {
-      'github/copilot.vim',
-      config = function()
-        vim.g.copilot_no_tab_map = true
-        vim.g.copilot_assume_mapped = true
-      end,
-    }
-  },
-  enabled = IS_WORK,
-}
+  })
+end
