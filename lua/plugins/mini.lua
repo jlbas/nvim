@@ -1,9 +1,9 @@
 return {
   {
-    'echasnovski/mini.nvim',
+    'nvim-mini/mini.nvim',
     version = false,
     config = function()
-      -- require('mini.ai').setup()
+      require('mini.ai').setup()
       -- require('mini.align').setup()
       -- require('mini.base16').setup()
       -- require('mini.comment').setup()
@@ -14,6 +14,7 @@ return {
         highlighters = {
           do_not_commit = { pattern = '%f[%w]()DO_NOT_COMMIT()%f[%W]', group = '@comment.error' },
           do_not_push = { pattern = '%f[%w]()DO_NOT_PUSH()%f[%W]', group = '@comment.error' },
+          hack  = { pattern = '%f[%w]()customdbg()%f[%W]',  group = 'MiniHipatternsHack'  },
           note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
           todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
           hex_color = require('mini.hipatterns').gen_highlighter.hex_color(),
@@ -95,6 +96,7 @@ return {
       vim.api.nvim_create_autocmd("TermOpen", {
         callback = function(args)
           vim.b[args.buf].miniindentscope_disable = true
+          require('mini.hipatterns').enable()
         end
       })
 
