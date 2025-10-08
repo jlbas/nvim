@@ -25,5 +25,6 @@ return {
         require("dap-python").setup(vim.fn.exepath("debugpy") .. "/venv/bin/python")
       end,
     },
+    enabled = false,
   },
 }

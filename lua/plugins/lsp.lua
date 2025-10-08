@@ -9,7 +9,7 @@ return {
     },
     config = function()
       require('mason-lspconfig').setup({
-        automatic_installation = true,
+        automatic_installation = false,
         automatic_enable = false,
       })
       local lsp_servers = {
@@ -27,7 +27,7 @@ return {
         vimls = { filetypes = { 'vim' } },
       }
       for lsp_name, cfg in pairs(lsp_servers) do
-        if lsp_name == 'clangd' then
+        if IS_WORK and lsp_name == 'clangd' then
           local cmd = {
             "clangd",
             "--header-insertion=never",

@@ -17,6 +17,8 @@ local opts = {
   },
 }
 
+_G.IS_WORK = os.getenv("WORK_ENV") == "1"
+
 require('config.settings')
 require('config.autocmd')
 require('lazy').setup('plugins', opts)

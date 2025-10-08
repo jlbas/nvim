@@ -19,7 +19,9 @@ end
 
 -- System clipboard ------------------------------------------------------------
 keymap({'n', 'x'}, '<leader>cy', '"+y', 'Copy to system clipboard')
--- keymap({'n', 'x'}, '<leader>cp', '"+p', 'Paste from system clipboard') -- not supported in Wezterm
+if os.getenv("TERM") == "foot" then
+  keymap({'n', 'x'}, '<leader>cp', '"+p', 'Paste from system clipboard')
+end
 
 -- Search ----------------------------------------------------------------------
 keymap('n', '<leader>i', ':let v:hlsearch = 1 - v:hlsearch<CR>', 'Toggle hlsearch')
@@ -85,6 +87,20 @@ keymap('i', '<M-l>', '<right>', 'Right', { noremap = false })
 keymap('v', '>', '>gv', 'Shift lines right', { noremap = true })
 keymap('v', '<', '<gv', 'Shift lines left', { noremap = true })
 
+-- Comments --------------------------------------------------------------------
+if IS_WORK then
+  keymap('n', 'gdd', function()
+    local line = vim.api.nvim_get_current_line()
+    local marker = '// DO_NOT_COMMIT'
+    if line:find(marker, 1, true) then
+      local new_line = line:gsub('%s*' .. marker .. ".*$", "")
+      vim.api.nvim_set_current_line(new_line)
+    else
+      vim.api.nvim_set_current_line(line:gsub('%s*$', '') .. ' ' .. marker)
+    end
+  end, 'Toggle DO_NOT_COMMIT comment')
+end
+
 -- Terminal --------------------------------------------------------------------
 keymap('t', '<C-{>', '<C-\\><C-n>', 'Exit terminal mode' )
 keymap('n', '<leader>t<CR>', [[<cmd>terminal<CR>]], 'New terminal')
@@ -108,6 +124,21 @@ keymap('n', 'tl', [[<cmd>+tabmove<CR>]], 'Move tab to the right')
 keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
 keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
+-- CodeCompanion ---------------------------------------------------------------
+keymap('n', '<leader>ca', [[<cmd>CodeCompanionActions<CR>]], 'Open CodeCompanion action palette')
+keymap({'n', 'v'}, '<leader>cc', [[<cmd>CodeCompanionChat Toggle<CR>]], 'Toggle CodeCompanion chat')
+keymap('v', '<leader>ca', [[<cmd>CodeCompanionChat Add<CR>]], 'Add visually selected text to chat')
+keymap('v', '<leader>cp', [[<cmd>CodeCompanion<CR>]], 'CodeCompanion prompt')
+
+-- Copilot ---------------------------------------------------------------------
+if package.loaded['copilot'] then
+  keymap('i', '<C-\'>', '<Plug>(copilot-next)', 'Next suggestion', { silent = true })
+  keymap('i', '<C-;>', '<Plug>(copilot-previous)', 'Previous suggestion', { silent = true })
+  keymap('i', '<C-h>', '<Plug>(copilot-dismiss)', 'Dismiss suggestion', { silent = true })
+  keymap('i', '<C-j>', '<Plug>(copilot-accept-word)', 'Accept word', { silent = true })
+  keymap('i', '<C-l>', 'copilot#Accept("\\<CR>")', 'Accept suggestion', { expr = true, replace_keycodes = false, silent = true })
+end
+
 -- Diffview --------------------------------------------------------------------
 keymap('n', '<leader>go', [[<cmd>DiffviewOpen<CR>]],                           'Open Diffview')
 keymap('n', '<leader>gc', [[<cmd>DiffviewClose<CR>]],                          'Close Diffview')
@@ -122,6 +153,33 @@ keymap('n', '<leader>gg', function()
     end
   end
 end, 'Open commit hash in diffview')
+
+if IS_WORK then
+  local function fzf_notes()
+    require('snacks').picker.files({ cwd = '~/OneDrive/notes/' })
+  end
+
+  local function open_ws_notes(action)
+    action = action or 'edit'
+    local branch = require('lualine.components.branch.git_branch').get_branch()
+    if branch ~= '' then
+      local file = vim.fn.expand('~/OneDrive/notes/' .. branch .. '.md')
+      if vim.fn.filereadable(file) == 0 then
+        vim.fn.writefile({ '# ' .. string.gsub("-"..branch, "%W%l", string.upper):sub(2) }, file)
+      end
+      vim.cmd(action .. ' ' .. file)
+    else
+      fzf_notes()
+    end
+  end
+
+  keymap('n', '<leader>fn', fzf_notes, '')
+  keymap('n', '<leader>nn', function() open_ws_notes() end, '')
+  keymap('n', '<leader>n<CR>', function() open_ws_notes() end, '')
+  keymap('n', '<leader>ns', function() open_ws_notes('split') end, '')
+  keymap('n', '<leader>nv', function() open_ws_notes('vsplit') end, '')
+  keymap('n', '<leader>nt', function() open_ws_notes('tabedit') end, '')
+end
 
 local function find_conflict(dir)
   vim.cmd('silent! ' .. dir .. '\\v^[<=>|]{7}.*')
@@ -239,6 +297,8 @@ keymap('n', '<leader>fu', require('snacks').picker.undo, "Undo")
 -- keymap('n', '<leader>fls', require('fzf-lua').lsp_document_symbols, '')
 -- keymap('n', '<leader>flt', require('fzf-lua').lsp_typedefs, '')
 -- keymap('n', '<leader>fm', require('fzf-lua').marks, '')
+-- keymap('n', '<leader>fn', open_ws_notes, '')
+-- keymap('n', '<leader>fN', fzf_notes, '')
 -- keymap('n', '<leader>fo', require('fzf-lua').oldfiles, '')
 -- keymap('n', '<leader>fp', require('fzf-lua').resume, '')
 -- keymap('n', '<leader>fr', require('fzf-lua').live_grep_native, '')
@@ -246,19 +306,6 @@ keymap('n', '<leader>fu', require('snacks').picker.undo, "Undo")
 -- keymap('n', '<leader>ft', require('fzf-lua').tabs, '')
 -- keymap('n', '<leader>fy', require('fzf-lua').registers, '')
 -- keymap('x', '<leader>fr', require('fzf-lua').grep_visual, '')
-
--- DAP -------------------------------------------------------------------------
-keymap('n', '<leader>db', require('dap').toggle_breakpoint, '')
-keymap('n', '<leader>dB', require('dap').clear_breakpoints, '')
-keymap('n', '<leader>dc', require('dap').continue, '')
-keymap('n', '<leader>dC', require('dap').run_to_cursor, '')
-keymap('n', '<leader>dd', require('dap').repl.toggle, '')
-keymap('n', '<leader>di', require('dap').step_into, '')
-keymap('n', '<leader>dl', require('dap').list_breakpoints, '')
-keymap('n', '<leader>dL', [[<cmd>require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], '')
-keymap('n', '<leader>dq', require('dap').terminate, '')
-keymap('n', '<leader>dn', require('dap').step_over, '')
-keymap('n', '<leader>do', require('dap').step_out, '')
 
 -- Mini pick -------------------------------------------------------------------
 -- keymap('n', '<leader>f/', [[<cmd>Pick history scope='/'<CR>]],                 '"/" history')

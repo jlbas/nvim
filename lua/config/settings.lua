@@ -31,6 +31,7 @@ vim.o.winblend = 0
 vim.opt.fillchars:append({ diff = '╱' })
 
 -- Editing ---------------------------------------------------------------------
+vim.g.editorconfig = false
 vim.o.cindent = true
 vim.o.completeopt = 'menuone,noinsert,noselect'
 vim.o.expandtab = true

@@ -23,29 +23,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
-vim.api.nvim_create_autocmd({ 'VimEnter' }, {
-  callback = function()
-    for _, arg in ipairs(vim.v.argv) do
-      if arg == '+Man!' then
-        return
-      end
-    end
-
-    local base_dir = vim.system({ 'git', 'remote', 'get-url', 'origin' }, { text = true }):wait()
-    if base_dir.code ~= 128 and base_dir.stdout:find('panos') then
-      local branch = vim.system({ 'git', 'branch', '--show-current' }):wait().stdout:gsub('\n', '')
-      local file = vim.fn.expand('~/.local/state/nvim/session/' .. branch .. '.vim')
-      if vim.fn.filereadable(file) == 0 then
-        print('Creating new session for ' .. branch .. ' workspace')
-        vim.cmd.mksession({ file, bang = true })
-      elseif vim.fn.argc() == 0 then
-        vim.cmd.source(file)
-      end
-    end
-  end,
-  nested = true,
-})
-
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
   callback = function()
     vim.cmd('wincmd =')
@@ -66,13 +43,6 @@ vim.cmd([[
   \ '.shellescape(<q-args>), 1, <bang>0)
 ]])
 
-vim.api.nvim_create_user_command('Rmsession', function()
-  if vim.v.this_session ~= '' then
-    vim.cmd('!rm ' .. vim.v.this_session)
-    vim.v.this_session = ''
-  end
-end, {})
-
 vim.api.nvim_create_user_command('CloseFugitiveTabs', function()
   for tabnr = vim.fn.tabpagenr('$'), 1, -1 do
     local buflist = vim.fn.tabpagebuflist(tabnr)
@@ -84,3 +54,62 @@ vim.api.nvim_create_user_command('CloseFugitiveTabs', function()
     end
   end
 end, {})
+
+if IS_WORK then
+  vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    callback = function()
+      local buf = vim.api.nvim_buf_get_name(0)
+      if buf:find('/home/bastarac/onedrive/panos') and not buf:find('/home/bastarac/onedrive/panos/panos') then
+        vim.api.nvim_set_current_dir('/home/bastarac/onedrive/panos/panos')
+      end
+    end
+  })
+
+  vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    callback = function()
+      local buf = vim.api.nvim_buf_get_name(0)
+      local base_dir = vim.system({ 'git', '-C', vim.fs.dirname(buf), 'rev-parse', '--show-toplevel' }, { text = true }):wait()
+      if base_dir.code ~= 128 then
+        local stripped = string.gsub(base_dir.stdout, '\n', '')
+        vim.api.nvim_set_current_dir(stripped)
+      else
+        local base_dirs = { '/home/bastarac/onedrive' }
+        for _, dir in pairs(base_dirs) do
+          if buf:find(dir) then
+            vim.api.nvim_set_current_dir(dir)
+          end
+        end
+      end
+    end
+  })
+
+  vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+    callback = function()
+      for _, arg in ipairs(vim.v.argv) do
+        if arg == '+Man!' then
+          return
+        end
+      end
+
+      local base_dir = vim.system({ 'git', 'remote', 'get-url', 'origin' }, { text = true }):wait()
+      if base_dir.code ~= 128 and base_dir.stdout:find('panos') then
+        local branch = vim.system({ 'git', 'branch', '--show-current' }):wait().stdout:gsub('\n', '')
+        local file = vim.fn.expand('~/.local/state/nvim/session/' .. branch .. '.vim')
+        if vim.fn.filereadable(file) == 0 then
+          print('Creating new session for ' .. branch .. ' workspace')
+          vim.cmd.mksession({ file, bang = true })
+        elseif vim.fn.argc() == 0 then
+          vim.cmd.source(file)
+        end
+      end
+    end,
+    nested = true,
+  })
+
+  vim.api.nvim_create_user_command('Rmsession', function()
+    if vim.v.this_session ~= '' then
+      vim.cmd('!rm ' .. vim.v.this_session)
+      vim.v.this_session = ''
+    end
+  end, {})
+end
