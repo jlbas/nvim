@@ -120,16 +120,18 @@ keymap('n', 'tl', [[<cmd>+tabmove<CR>]], 'Move tab to the right')
 keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
 keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
+-- CodeCompanion ---------------------------------------------------------------
+keymap('n', '<leader>ca', [[<cmd>CodeCompanionActions<CR>]], 'Open CodeCompanion action palette')
+keymap({'n', 'v'}, '<leader>cc', [[<cmd>CodeCompanionChat Toggle<CR>]], 'Toggle CodeCompanion chat')
+keymap('v', '<leader>ca', [[<cmd>CodeCompanionChat Add<CR>]], 'Add visually selected text to chat')
+keymap('v', '<leader>cp', [[<cmd>CodeCompanion<CR>]], 'CodeCompanion prompt')
+
 -- Copilot ---------------------------------------------------------------------
-keymap('n', '<leader>cc', [[<cmd>CopilotChatToggle<CR>]], 'CopilotChat - Toggle')
-keymap('x', '<leader>cc', [[<cmd>CopilotChatToggle<CR>]], 'CopilotChat - Toggle')
-keymap('n', '<leader>ci', [[:CopilotChat<space>]], 'CopilotChat - Open with input')
-keymap('x', '<leader>ci', [[:CopilotChat<space>]], 'CopilotChat - Open with input')
-keymap('x', '<leader>ce', [[<cmd>CopilotChatExplain<CR>]], 'CopilotChat - Explain')
-keymap('x', '<leader>cr', [[<cmd>CopilotChatReview<CR>]], 'CopilotChat - Review')
-keymap('x', '<leader>cf', [[<cmd>CopilotChatFix<CR>]], 'CopilotChat - Fix')
-keymap('x', '<leader>co', [[<cmd>CopilotChatOptimize<CR>]], 'CopilotChat - Optimize')
-keymap('x', '<leader>ct', [[<cmd>CopilotChatTests<CR>]], 'CopilotChat - Tests')
+keymap('i', '<C-\'>', '<Plug>(copilot-next)', 'Next suggestion', { silent = true })
+keymap('i', '<C-;>', '<Plug>(copilot-previous)', 'Previous suggestion', { silent = true })
+keymap('i', '<C-h>', '<Plug>(copilot-dismiss)', 'Dismiss suggestion', { silent = true })
+keymap('i', '<C-j>', '<Plug>(copilot-accept-word)', 'Accept word', { silent = true })
+keymap('i', '<C-l>', 'copilot#Accept("\\<CR>")', 'Accept suggestion', { expr = true, replace_keycodes = false, silent = true })
 
 -- Diffview --------------------------------------------------------------------
 keymap('n', '<leader>go', [[<cmd>DiffviewOpen<CR>]],                           'Open Diffview')
