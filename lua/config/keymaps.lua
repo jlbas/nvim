@@ -110,7 +110,7 @@ if IS_WORK then
 end
 
 -- Terminal --------------------------------------------------------------------
-keymap('t', '<C-;>', '<C-\\><C-n>', 'Exit terminal mode' )
+keymap('t', '<C-[><C-[>', '<C-\\><C-n>', 'Exit terminal mode' )
 keymap('n', '<leader>t<CR>', [[<cmd>terminal<CR>]], 'New terminal')
 keymap('n', '<leader>tt', [[<cmd>tabnew | terminal<CR>]], 'New terminal tab')
 keymap('n', '<leader>ts', [[<cmd>split | terminal<CR>]], 'New terminal in split')
