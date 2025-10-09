@@ -27,7 +27,7 @@ vim.o.smoothscroll = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.termguicolors = true
-vim.o.timeoutlen = 200
+vim.o.timeoutlen = 300
 vim.o.winblend = 0
 vim.opt.fillchars:append({ diff = '╱' })
 
