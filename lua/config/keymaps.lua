@@ -151,6 +151,7 @@ if package.loaded['codecompanion'] then
   end, 'Add visually selected text to chat')
   keymap('v', '<leader>cp', [[<cmd>CodeCompanion<CR>]], 'CodeCompanion prompt')
 
+  keymap({'i', 'n'}, '<C-CR>', function() vim.g.copilot_enabled = not vim.g.copilot_enabled end, 'Toggle Copilot', { silent = true })
   keymap('i', '<C-\'>', '<Plug>(copilot-next)', 'Next suggestion', { silent = true })
   keymap('i', '<C-;>', '<Plug>(copilot-previous)', 'Previous suggestion', { silent = true })
   keymap('i', '<C-h>', '<Plug>(copilot-dismiss)', 'Dismiss suggestion', { silent = true })
