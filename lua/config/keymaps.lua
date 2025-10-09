@@ -132,6 +132,9 @@ keymap('n', 'tl', [[<cmd>+tabmove<CR>]], 'Move tab to the right')
 keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
 keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
+-- Markdown --------------------------------------------------------------------
+keymap({'n', 'i'}, '<C-m>', [[<cmd>Markview toggle<CR>]], 'Toggle Markview')
+
 -- CodeCompanion ---------------------------------------------------------------
 if package.loaded['codecompanion'] then
   local function goto_last_chat_buffer()
