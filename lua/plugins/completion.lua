@@ -4,11 +4,34 @@ vim.pack.add({
 })
 
 require('blink.cmp').setup({
-  keymap = {
-    preset = 'default',
-  },
   appearance = {
     use_nvim_cmp_as_default = true,
+  },
+  completion = {
+    menu = {
+      auto_show = false,
+    },
+  },
+  keymap = {
+    preset = 'default',
+    ['<C-n>'] = {
+      function(cmp)
+        if cmp.is_visible() then
+          cmp.select_next()
+        else
+          cmp.show()
+        end
+      end
+    },
+    ['<C-p>'] = {
+      function(cmp)
+        if cmp.is_visible() then
+          cmp.select_prev()
+        else
+          cmp.show()
+        end
+      end
+    },
   },
   sources = {
     default = { 'lsp', 'path', 'snippets', 'buffer' },
