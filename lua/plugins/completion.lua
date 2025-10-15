@@ -10,11 +10,6 @@ require('blink.cmp').setup({
   appearance = {
     use_nvim_cmp_as_default = true,
   },
-  completion = {
-    menu = {
-      auto_show = false,
-    },
-  },
   keymap = {
     preset = 'default',
     ['<C-n>'] = {
@@ -42,5 +37,4 @@ require('blink.cmp').setup({
       codecompanion = { 'codecompanion' },
     },
   },
-  -- signature = { enabled = true }
 })
