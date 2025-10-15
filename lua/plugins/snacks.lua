@@ -23,6 +23,9 @@ require('snacks').setup({
         auto_close = true,
       },
     },
+    matcher = {
+      frecency = true,
+    },
     previewers = {
       file = {
         max_size = 10 * 1024 * 1024,
