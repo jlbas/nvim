@@ -130,6 +130,69 @@ keymap('n', '<leader>tt', [[<cmd>tabnew | terminal<CR>]], 'New terminal tab')
 keymap('n', '<leader>ts', [[<cmd>split | terminal<CR>]], 'New terminal in split')
 keymap('n', '<leader>tv', [[<cmd>vsplit | terminal<CR>]], 'New terminal in vertical split')
 
+local hidden_terms = {}
+keymap('n', '<leader>th', function()
+  local cur_tab = vim.api.nvim_get_current_tabpage()
+  hidden_terms[cur_tab] = hidden_terms[cur_tab] or {}
+  local term_bufs = hidden_terms[cur_tab]
+  local wins = vim.api.nvim_tabpage_list_wins(cur_tab)
+
+  if #term_bufs > 0 then
+    local valid_bufs = {}
+    local open_bufs = {}
+    for _, win in ipairs(wins) do
+      open_bufs[vim.api.nvim_win_get_buf(win)] = true
+    end
+    for _, buf in ipairs(term_bufs) do
+      if vim.api.nvim_buf_is_valid(buf) and not open_bufs[buf] then
+        table.insert(valid_bufs, buf)
+      end
+    end
+    hidden_terms[cur_tab] = valid_bufs
+    term_bufs = valid_bufs
+  end
+
+  local cur_term_wins = {}
+  local cur_term_bufs = {}
+
+  for _, win in ipairs(wins) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.api.nvim_buf_get_option(buf, 'buftype') == 'terminal' then
+      table.insert(cur_term_wins, win)
+      table.insert(cur_term_bufs, buf)
+    end
+  end
+
+  if #term_bufs > 0 then
+    local prev_win = vim.api.nvim_get_current_win()
+    vim.cmd('vsplit')
+    vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), term_bufs[1])
+    vim.cmd('wincmd L')
+    for i = 2, #term_bufs do
+      vim.cmd('split')
+      vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), term_bufs[i])
+    end
+    vim.api.nvim_set_current_win(prev_win)
+    hidden_terms[cur_tab] = vim.api.nvim_tabpage_is_valid(cur_tab) and {} or nil
+  elseif #cur_term_wins > 0 then
+    hidden_terms[cur_tab] = vim.deepcopy(cur_term_bufs)
+    for _, win in ipairs(cur_term_wins) do
+      vim.api.nvim_win_close(win, false)
+    end
+  else
+    vim.cmd('vsplit | wincmd L | terminal')
+  end
+end, 'Toggle all terminal splits visibility (tab-local)')
+
+keymap('n', '<leader>tc', function()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.api.nvim_buf_get_option(buf, 'buftype') == 'terminal' then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+end, 'Delete all terminal buffers in current tab')
+
 -- Filesystem navigation
 keymap('n', '<leader>cd', [[<cmd>cd %:h<CR>]], 'CD to the current file')
 
