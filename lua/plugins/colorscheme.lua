@@ -21,16 +21,14 @@ require('modus-themes').setup({
   end,
 
   on_highlights = function(hl, color)
-    hl.BlinkCmpLabelMatch = { fg = color.cyan_cooler                         }
-    hl.BlinkCmpMenuBorder = { fg = color.border                              }
     hl.CursorLineNr       = { bg = color.bg_hl_line, bold = true             }
     hl.CursorLineSign     = { bg = color.bg_hl_line                          }
     hl.DiffAdd            = { bg = color.bg_added_faint                      }
     hl.DiffChange         = { bg = color.bg_changed_faint                    }
     hl.DiffDelete         = { bg = color.bg_removed_faint                    }
     hl.DiffText           = { bg = color.bg_changed_faint                    }
-    hl.FloatBorder        = { fg = color.bg_alt, bg = color.bg_alt           }
-    hl.FloatTitle         = { fg = color.border_highlight, bg = color.bg_alt }
+    hl.FloatBorder        = { fg = color.indigo, bg = color.bg_alt           }
+    hl.FloatTitle         = { fg = color.indigo, bg = color.bg_alt           }
     hl.GitSignsAdd        = { fg = color.fg_added, bg = nil                  }
     hl.GitSignsChange     = { fg = color.fg_changed, bg = nil                }
     hl.GitSignsDelete     = { fg = color.fg_removed, bg = nil                }
@@ -38,10 +36,10 @@ require('modus-themes').setup({
     hl.LineNrAbove        = { fg = color.fg_dim, bg = color.bg_alt           }
     hl.LineNrBelow        = { fg = color.fg_dim, bg = color.bg_alt           }
     hl.NormalFloat        = { bg = color.bg_alt                              }
-    hl.Pmenu              = { bg = color.bg_alt                              }
-    hl.PmenuSbar          = { fg = color.border_highlight, bg = color.bg_alt }
+    hl.Pmenu              = { fg = color.indigo, bg = color.bg_alt           }
+    hl.PmenuSbar          = { fg = color.indigo, bg = color.bg_alt           }
     hl.PmenuSel           = { bg = color.visual                              }
-    hl.PmenuThumb         = { fg = color.bg_alt, bg = color.border_highlight }
+    hl.PmenuThumb         = { fg = color.bg_alt, bg = color.indigo           }
     hl.SignColumn         = { bg = color.bg_alt                              }
     hl.SnacksPicker       = { bg = color.bg_alt                              }
     hl.WinSeparator       = { fg = "#444444", bold = true                    }

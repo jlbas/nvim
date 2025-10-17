@@ -322,7 +322,7 @@ keymap('n', '<leader>fgb', require('snacks').picker.git_branches, "Git Branches"
 keymap('n', '<leader>fgd', require('snacks').picker.git_diff, "Git Diff")
 keymap('n', '<leader>fgf', require('snacks').picker.git_files, "Git Files")
 keymap('n', '<leader>fgl', require('snacks').picker.git_log, "Git Log")
-keymap('n', '<leader>fgs', require('snacks').picker.git_status, "Git Status")
+keymap('n', '<leader>fgs', function() Snacks.picker.git_status({ layout = { layout = { height = 0.8 } } }) end, "Git Status")
 keymap('n', '<leader>fgS', require('snacks').picker.git_stash, "Git Stash")
 keymap('n', '<leader>fr', require('snacks').picker.grep, "Grep")
 keymap('n', '<leader>fB', require('snacks').picker.grep_buffers, "Grep Open Buffers")

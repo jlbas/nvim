@@ -29,6 +29,7 @@ vim.o.splitright = true
 vim.o.termguicolors = true
 vim.o.timeoutlen = 300
 vim.o.winblend = 0
+vim.o.winborder = 'single'
 vim.opt.fillchars:append({ diff = '╱' })
 
 -- Editing ---------------------------------------------------------------------

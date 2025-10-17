@@ -31,6 +31,13 @@ require('snacks').setup({
         max_size = 10 * 1024 * 1024,
       },
     },
+    layout = {
+      preset = 'bottom',
+      layout = {
+        border = 'single',
+        height = 0.45,
+      },
+    },
     win = {
       input = {
         keys = {
