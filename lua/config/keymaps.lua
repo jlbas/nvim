@@ -34,6 +34,12 @@ end
 keymap('n', '<leader>i', ':let v:hlsearch = 1 - v:hlsearch<CR>', 'Toggle hlsearch')
 keymap('x', '/', [[<esc>/\%V]], 'Search inside visual selection', { silent = false  })
 
+-- Snippets --------------------------------------------------------------------
+keymap({'i', 's'}, '<Esc>', function()
+  vim.snippet.stop()
+  return '<Esc>'
+end, 'Stop snippets when leaving insert mode', { expr = true })
+
 -- Window navigation -----------------------------------------------------------
 keymap('n', '<C-h>', '<C-w>h', 'Focus on left window' )
 keymap('n', '<C-j>', '<C-w>j', 'Focus on below window')
