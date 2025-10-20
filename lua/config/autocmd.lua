@@ -86,7 +86,7 @@ if IS_WORK then
   vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     callback = function()
       for _, arg in ipairs(vim.v.argv) do
-        if arg == '+Man!' then
+        if arg == '+Man!' or arg == 'packadd nvim.difftool' then
           return
         end
       end
