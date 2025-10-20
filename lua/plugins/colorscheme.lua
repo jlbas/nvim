@@ -21,28 +21,35 @@ require('modus-themes').setup({
   end,
 
   on_highlights = function(hl, color)
-    hl.CursorLineNr       = { bg = color.bg_hl_line, bold = true             }
-    hl.CursorLineSign     = { bg = color.bg_hl_line                          }
-    hl.DiffAdd            = { bg = color.bg_added_faint                      }
-    hl.DiffChange         = { bg = color.bg_changed_faint                    }
-    hl.DiffDelete         = { bg = color.bg_removed_faint                    }
-    hl.DiffText           = { bg = color.bg_changed_faint                    }
-    hl.FloatBorder        = { fg = color.indigo, bg = color.bg_alt           }
-    hl.FloatTitle         = { fg = color.indigo, bg = color.bg_alt           }
-    hl.GitSignsAdd        = { fg = color.fg_added, bg = nil                  }
-    hl.GitSignsChange     = { fg = color.fg_changed, bg = nil                }
-    hl.GitSignsDelete     = { fg = color.fg_removed, bg = nil                }
-    hl.LineNr             = { fg = color.fg_dim, bg = color.bg_alt           }
-    hl.LineNrAbove        = { fg = color.fg_dim, bg = color.bg_alt           }
-    hl.LineNrBelow        = { fg = color.fg_dim, bg = color.bg_alt           }
-    hl.NormalFloat        = { bg = color.bg_alt                              }
-    hl.Pmenu              = { fg = color.indigo, bg = color.bg_alt           }
-    hl.PmenuSbar          = { fg = color.indigo, bg = color.bg_alt           }
-    hl.PmenuSel           = { bg = color.visual                              }
-    hl.PmenuThumb         = { fg = color.bg_alt, bg = color.indigo           }
-    hl.SignColumn         = { bg = color.bg_alt                              }
-    hl.SnacksPicker       = { bg = color.bg_alt                              }
-    hl.WinSeparator       = { fg = "#444444", bold = true                    }
+    hl.CmpItemAbbrMatch      = { fg = color.magenta_cooler, bg = color.bg_alt                }
+    hl.CmpItemAbbrMatchFuzzy = { fg = color.magenta_cooler, bg = color.bg_alt                }
+    hl.CursorLineNr          = { bg = color.bg_hl_line, bold = true                          }
+    hl.CursorLineSign        = { bg = color.bg_hl_line                                       }
+    hl.DiffAdd               = { bg = color.bg_added_faint                                   }
+    hl.DiffChange            = { bg = color.bg_changed_faint                                 }
+    hl.DiffDelete            = { bg = color.bg_removed_faint                                 }
+    hl.DiffText              = { bg = color.bg_changed_faint                                 }
+    hl.FloatBorder           = { fg = color.magenta_cooler, bg = color.bg_alt                }
+    hl.FloatTitle            = { fg = color.magenta_cooler, bg = color.bg_alt                }
+    hl.GitSignsAdd           = { fg = color.fg_added, bg = nil                               }
+    hl.GitSignsChange        = { fg = color.fg_changed, bg = nil                             }
+    hl.GitSignsDelete        = { fg = color.fg_removed, bg = nil                             }
+    hl.GitSignsAddInline     = { fg = color.fg_added_intense, bg = color.bg_added_refine     }
+    hl.GitSignsChangeInline  = { fg = color.fg_changed_intense, bg = color.bg_changed_refine }
+    hl.GitSignsDeleteInline  = { fg = color.fg_removed_intense, bg = color.bg_removed_refine }
+    hl.LineNr                = { fg = color.fg_dim, bg = color.bg_alt                        }
+    hl.LineNrAbove           = { fg = color.fg_dim, bg = color.bg_alt                        }
+    hl.LineNrBelow           = { fg = color.fg_dim, bg = color.bg_alt                        }
+    hl.NormalFloat           = { bg = color.bg_alt                                           }
+    hl.Pmenu                 = { fg = color.magenta_cooler, bg = color.bg_alt                }
+    hl.PmenuSbar             = { fg = color.magenta_cooler, bg = color.bg_alt                }
+    hl.PmenuSel              = { bg = color.bg_hl_line                                       }
+    hl.PmenuThumb            = { fg = color.bg_alt, bg = color.magenta_cooler                }
+    hl.QuickFixLine          = { fg = color.fg_main, bg = color.magenta_subtle               }
+    hl.SignColumn            = { bg = color.bg_alt                                           }
+    hl.SnacksPicker          = { bg = color.bg_alt                                           }
+    hl.SnacksPickerMatch     = { fg = color.magenta_cooler                                   }
+    hl.WinSeparator          = { fg = color.border, bold = true                              }
   end,
 })
 
