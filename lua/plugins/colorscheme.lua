@@ -47,7 +47,7 @@ require('modus-themes').setup({
     hl.PmenuThumb            = { fg = color.bg_dim, bg = color.magenta_cooler                }
     hl.QuickFixLine          = { fg = color.fg_main, bg = color.magenta_subtle               }
     hl.SignColumn            = { bg = color.bg_alt                                           }
-    hl.SnacksPicker          = { bg = color.bg_dim                                           }
+    hl.SnacksPicker          = { bg = color.bg_alt                                           }
     hl.SnacksPickerMatch     = { fg = color.magenta_cooler                                   }
     hl.WinSeparator          = { fg = color.border, bold = true                              }
   end,
