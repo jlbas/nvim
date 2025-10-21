@@ -40,14 +40,14 @@ require('modus-themes').setup({
     hl.LineNr                = { fg = color.fg_dim, bg = color.bg_alt                        }
     hl.LineNrAbove           = { fg = color.fg_dim, bg = color.bg_alt                        }
     hl.LineNrBelow           = { fg = color.fg_dim, bg = color.bg_alt                        }
-    hl.NormalFloat           = { bg = color.bg_alt                                           }
-    hl.Pmenu                 = { fg = color.magenta_cooler, bg = color.bg_alt                }
-    hl.PmenuSbar             = { fg = color.magenta_cooler, bg = color.bg_alt                }
+    hl.NormalFloat           = { bg = color.bg_dim                                           }
+    hl.Pmenu                 = { fg = color.magenta_cooler, bg = color.bg_dim                }
+    hl.PmenuSbar             = { fg = color.magenta_cooler, bg = color.bg_dim                }
     hl.PmenuSel              = { bg = color.bg_hl_line                                       }
-    hl.PmenuThumb            = { fg = color.bg_alt, bg = color.magenta_cooler                }
+    hl.PmenuThumb            = { fg = color.bg_dim, bg = color.magenta_cooler                }
     hl.QuickFixLine          = { fg = color.fg_main, bg = color.magenta_subtle               }
     hl.SignColumn            = { bg = color.bg_alt                                           }
-    hl.SnacksPicker          = { bg = color.bg_alt                                           }
+    hl.SnacksPicker          = { bg = color.bg_dim                                           }
     hl.SnacksPickerMatch     = { fg = color.magenta_cooler                                   }
     hl.WinSeparator          = { fg = color.border, bold = true                              }
   end,
