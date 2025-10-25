@@ -24,28 +24,13 @@ require('snacks').setup({
       },
     },
     matcher = {
+      cwd_bonus = true,
       frecency = true,
+      history_bonus = true,
     },
     previewers = {
       file = {
         max_size = 10 * 1024 * 1024,
-      },
-    },
-    layout = {
-      layout = {
-        box = "vertical",
-        row = -1,
-        width = 0,
-        height = 0.4,
-        border = "none",
-        title = " {title} {live} {flags}",
-        title_pos = "left",
-        { win = "input", height = 1, border = "none" },
-        {
-          box = "horizontal",
-          { win = "list", border = "none" },
-          { win = "preview", title = "{preview}", width = 0.6, border = "none" },
-        },
       },
     },
     win = {

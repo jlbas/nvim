@@ -102,13 +102,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('x', '<leader>la', vim.lsp.buf.code_action, opts)
+    vim.keymap.set({'n', 'x'}, '<leader>la', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
     vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set({'n', 'x'}, '<leader>lf', function()
@@ -116,21 +110,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
-
--- local border = {
---   { '┌', 'FloatBorder' },
---   { '─', 'FloatBorder' },
---   { '┐', 'FloatBorder' },
---   { '│', 'FloatBorder' },
---   { '┘', 'FloatBorder' },
---   { '─', 'FloatBorder' },
---   { '└', 'FloatBorder' },
---   { '│', 'FloatBorder' },
--- }
---
--- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
--- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
---   opts = opts or {}
---   opts.border = opts.border or border
---   return orig_util_open_floating_preview(contents, syntax, opts, ...)
--- end
