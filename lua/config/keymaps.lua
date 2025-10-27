@@ -24,6 +24,8 @@ M.get_selected_text = function()
   return tostring(ret)
 end
 
+keymap('n', '<leader>U', vim.pack.update, 'Update packages')
+
 -- System clipboard ------------------------------------------------------------
 keymap({'n', 'x'}, '<leader>cy', '"+y', 'Copy to system clipboard')
 if os.getenv("TERM") == "foot" then
