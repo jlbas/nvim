@@ -52,6 +52,7 @@ require('snacks').setup({
         keys = {
           ['<C-l>'] = { 'focus_input', mode = { 'n', 'i' } },
         },
+        minimal = true,
       },
     },
     layouts = {
