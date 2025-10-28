@@ -5,7 +5,6 @@ vim.pack.add({
 })
 
 require('plugins.autopairs')
-require('plugins.colorscheme')
 require('plugins.completion')
 require('plugins.codecompanion')
 require('plugins.conform')
@@ -20,3 +19,4 @@ require('plugins.snacks')
 require('plugins.surround')
 require('plugins.treesitter')
 require('plugins.zenmode')
+require('plugins.colorscheme')

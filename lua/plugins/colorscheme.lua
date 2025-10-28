@@ -29,6 +29,9 @@ require('modus-themes').setup({
       hl.PmenuSel                 = { bg = c.bg_hl_line }
       hl.PmenuThumb               = { bg = c.fg_dim }
       hl.SnacksPicker             = { link = 'NormalFloat' }
+      hl.SnacksPickerCol          = { fg = c.fg_active, bg = nil }
+      hl.SnacksPickerTree         = { fg = c.fg_active, bg = nil }
+      hl.SnacksPickerIconFile     = { fg = c.fg_active, bg = nil }
       hl.SnacksPickerMatch        = { link = 'Visual' }
       hl.qfFileName.fg            = c.blue_faint
     end
