@@ -294,7 +294,7 @@ keymap('n', "<leader>ff", function() Snacks.picker.files() end, "Find Files")
 keymap('n', "<leader>,", function() Snacks.picker.buffers() end, "Buffers")
 keymap('n', "<leader>fg", function() Snacks.picker.git_files() end, "Find Git Files")
 keymap('n', "<leader>fp", function() Snacks.picker.projects() end, "Projects")
-keymap('n', "<leader>f;", function() Snacks.picker.recent() end, "Recent")
+keymap('n', "<leader>fr", function() Snacks.picker.recent() end, "Recent")
 -- git
 keymap('n', "<leader>gb", function() Snacks.picker.git_branches() end, "Git Branches")
 keymap('n', "<leader>gl", function() Snacks.picker.git_log() end, "Git Log")
@@ -334,7 +334,7 @@ keymap('n', "<leader>fL", function() Snacks.picker.loclist() end, "Location List
 keymap('n', "<leader>fm", function() Snacks.picker.marks() end, "Marks")
 keymap('n', "<leader>fM", function() Snacks.picker.man() end, "Man Pages")
 keymap('n', "<leader>fq", function() Snacks.picker.qflist() end, "Quickfix List")
-keymap('n', "<leader>f;", function() Snacks.picker.resume() end, "Resume")
+keymap('n', "<leader>;", function() Snacks.picker.resume() end, "Resume")
 keymap('n', "<leader>fu", function() Snacks.picker.undo() end, "Undo History")
 keymap('n', "<leader>fI", function() Snacks.picker.colorschemes() end, "Colorschemes")
 -- lsp
