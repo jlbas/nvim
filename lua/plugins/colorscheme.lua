@@ -24,6 +24,7 @@ require('modus-themes').setup({
     if colorscheme == 'modus_vivendi' then
       hl.CmpItemAbbrMatch.fg      = c.magenta_cooler
       hl.CmpItemAbbrMatchFuzzy.fg = c.magenta_cooler
+      hl.DiffTextAdd              = { fg = c.bg_changed, bg = c.fg_changed_intense }
       hl.FloatBorder.bg           = hl.NormalFloat.bg
       hl.FloatTitle.bg            = hl.NormalFloat.bg
       hl.PmenuSel                 = { bg = c.bg_hl_line }
