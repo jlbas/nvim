@@ -133,7 +133,7 @@ keymap('n', '<leader>ts', [[<cmd>split | terminal<CR>]], 'New terminal in split'
 keymap('n', '<leader>tv', [[<cmd>vsplit | terminal<CR>]], 'New terminal in vertical split')
 
 local hidden_terms = {}
-keymap('n', '<leader>th', function()
+keymap('n', '<leader><CR>', function()
   local cur_tab = vim.api.nvim_get_current_tabpage()
   hidden_terms[cur_tab] = hidden_terms[cur_tab] or {}
   local term_bufs = hidden_terms[cur_tab]
@@ -307,10 +307,10 @@ keymap('n', "<leader>gf", function() Snacks.picker.git_log_file() end, "Git Log 
 keymap('n', "<leader>fl", function() Snacks.picker.lines() end, "Buffer Lines")
 keymap('n', "<leader>r", function() Snacks.picker.grep({ args = { '-g', '!customlog*' } }) end, "Grep")
 keymap('n', "<leader>R", function() Snacks.picker.grep_word({ args = { '--word-regexp', '-g', '!customlog*' } }) end, "Word")
-keymap('x', "<leader>r", function() Snacks.picker.grep_word({ args = { "-g '!customlog*'" } }) end, "Visual selection")
+keymap('x', "<leader>r", function() Snacks.picker.grep_word({ args = { '-g', '!customlog*' } }) end, "Visual selection")
 keymap('n', "<leader>B", function() Snacks.picker.grep_buffers() end, "Grep Open Buffers")
 -- keymap('n', "<leader>*", function() Snacks.picker.lines({ pattern = vim.fn.expand("<cword>") }) end, "Current Word")
-keymap('n', "<leader>*", function()
+keymap({'n', 'x'}, "<leader>*", function()
   Snacks.picker.grep_word({
     args = { '--word-regexp' },
     glob = { vim.fn.expand("%:.") },
@@ -342,7 +342,7 @@ keymap('n', "gd", function() Snacks.picker.lsp_definitions() end, "Goto Definiti
 keymap('n', "gD", function() Snacks.picker.lsp_declarations() end, "Goto Declaration")
 keymap('n', "gr", function() Snacks.picker.lsp_references() end, "References", { nowait = true })
 keymap('n', "gI", function() Snacks.picker.lsp_implementations() end, "Goto Implementation")
-keymap('n', "gy", function() Snacks.picker.lsp_type_definitions() end, "Goto T[y]pe Definition")
+keymap('n', "gt", function() Snacks.picker.lsp_type_definitions() end, "Goto Type Definition")
 keymap('n', "gi", function() Snacks.picker.lsp_incoming_calls() end, "Incoming Calls")
 keymap('n', "go", function() Snacks.picker.lsp_outgoing_calls() end, "Outgoing Calls")
 keymap('n', "gs", function() Snacks.picker.lsp_symbols() end, "LSP Symbols")
