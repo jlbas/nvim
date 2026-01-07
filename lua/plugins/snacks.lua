@@ -29,6 +29,15 @@ require('snacks').setup({
       history_bonus = true,
     },
     previewers = {
+      diff = {
+        style = "syntax",
+        wo = {
+          breakindent = true,
+          wrap = true,
+          linebreak = true,
+          showbreak = "",
+        },
+      },
       file = {
         max_size = 10 * 1024 * 1024,
       },
