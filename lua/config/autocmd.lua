@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = 'term://*',
   callback = function()
+    if vim.bo.filetype == 'fzf' then return end
     vim.wo.number = true
     vim.wo.relativenumber = true
     vim.wo.signcolumn = "yes:1"
@@ -18,8 +19,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'fzf',
   callback = function()
-    vim.cmd.tunmap('<buffer>', '<ESC><ESC>')
-    vim.cmd.tnoremap('<buffer>', '<ESC>', '<C-c>')
+    pcall(vim.cmd, 'tunmap <buffer> <C-[><C-[>')
   end
 })
 

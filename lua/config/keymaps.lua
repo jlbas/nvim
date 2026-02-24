@@ -243,7 +243,7 @@ end
 
 if IS_WORK then
   local function fzf_notes()
-    require('snacks').picker.files({ cwd = '~/OneDrive/notes/' })
+    require('fzf-lua').files({ cwd = '~/OneDrive/notes/' })
   end
 
   local function open_ws_notes(action)
@@ -280,7 +280,7 @@ keymap('n', '<leader>o', function()
   require('oil.actions')[(vim.bo.filetype == 'oil') and 'close' or 'open_cwd'].callback()
 end)
 
--- Snacks ---------------------------------------------------------------
+--[[ SNACKS PICKER (migrated to fzf-lua)
 -- top pickers & explorer
 keymap('n', "<leader>", function() Snacks.picker.pickers() end, "Pickers")
 keymap('n', "<leader><space>", function() Snacks.picker.smart() end, "Smart Find Files")
@@ -309,7 +309,6 @@ keymap('n', "<leader>r", function() Snacks.picker.grep({ args = { '-g', '!custom
 keymap('n', "<leader>R", function() Snacks.picker.grep_word({ args = { '--word-regexp', '-g', '!customlog*' } }) end, "Word")
 keymap('x', "<leader>r", function() Snacks.picker.grep_word({ args = { '-g', '!customlog*' } }) end, "Visual selection")
 keymap('n', "<leader>B", function() Snacks.picker.grep_buffers() end, "Grep Open Buffers")
--- keymap('n', "<leader>*", function() Snacks.picker.lines({ pattern = vim.fn.expand("<cword>") }) end, "Current Word")
 keymap({'n', 'x'}, "<leader>*", function()
   Snacks.picker.grep_word({
     args = { '--word-regexp' },
@@ -347,6 +346,78 @@ keymap('n', "gi", function() Snacks.picker.lsp_incoming_calls() end, "Incoming C
 keymap('n', "go", function() Snacks.picker.lsp_outgoing_calls() end, "Outgoing Calls")
 keymap('n', "gs", function() Snacks.picker.lsp_symbols() end, "LSP Symbols")
 keymap('n', "gS", function() Snacks.picker.lsp_workspace_symbols() end, "LSP Workspace Symbols")
+--]]
+
+-- fzf-lua ---------------------------------------------------------------
+local fzf = require('fzf-lua')
+-- top pickers
+keymap('n', "<leader>", function() fzf.builtin() end, "Pickers")
+keymap('n', "<leader><space>", function() fzf.files() end, "Find Files")
+keymap('n', "<leader>:", function() fzf.command_history() end, "Command History")
+keymap('n', '<leader>/', function() fzf.search_history() end, "Search History")
+-- find
+keymap('n', "<leader>fC", function() fzf.files({ cwd = vim.fn.stdpath("config") }) end, "Find Config File")
+keymap('n', "<leader>ff", function() fzf.files() end, "Find Files")
+keymap('n', "<leader>,", function() fzf.buffers() end, "Buffers")
+keymap('n', "<leader>fg", function() fzf.git_files() end, "Find Git Files")
+keymap('n', "<leader>fr", function() fzf.oldfiles() end, "Recent")
+-- git
+keymap('n', "<leader>gb", function() fzf.git_blame() end, "Git Blame")
+keymap('n', "<leader>gB", function() fzf.git_branches() end, "Git Branches")
+keymap('n', "<leader>gl", function() fzf.git_commits() end, "Git Log")
+keymap('n', "<leader>gL", function() fzf.git_bcommits() end, "Git Log Line")
+keymap('n', "<leader>gs", function() fzf.git_status() end, "Git Status")
+keymap('n', "<leader>gS", function() fzf.git_stash() end, "Git Stash")
+keymap('n', "<leader>gd", function() fzf.git_diff() end, "Git Diff")
+keymap('n', "<leader>gf", function() fzf.git_bcommits() end, "Git Log File")
+keymap('n', "<leader>gh", function() fzf.git_hunks() end, "Git Hunks")
+keymap('n', "<leader>gt", function() fzf.git_tags() end, "Git Tags")
+keymap('n', "<leader>gw", function() fzf.git_worktrees() end, "Git Worktrees")
+-- grep
+keymap('n', "<leader>fl", function() fzf.blines() end, "Buffer Lines")
+keymap('n', "<leader>r", function() fzf.live_grep() end, "Grep")
+keymap('n', "<leader>R", function() fzf.grep_cword() end, "Word")
+keymap('x', "<leader>r", function() fzf.grep_visual() end, "Visual selection")
+keymap('n', "<leader>B", function() fzf.lines() end, "Grep Open Buffers")
+keymap({'n', 'x'}, "<leader>*", function()
+  fzf.grep_cword({ filename = vim.fn.expand("%:.") })
+end, "Current Word")
+-- search/vim
+keymap('n', '<leader>f"', function() fzf.registers() end, "Registers")
+keymap('n', "<leader>fa", function() fzf.autocmds() end, "Autocmds")
+keymap('n', "<leader>fc", function() fzf.commands() end, "Commands")
+keymap('n', "<leader>fd", function() fzf.diagnostics_workspace() end, "Diagnostics")
+keymap('n', "<leader>fD", function() fzf.diagnostics_document() end, "Buffer Diagnostics")
+keymap('n', "<leader>fh", function() fzf.helptags() end, "Help Pages")
+keymap('n', "<leader>fH", function() fzf.highlights() end, "Highlights")
+keymap('n', "<leader>fi", function() fzf.filetypes() end, "Filetypes")
+keymap('n', "<leader>fj", function() fzf.jumps() end, "Jumps")
+keymap('n', "<leader>fk", function() fzf.keymaps() end, "Keymaps")
+keymap('n', "<leader>fL", function() fzf.loclist() end, "Location List")
+keymap('n', "<leader>fm", function() fzf.marks() end, "Marks")
+keymap('n', "<leader>fM", function() fzf.manpages() end, "Man Pages")
+keymap('n', "<leader>fq", function() fzf.quickfix() end, "Quickfix List")
+keymap('n', "<leader>;", function() fzf.resume() end, "Resume")
+keymap('n', "<leader>fu", function() fzf.undotree() end, "Undo History")
+keymap('n', "<leader>fI", function() fzf.colorschemes() end, "Colorschemes")
+keymap('n', "<leader>ft", function() fzf.treesitter() end, "Treesitter Symbols")
+keymap('n', "<leader>fo", function() fzf.changes() end, "Changes")
+keymap('n', "<leader>fp", function() fzf.tagstack() end, "Tagstack")
+keymap('n', "<leader>fG", function() fzf.tags() end, "Tags")
+keymap('n', "<leader>fS", function() fzf.spell_suggest() end, "Spell Suggest")
+-- lsp
+keymap('n', "gd", function() fzf.lsp_definitions() end, "Goto Definition")
+keymap('n', "gD", function() fzf.lsp_declarations() end, "Goto Declaration")
+keymap('n', "gr", function() fzf.lsp_references() end, "References", { nowait = true })
+keymap('n', "gI", function() fzf.lsp_implementations() end, "Goto Implementation")
+keymap('n', "gt", function() fzf.lsp_typedefs() end, "Goto Type Definition")
+keymap('n', "gi", function() fzf.lsp_incoming_calls() end, "Incoming Calls")
+keymap('n', "go", function() fzf.lsp_outgoing_calls() end, "Outgoing Calls")
+keymap('n', "gs", function() fzf.lsp_document_symbols() end, "LSP Symbols")
+keymap('n', "gS", function() fzf.lsp_workspace_symbols() end, "LSP Workspace Symbols")
+keymap('n', "gF", function() fzf.lsp_finder() end, "LSP Finder")
+keymap({'n', 'x'}, "ga", function() fzf.lsp_code_actions() end, "Code Actions")
+
 -- other
 keymap('n', "<leader>.",  function() Snacks.scratch() end, "Toggle Scratch Buffer")
 keymap('n', "<leader>fs",  function() Snacks.scratch.select() end, "Select Scratch Buffer")

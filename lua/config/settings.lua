@@ -30,7 +30,8 @@ vim.o.termguicolors = true
 vim.o.timeoutlen = 300
 vim.o.winblend = 0
 vim.o.winborder = 'none'
-vim.opt.fillchars:append({ diff = ' ' })
+vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve-t:ver25,r-cr-o:hor20,a:blinkon0'
+-- vim.opt.fillchars:append({ diff = ' ' })
 
 -- Editing ---------------------------------------------------------------------
 vim.g.editorconfig = false
