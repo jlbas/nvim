@@ -6,6 +6,7 @@ vim.pack.add({'https://github.com/rebelot/kanagawa.nvim'})
 
 local colorscheme = 'kanso-zen'
 require('kanso').setup({
+  foreground = { dark = 'saturated' },
   overrides = function(colors)
     return {
       WinSeparator = { fg = colors.palette.zenBg2 },
