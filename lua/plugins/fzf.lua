@@ -13,6 +13,7 @@ require('fzf-lua').setup({
     preview = {
       border = 'none',
       layout = 'flex',
+      horizontal = 'right:50%',
       scrollbar = 'float',
     },
   },
