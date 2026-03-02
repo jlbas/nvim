@@ -49,8 +49,8 @@ vim.o.spelloptions = 'camel'
 -- Folds -----------------------------------------------------------------------
 vim.o.foldenable = false
 vim.o.foldlevel = 1
-vim.o.foldmethod = 'indent'
-vim.o.foldenable = false
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- Clipboard -------------------------------------------------------------------
 vim.g.clipboard = {

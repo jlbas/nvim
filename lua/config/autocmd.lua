@@ -37,12 +37,6 @@ vim.api.nvim_create_autocmd({ 'BufWritePre', 'VimLeave' }, {
   end
 })
 
-vim.cmd([[
-  command! -bang -nargs=* Rgf call fzf#vim#grep('
-  \ rg --column --line-number --no-heading --fixed-strings --color=always --smart-case
-  \ '.shellescape(<q-args>), 1, <bang>0)
-]])
-
 vim.api.nvim_create_user_command('CloseFugitiveTabs', function()
   for tabnr = vim.fn.tabpagenr('$'), 1, -1 do
     local buflist = vim.fn.tabpagebuflist(tabnr)
@@ -65,21 +59,35 @@ if IS_WORK then
     end
   })
 
+  local git_root_cache = {}
   vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     callback = function()
       local buf = vim.api.nvim_buf_get_name(0)
-      local base_dir = vim.system({ 'git', '-C', vim.fs.dirname(buf), 'rev-parse', '--show-toplevel' }, { text = true }):wait()
-      if base_dir.code ~= 128 then
-        local stripped = string.gsub(base_dir.stdout, '\n', '')
-        vim.api.nvim_set_current_dir(stripped)
-      else
-        local base_dirs = { '/home/bastarac/onedrive' }
-        for _, dir in pairs(base_dirs) do
-          if buf:find(dir) then
-            vim.api.nvim_set_current_dir(dir)
-          end
-        end
+      local dir = vim.fs.dirname(buf)
+      if dir == '' or dir == '.' then return end
+
+      if git_root_cache[dir] ~= nil then
+        vim.api.nvim_set_current_dir(git_root_cache[dir])
+        return
       end
+
+      vim.system({ 'git', '-C', dir, 'rev-parse', '--show-toplevel' }, { text = true }, function(result)
+        vim.schedule(function()
+          if result.code == 0 then
+            local root = result.stdout:gsub('\n', '')
+            git_root_cache[dir] = root
+            vim.api.nvim_set_current_dir(root)
+          else
+            local base_dirs = { '/home/bastarac/onedrive' }
+            for _, base in pairs(base_dirs) do
+              if buf:find(base) then
+                git_root_cache[dir] = base
+                vim.api.nvim_set_current_dir(base)
+              end
+            end
+          end
+        end)
+      end)
     end
   })
 

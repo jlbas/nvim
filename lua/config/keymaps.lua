@@ -159,7 +159,7 @@ keymap('n', '<leader><CR>', function()
 
   for _, win in ipairs(wins) do
     local buf = vim.api.nvim_win_get_buf(win)
-    if vim.api.nvim_buf_get_option(buf, 'buftype') == 'terminal' then
+    if vim.bo[buf].buftype == 'terminal' then
       table.insert(cur_term_wins, win)
       table.insert(cur_term_bufs, buf)
     end
@@ -189,7 +189,7 @@ end, 'Toggle all terminal splits visibility (tab-local)')
 keymap('n', '<leader>tc', function()
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
     local buf = vim.api.nvim_win_get_buf(win)
-    if vim.api.nvim_buf_get_option(buf, 'buftype') == 'terminal' then
+    if vim.bo[buf].buftype == 'terminal' then
       vim.api.nvim_buf_delete(buf, { force = true })
     end
   end
@@ -203,7 +203,7 @@ keymap('n', '<C-p>', '<C-^>', 'Open previous file')
 
 -- Tabs ------------------------------------------------------------------------
 keymap('n', 'tt', [[<cmd>tabnew<CR>]], 'New tab')
-keymap('n', 'tc', [[<cmd>tabclose<CR>]], 'New tab')
+keymap('n', 'tc', [[<cmd>tabclose<CR>]], 'Close tab')
 keymap('n', 'tn', [[<cmd>tabnext<CR>]], 'Next tab')
 keymap('n', 'tp', [[<cmd>tabprevious<CR>]], 'Previous tab')
 keymap('n', 'tm', [[:tabmove<space>]], 'Move tab')
@@ -212,7 +212,7 @@ keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
 keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
 -- Markdown --------------------------------------------------------------------
-keymap({'n', 'i'}, '<C-m>', [[<cmd>Markview toggle<CR>]], 'Toggle Markview')
+keymap('n', '<leader>mm', [[<cmd>Markview toggle<CR>]], 'Toggle Markview')
 
 if IS_WORK then
   local function fzf_notes()
@@ -253,74 +253,6 @@ keymap('n', '<leader>o', function()
   require('oil.actions')[(vim.bo.filetype == 'oil') and 'close' or 'open_cwd'].callback()
 end)
 
---[[ SNACKS PICKER (migrated to fzf-lua)
--- top pickers & explorer
-keymap('n', "<leader>", function() Snacks.picker.pickers() end, "Pickers")
-keymap('n', "<leader><space>", function() Snacks.picker.smart() end, "Smart Find Files")
-keymap('n', "<leader>:", function() Snacks.picker.command_history() end, "Command History")
-keymap('n', '<leader>/', function() Snacks.picker.search_history({sort={fields={"score:desc", "idx"}}}) end, "Search History")
-keymap('n', "<leader>n", function() Snacks.picker.notifications() end, "Notification History")
-keymap('n', "<leader>e", function() Snacks.explorer() end, "File Explorer")
--- find
-keymap('n', "<leader>fC", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, "Find Config File")
-keymap('n', "<leader>ff", function() Snacks.picker.files() end, "Find Files")
-keymap('n', "<leader>,", function() Snacks.picker.buffers() end, "Buffers")
-keymap('n', "<leader>fg", function() Snacks.picker.git_files() end, "Find Git Files")
-keymap('n', "<leader>fp", function() Snacks.picker.projects() end, "Projects")
-keymap('n', "<leader>fr", function() Snacks.picker.recent() end, "Recent")
--- git
-keymap('n', "<leader>gb", function() Snacks.picker.git_branches() end, "Git Branches")
-keymap('n', "<leader>gl", function() Snacks.picker.git_log() end, "Git Log")
-keymap('n', "<leader>gL", function() Snacks.picker.git_log_line() end, "Git Log Line")
-keymap('n', "<leader>gs", function() Snacks.picker.git_status() end, "Git Status")
-keymap('n', "<leader>gS", function() Snacks.picker.git_stash() end, "Git Stash")
-keymap('n', "<leader>gd", function() Snacks.picker.git_diff() end, "Git Diff (Hunks)")
-keymap('n', "<leader>gf", function() Snacks.picker.git_log_file() end, "Git Log File")
--- grep
-keymap('n', "<leader>fl", function() Snacks.picker.lines() end, "Buffer Lines")
-keymap('n', "<leader>r", function() Snacks.picker.grep({ args = { '-g', '!customlog*' } }) end, "Grep")
-keymap('n', "<leader>R", function() Snacks.picker.grep_word({ args = { '--word-regexp', '-g', '!customlog*' } }) end, "Word")
-keymap('x', "<leader>r", function() Snacks.picker.grep_word({ args = { '-g', '!customlog*' } }) end, "Visual selection")
-keymap('n', "<leader>B", function() Snacks.picker.grep_buffers() end, "Grep Open Buffers")
-keymap({'n', 'x'}, "<leader>*", function()
-  Snacks.picker.grep_word({
-    args = { '--word-regexp' },
-    glob = { vim.fn.expand("%:.") },
-    layout = {
-      preset = 'ivy',
-      preview = 'main',
-    },
-  })
-end, "Current Word")
-keymap('n', '<leader>f"', function() Snacks.picker.registers() end, "Registers")
-keymap('n', "<leader>fa", function() Snacks.picker.autocmds() end, "Autocmds")
-keymap('n', "<leader>fc", function() Snacks.picker.commands() end, "Commands")
-keymap('n', "<leader>fd", function() Snacks.picker.diagnostics() end, "Diagnostics")
-keymap('n', "<leader>fD", function() Snacks.picker.diagnostics_buffer() end, "Buffer Diagnostics")
-keymap('n', "<leader>fh", function() Snacks.picker.help() end, "Help Pages")
-keymap('n', "<leader>fH", function() Snacks.picker.highlights() end, "Highlights")
-keymap('n', "<leader>fi", function() Snacks.picker.icons() end, "Icons")
-keymap('n', "<leader>fj", function() Snacks.picker.jumps() end, "Jumps")
-keymap('n', "<leader>fk", function() Snacks.picker.keymaps() end, "Keymaps")
-keymap('n', "<leader>fL", function() Snacks.picker.loclist() end, "Location List")
-keymap('n', "<leader>fm", function() Snacks.picker.marks() end, "Marks")
-keymap('n', "<leader>fM", function() Snacks.picker.man() end, "Man Pages")
-keymap('n', "<leader>fq", function() Snacks.picker.qflist() end, "Quickfix List")
-keymap('n', "<leader>;", function() Snacks.picker.resume() end, "Resume")
-keymap('n', "<leader>fu", function() Snacks.picker.undo() end, "Undo History")
-keymap('n', "<leader>fI", function() Snacks.picker.colorschemes() end, "Colorschemes")
--- lsp
-keymap('n', "gd", function() Snacks.picker.lsp_definitions() end, "Goto Definition")
-keymap('n', "gD", function() Snacks.picker.lsp_declarations() end, "Goto Declaration")
-keymap('n', "gr", function() Snacks.picker.lsp_references() end, "References", { nowait = true })
-keymap('n', "gI", function() Snacks.picker.lsp_implementations() end, "Goto Implementation")
-keymap('n', "gt", function() Snacks.picker.lsp_type_definitions() end, "Goto Type Definition")
-keymap('n', "gi", function() Snacks.picker.lsp_incoming_calls() end, "Incoming Calls")
-keymap('n', "go", function() Snacks.picker.lsp_outgoing_calls() end, "Outgoing Calls")
-keymap('n', "gs", function() Snacks.picker.lsp_symbols() end, "LSP Symbols")
-keymap('n', "gS", function() Snacks.picker.lsp_workspace_symbols() end, "LSP Workspace Symbols")
---]]
-
 -- fzf-lua ---------------------------------------------------------------
 local fzf = require('fzf-lua')
 -- top pickers
@@ -342,7 +274,6 @@ keymap('n', "<leader>gL", function() fzf.git_bcommits() end, "Git Log Line")
 keymap('n', "<leader>gs", function() fzf.git_status() end, "Git Status")
 keymap('n', "<leader>gS", function() fzf.git_stash() end, "Git Stash")
 keymap('n', "<leader>gd", function() fzf.git_diff() end, "Git Diff")
-keymap('n', "<leader>gf", function() fzf.git_bcommits() end, "Git Log File")
 keymap('n', "<leader>gh", function() fzf.git_hunks() end, "Git Hunks")
 keymap('n', "<leader>gt", function() fzf.git_tags() end, "Git Tags")
 keymap('n', "<leader>gw", function() fzf.git_worktrees() end, "Git Worktrees")
@@ -394,7 +325,7 @@ keymap({'n', 'x'}, "ga", function() fzf.lsp_code_actions() end, "Code Actions")
 -- other
 keymap('n', "<leader>.",  function() Snacks.scratch() end, "Toggle Scratch Buffer")
 keymap('n', "<leader>fs",  function() Snacks.scratch.select() end, "Select Scratch Buffer")
-keymap('n', "<leader>n", function()
+keymap('n', "<leader>N", function()
   Snacks.win({
     file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
     width = 0.6,

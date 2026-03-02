@@ -21,7 +21,7 @@ local lsp_servers = {
   clangd = { filetypes = { 'c', 'cpp', 'objc', 'objcpp' } },
   cmake = { filetypes = { 'cmake' } },
   dockerls = { filetypes = { 'dockerfile' } },
-  docker_compose_language_service = { filetypes = { 'yaml' } },
+  docker_compose_language_service = { filetypes = { 'yaml.docker-compose' } },
   lua_ls = { filetypes = { 'lua' } },
   marksman = { filetypes = { 'markdown' } },
   perlnavigator = { filetypes = { 'perl' } },
