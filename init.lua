@@ -4,3 +4,4 @@ require('config.settings')
 require('config.autocmd')
 require('plugins')
 require('config.keymaps')
+if IS_WORK then require('config.work') end

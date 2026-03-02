@@ -25,12 +25,12 @@ require('mini.hipatterns').setup({
 })
 -- require('mini.clue').setup()
 require('mini.trailspace').setup()
--- require('mini.indentscope').setup({
---   draw = {
---     animation = require('mini.indentscope').gen_animation.none(),
---   },
---   symbol = '│',
--- })
+require('mini.indentscope').setup({
+  draw = {
+    animation = require('mini.indentscope').gen_animation.none(),
+  },
+  symbol = '│',
+})
 -- require('mini.pairs').setup({
 --   mappings = {
 --     [' '] = { action = 'open', pair = '  ', neigh_pattern = '[%(%[{][%)%]}]' },
@@ -92,7 +92,6 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
   callback = function()
-    mini_enable('minicursorword', { 'c', 'cpp', 'lua', 'python', 'text' })
     mini_enable('miniindentscope', { 'c', 'cpp', 'lua', 'python' })
     mini_enable('minitrailspace', { 'c', 'cpp', 'lua', 'python' })
   end

@@ -1,10 +1,25 @@
 vim.pack.add({'https://github.com/ibhagwan/fzf-lua'})
 
+local function pick_win_action(selected, opts)
+  local utils = require('config.utils')
+  local win = utils.pick_win()
+  if win then
+    vim.api.nvim_set_current_win(win)
+    require('fzf-lua.actions').file_edit(selected, opts)
+  end
+end
+
 require('fzf-lua').setup({
   'default-title',
   defaults = {
     formatter = 'path.filename_first',
     cwd_prompt = true,
+  },
+  actions = {
+    files = {
+      true,
+      ['ctrl-o'] = pick_win_action,
+    },
   },
   winopts = {
     border = 'none',

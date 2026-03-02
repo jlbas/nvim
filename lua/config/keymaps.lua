@@ -1,27 +1,10 @@
+local utils = require('config.utils')
+
 local default_opts = { noremap = true, silent = true }
 local keymap = function(mode, keys, cmd, desc, opts)
   opts = vim.tbl_deep_extend('force', default_opts, opts or {})
   opts.desc = desc
   vim.keymap.set(mode, keys, cmd, opts)
-end
-
-local function feedkeys(keys, replace_termcodes)
-  if replace_termcodes then
-    keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
-  end
-  vim.api.nvim_feedkeys(keys, 'n', true)
-end
-
-local M = {}
-
-M.get_selected_text = function()
-  local old_reg = vim.fn.getreg('"')
-  local old_reg_type = vim.fn.getregtype('"')
-  vim.cmd('norm gvy')
-  local ret = vim.fn.getreg('"')
-  vim.fn.setreg('"', old_reg, old_reg_type)
-  vim.cmd([[norm \<ESC>]])
-  return tostring(ret)
 end
 
 keymap('n', '<leader>U', vim.pack.update, 'Update packages')
@@ -55,23 +38,27 @@ keymap('n', '<C-}>', '<cmd>horizontal winc ]<CR>')
 
 -- Window-Pick -----------------------------------------------------------------
 keymap({'i', 'n', 't'}, '<C-,>', function()
-  local win = require('snacks').picker.util.pick_win()
+  local cur = vim.api.nvim_get_current_win()
+  if vim.api.nvim_win_get_config(cur).relative ~= '' then
+    vim.api.nvim_win_close(cur, true)
+  end
+  local win = utils.pick_win()
   if win ~= nil and win ~= vim.api.nvim_get_current_win() then
     vim.api.nvim_set_current_win(win)
   end
 end, 'Pick window')
 keymap('n', '<M-,>', function()
   local win1 = vim.api.nvim_get_current_win()
-  local win2 = require('snacks').picker.util.pick_win()
+  local win2 = utils.pick_win()
   if win2 ~= nil and win1 ~= win2 then
-    feedkeys('mT')
+    utils.feedkeys('mT')
     vim.schedule(function()
       vim.api.nvim_set_current_win(win2)
-      feedkeys('mY')
-      feedkeys('<C-w><C-p>', true)
-      feedkeys("'Y", true)
-      feedkeys('<C-w><C-p>', true)
-      feedkeys("'T")
+      utils.feedkeys('mY')
+      utils.feedkeys('<C-w><C-p>', true)
+      utils.feedkeys("'Y", true)
+      utils.feedkeys('<C-w><C-p>', true)
+      utils.feedkeys("'T")
     end)
   end
 end, 'Swap windows')
@@ -89,8 +76,6 @@ keymap('n', '<M-k>', '"<cmd>resize +" . v:count1 . "<CR>"', 'Increase window hei
 keymap('n', '<M-l>', '"<cmd>vertical resize +" . v:count1 . "<CR>"', 'Increase window width', { expr = true, replace_keycodes = false })
 keymap('n', '<M-=>', '<C-w>=', 'Make windows equally sized')
 keymap('n', '<M-f>', [[<cmd>if winnr('$') == 1 | silent! close! | else | tab split | endif<CR>]], 'Toggle fullscreen')
-keymap('n', '<M-z>', [[<cmd>ZenMode<CR>]], 'Toggle ZenMode')
-
 -- Move with alt ---------------------------------------------------------------
 keymap('c', '<M-h>', '<left>', 'Left', { silent = false })
 keymap('c', '<M-l>', '<right>', 'Right', { silent = false })
@@ -111,80 +96,13 @@ end, 'Send window to a new tab')
 keymap('v', '>', '>gv', 'Shift lines right', { noremap = true })
 keymap('v', '<', '<gv', 'Shift lines left', { noremap = true })
 
--- Comments --------------------------------------------------------------------
-if IS_WORK then
-  keymap('n', 'gdd', function()
-    local line = vim.api.nvim_get_current_line()
-    local marker = '// DO_NOT_COMMIT'
-    if line:find(marker, 1, true) then
-      local new_line = line:gsub('%s*' .. marker .. ".*$", "")
-      vim.api.nvim_set_current_line(new_line)
-    else
-      vim.api.nvim_set_current_line(line:gsub('%s*$', '') .. ' ' .. marker)
-    end
-  end, 'Toggle DO_NOT_COMMIT comment')
-end
-
 -- Terminal --------------------------------------------------------------------
 keymap('t', '<C-[><C-[>', '<C-\\><C-n>', 'Exit terminal mode' )
 keymap('n', '<leader>t<CR>', [[<cmd>terminal<CR>]], 'New terminal')
 keymap('n', '<leader>tt', [[<cmd>tabnew | terminal<CR>]], 'New terminal tab')
 keymap('n', '<leader>ts', [[<cmd>split | terminal<CR>]], 'New terminal in split')
 keymap('n', '<leader>tv', [[<cmd>vsplit | terminal<CR>]], 'New terminal in vertical split')
-
-local hidden_terms = {}
-keymap('n', '<leader><CR>', function()
-  local cur_tab = vim.api.nvim_get_current_tabpage()
-  hidden_terms[cur_tab] = hidden_terms[cur_tab] or {}
-  local term_bufs = hidden_terms[cur_tab]
-  local wins = vim.api.nvim_tabpage_list_wins(cur_tab)
-
-  if #term_bufs > 0 then
-    local valid_bufs = {}
-    local open_bufs = {}
-    for _, win in ipairs(wins) do
-      open_bufs[vim.api.nvim_win_get_buf(win)] = true
-    end
-    for _, buf in ipairs(term_bufs) do
-      if vim.api.nvim_buf_is_valid(buf) and not open_bufs[buf] then
-        table.insert(valid_bufs, buf)
-      end
-    end
-    hidden_terms[cur_tab] = valid_bufs
-    term_bufs = valid_bufs
-  end
-
-  local cur_term_wins = {}
-  local cur_term_bufs = {}
-
-  for _, win in ipairs(wins) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    if vim.bo[buf].buftype == 'terminal' then
-      table.insert(cur_term_wins, win)
-      table.insert(cur_term_bufs, buf)
-    end
-  end
-
-  if #term_bufs > 0 then
-    local prev_win = vim.api.nvim_get_current_win()
-    vim.cmd('vsplit')
-    vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), term_bufs[1])
-    vim.cmd('wincmd L')
-    for i = 2, #term_bufs do
-      vim.cmd('split')
-      vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), term_bufs[i])
-    end
-    vim.api.nvim_set_current_win(prev_win)
-    hidden_terms[cur_tab] = vim.api.nvim_tabpage_is_valid(cur_tab) and {} or nil
-  elseif #cur_term_wins > 0 then
-    hidden_terms[cur_tab] = vim.deepcopy(cur_term_bufs)
-    for _, win in ipairs(cur_term_wins) do
-      vim.api.nvim_win_close(win, false)
-    end
-  else
-    vim.cmd('vsplit | wincmd L | terminal')
-  end
-end, 'Toggle all terminal splits visibility (tab-local)')
+keymap('n', '<leader><CR>', utils.toggle_terms, 'Toggle all terminal splits visibility (tab-local)')
 
 keymap('n', '<leader>tc', function()
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
@@ -211,47 +129,12 @@ keymap('n', 'tl', [[<cmd>+tabmove<CR>]], 'Move tab to the right')
 keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
 keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
--- Markdown --------------------------------------------------------------------
-keymap('n', '<leader>mm', [[<cmd>Markview toggle<CR>]], 'Toggle Markview')
-
-if IS_WORK then
-  local function fzf_notes()
-    require('fzf-lua').files({ cwd = '~/OneDrive/notes/' })
-  end
-
-  local function open_ws_notes(action)
-    action = action or 'edit'
-    local branch = require('lualine.components.branch.git_branch').get_branch()
-    if branch ~= '' then
-      local file = vim.fn.expand('~/OneDrive/notes/' .. branch .. '.md')
-      if vim.fn.filereadable(file) == 0 then
-        vim.fn.writefile({ '# ' .. string.gsub("-"..branch, "%W%l", string.upper):sub(2) }, file)
-      end
-      vim.cmd(action .. ' ' .. file)
-    else
-      fzf_notes()
-    end
-  end
-
-  keymap('n', '<leader>fn', fzf_notes, '')
-  keymap('n', '<leader>nn', function() open_ws_notes() end, '')
-  keymap('n', '<leader>n<CR>', function() open_ws_notes() end, '')
-  keymap('n', '<leader>ns', function() open_ws_notes('split') end, '')
-  keymap('n', '<leader>nv', function() open_ws_notes('vsplit') end, '')
-  keymap('n', '<leader>nt', function() open_ws_notes('tabedit') end, '')
-end
-
 local function find_conflict(dir)
   vim.cmd('silent! ' .. dir .. '\\v^[<=>|]{7}.*')
   vim.cmd('nohlsearch')
 end
 keymap({'n', 'x'}, ']x', function() find_conflict('/') end, 'Next git conflict')
 keymap({'n', 'x'}, '[x', function() find_conflict('?') end, 'Next git conflict')
-
--- Oil -------------------------------------------------------------------------
-keymap('n', '<leader>o', function()
-  require('oil.actions')[(vim.bo.filetype == 'oil') and 'close' or 'open_cwd'].callback()
-end)
 
 -- fzf-lua ---------------------------------------------------------------
 local fzf = require('fzf-lua')
@@ -323,21 +206,6 @@ keymap('n', "gF", function() fzf.lsp_finder() end, "LSP Finder")
 keymap({'n', 'x'}, "ga", function() fzf.lsp_code_actions() end, "Code Actions")
 
 -- other
-keymap('n', "<leader>.",  function() Snacks.scratch() end, "Toggle Scratch Buffer")
-keymap('n', "<leader>fs",  function() Snacks.scratch.select() end, "Select Scratch Buffer")
-keymap('n', "<leader>N", function()
-  Snacks.win({
-    file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-    width = 0.6,
-    height = 0.6,
-    wo = {
-      spell = false,
-      wrap = false,
-      signcolumn = "yes",
-      statuscolumn = " ",
-      conceallevel = 3,
-    },
-  })
-end, "Neovim News")
+keymap('n', "<leader>N", '<cmd>help news<CR>', "Neovim News")
 
-return M
+return utils

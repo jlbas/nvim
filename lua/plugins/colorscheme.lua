@@ -1,8 +1,5 @@
 vim.pack.add({'https://github.com/miikanissi/modus-themes.nvim'})
 vim.pack.add({'https://github.com/webhooked/kanso.nvim'})
-vim.pack.add({'https://github.com/vague-theme/vague.nvim'})
-vim.pack.add({'https://github.com/folke/tokyonight.nvim'})
-vim.pack.add({'https://github.com/rebelot/kanagawa.nvim'})
 
 local colorscheme = 'kanso-zen'
 require('kanso').setup({
@@ -17,9 +14,6 @@ require('kanso').setup({
     }
   end,
 })
--- local colorscheme = 'vague'
--- local colorscheme = 'tokyonight-night'
--- local colorscheme = 'kanagawa'
 -- local colorscheme = 'modus_vivendi'
 -- require('modus-themes').setup({
 --   style = colorscheme,
