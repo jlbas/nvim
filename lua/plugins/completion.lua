@@ -7,9 +7,6 @@ vim.pack.add({
 })
 
 require('blink.cmp').setup({
-  appearance = {
-    use_nvim_cmp_as_default = true,
-  },
   keymap = {
     preset = 'default',
     ['<C-n>'] = {

@@ -1,6 +1,6 @@
 local utils = require('config.utils')
 
-local default_opts = { noremap = true, silent = true }
+local default_opts = { silent = true }
 local keymap = function(mode, keys, cmd, desc, opts)
   opts = vim.tbl_deep_extend('force', default_opts, opts or {})
   opts.desc = desc

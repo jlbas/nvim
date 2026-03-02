@@ -26,7 +26,6 @@ vim.o.statuscolumn = '%l%s'
 vim.o.smoothscroll = true
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.termguicolors = true
 vim.o.timeoutlen = 300
 vim.o.winblend = 0
 vim.o.winborder = 'none'

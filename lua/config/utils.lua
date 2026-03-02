@@ -48,7 +48,7 @@ function M.pick_win()
       focusable = false,
       zindex = 100,
     })
-    vim.api.nvim_win_set_option(float, 'winhighlight', 'Normal:WinPickLabel,FloatBorder:WinPickLabel')
+    vim.wo[float].winhighlight = 'Normal:WinPickLabel,FloatBorder:WinPickLabel'
     table.insert(floats, { float = float, buf = buf, win = win, char = char })
   end
   vim.cmd('redraw')

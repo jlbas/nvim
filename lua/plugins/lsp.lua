@@ -37,10 +37,16 @@ for lsp_name, cfg in pairs(lsp_servers) do
 end
 
 vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
-vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
-vim.keymap.set('n', '[D', function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
-vim.keymap.set('n', ']D', function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
+
+local function diag_jump(opts)
+  vim.diagnostic.jump(vim.tbl_extend('keep', opts, {
+    on_jump = vim.diagnostic.open_float,
+  }))
+end
+vim.keymap.set('n', '[d', function() diag_jump({ count = -1 }) end)
+vim.keymap.set('n', ']d', function() diag_jump({ count = 1 }) end)
+vim.keymap.set('n', '[D', function() diag_jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end)
+vim.keymap.set('n', ']D', function() diag_jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist)
 
 vim.diagnostic.config({
@@ -65,8 +71,6 @@ vim.diagnostic.config({
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
     local opts = { buffer = ev.buf }
     vim.keymap.set({'n', 'x'}, '<leader>la', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
