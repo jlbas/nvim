@@ -33,8 +33,5 @@ require('blink.cmp').setup({
   },
   sources = {
     default = { 'lsp', 'path', 'snippets', 'buffer' },
-    per_filetype = {
-      codecompanion = { 'codecompanion' },
-    },
   },
 })

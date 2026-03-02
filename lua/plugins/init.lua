@@ -6,7 +6,6 @@ vim.pack.add({
 
 require('plugins.autopairs')
 require('plugins.completion')
-require('plugins.codecompanion')
 require('plugins.conform')
 require('plugins.dap')
 require('plugins.gitsigns')

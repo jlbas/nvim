@@ -214,33 +214,6 @@ keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 -- Markdown --------------------------------------------------------------------
 keymap({'n', 'i'}, '<C-m>', [[<cmd>Markview toggle<CR>]], 'Toggle Markview')
 
--- CodeCompanion ---------------------------------------------------------------
-if package.loaded['codecompanion'] then
-  local function goto_last_chat_buffer()
-    local bufnr = require("codecompanion.strategies.chat").last_chat().bufnr
-    local wins = vim.fn.win_findbuf(bufnr)
-    if wins[1] then
-      vim.fn.win_gotoid(wins[1])
-    end
-  end
-
-  keymap('n', '<leader>ca', [[<cmd>CodeCompanionActions<CR>]], 'Open CodeCompanion action palette')
-  keymap({'n', 'v'}, '<leader>cc', [[<cmd>CodeCompanionChat Toggle<CR>]], 'Toggle CodeCompanion chat')
-  keymap('v', '<leader>ca', function()
-    vim.cmd('CodeCompanionChat Add')
-    feedkeys('<Esc>', true)
-    goto_last_chat_buffer()
-  end, 'Add visually selected text to chat')
-  keymap('v', '<leader>cp', [[<cmd>CodeCompanion<CR>]], 'CodeCompanion prompt')
-
-  keymap({'i', 'n'}, '<C-CR>', function() vim.g.copilot_enabled = not vim.g.copilot_enabled end, 'Toggle Copilot', { silent = true })
-  keymap('i', '<C-\'>', '<Plug>(copilot-next)', 'Next suggestion', { silent = true })
-  keymap('i', '<C-;>', '<Plug>(copilot-previous)', 'Previous suggestion', { silent = true })
-  keymap('i', '<C-h>', '<Plug>(copilot-dismiss)', 'Dismiss suggestion', { silent = true })
-  keymap('i', '<C-j>', '<Plug>(copilot-accept-word)', 'Accept word', { silent = true })
-  keymap('i', '<C-l>', 'copilot#Accept("\\<CR>")', 'Accept suggestion', { expr = true, replace_keycodes = false, silent = true })
-end
-
 if IS_WORK then
   local function fzf_notes()
     require('fzf-lua').files({ cwd = '~/OneDrive/notes/' })
