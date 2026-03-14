@@ -40,6 +40,26 @@ vim.api.nvim_create_autocmd({ 'BufWritePre', 'VimLeave' }, {
   end
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  callback = function(ev)
+    vim.keymap.set('n', '<leader>md', function()
+      local src = vim.fn.expand('%:p')
+      local dst = vim.fn.expand('%:p:r') .. '.pdf'
+      vim.fn.jobstart({ 'pandoc', src, '--pdf-engine=tectonic', '-o', dst }, {
+        stderr_buffered = true,
+        on_exit = function(_, code)
+          if code == 0 then
+            vim.schedule(function() vim.notify('PDF: ' .. dst) end)
+          else
+            vim.schedule(function() vim.notify('pandoc failed (exit ' .. code .. ')', vim.log.levels.ERROR) end)
+          end
+        end,
+      })
+    end, { buffer = ev.buf, desc = 'Markdown to PDF' })
+  end,
+})
+
 vim.api.nvim_create_user_command('CloseFugitiveTabs', function()
   for tabnr = vim.fn.tabpagenr('$'), 1, -1 do
     local buflist = vim.fn.tabpagebuflist(tabnr)
