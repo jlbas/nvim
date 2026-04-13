@@ -206,6 +206,7 @@ keymap('n', "gF", function() fzf.lsp_finder() end, "LSP Finder")
 keymap({'n', 'x'}, "ga", function() fzf.lsp_code_actions() end, "Code Actions")
 
 -- other
+keymap('n', '<leader>u', function() require('undotree').open() end, 'Undo Tree')
 keymap('n', "<leader>N", '<cmd>help news<CR>', "Neovim News")
 
 return utils
