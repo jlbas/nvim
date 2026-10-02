@@ -66,7 +66,9 @@ end, 'Swap windows')
 -- Scrolling --------------------------------------------------------------------
 keymap('n', '<leader>s', '<cmd>set scrollbind!<CR>', 'Toggle scrollbind')
 keymap('n', '<leader>v', function()
-  vim.o.scrolloff = vim.o.scrolloff == 5 and 999 or 5
+  local center = vim.o.scrolloff ~= 999
+  vim.o.scrolloff = center and 999 or 5
+  vim.o.scrolloffpad = center and 1 or 0
 end, 'Toggle vertical centering')
 
 -- Window resizing -------------------------------------------------------------

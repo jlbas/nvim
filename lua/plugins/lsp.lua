@@ -1,9 +1,7 @@
 -- HACK: Neovim maps these methods to themselves instead of their parent capability,
 -- causing supports_method() to return false. Upstream LSP spec fix merged
--- (microsoft/vscode-languageserver-node#1720) but not yet in Neovim.
--- Remove once neovim/neovim#37696 is resolved.
-vim.lsp.protocol._request_name_to_server_capability['callHierarchy/incomingCalls'] = { 'callHierarchyProvider' }
-vim.lsp.protocol._request_name_to_server_capability['callHierarchy/outgoingCalls'] = { 'callHierarchyProvider' }
+-- (microsoft/vscode-languageserver-node#1720); callHierarchy is fixed in Neovim 0.13,
+-- typeHierarchy is not yet. Remove once neovim/neovim#37696 is fully resolved.
 vim.lsp.protocol._request_name_to_server_capability['typeHierarchy/subtypes'] = { 'typeHierarchyProvider' }
 vim.lsp.protocol._request_name_to_server_capability['typeHierarchy/supertypes'] = { 'typeHierarchyProvider' }
 

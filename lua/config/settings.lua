@@ -49,7 +49,7 @@ vim.o.spelloptions = 'camel'
 vim.o.foldenable = false
 vim.o.foldlevel = 1
 vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldexpr = vim.treesitter.foldexpr
 
 -- Clipboard -------------------------------------------------------------------
 vim.g.clipboard = {

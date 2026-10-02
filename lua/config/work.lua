@@ -2,24 +2,34 @@ local keymap = vim.keymap.set
 
 -- Autocmds --------------------------------------------------------------------
 
+-- Each buffer gets its own working directory (:bcd), resolved once on first enter
+local function set_buf_cwd(buf, dir)
+  if not vim.api.nvim_buf_is_valid(buf) then return end
+  vim.b[buf].work_cwd = dir
+  vim.api.nvim_buf_call(buf, function() vim.cmd.bcd(vim.fn.fnameescape(dir)) end)
+end
+
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-  callback = function()
-    local buf = vim.api.nvim_buf_get_name(0)
-    if buf:find('/home/bastarac/onedrive/panos') and not buf:find('/home/bastarac/onedrive/panos/panos') then
-      vim.api.nvim_set_current_dir('/home/bastarac/onedrive/panos/panos')
+  callback = function(ev)
+    if vim.b[ev.buf].work_cwd then return end
+    local name = vim.api.nvim_buf_get_name(ev.buf)
+    if name:find('/home/bastarac/onedrive/panos') and not name:find('/home/bastarac/onedrive/panos/panos') then
+      set_buf_cwd(ev.buf, '/home/bastarac/onedrive/panos/panos')
     end
   end
 })
 
 local git_root_cache = {}
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-  callback = function()
-    local buf = vim.api.nvim_buf_get_name(0)
-    local dir = vim.fs.dirname(buf)
+  callback = function(ev)
+    local buf = ev.buf
+    if vim.b[buf].work_cwd then return end
+    local name = vim.api.nvim_buf_get_name(buf)
+    local dir = vim.fs.dirname(name)
     if dir == '' or dir == '.' then return end
 
     if git_root_cache[dir] ~= nil then
-      vim.api.nvim_set_current_dir(git_root_cache[dir])
+      set_buf_cwd(buf, git_root_cache[dir])
       return
     end
 
@@ -28,13 +38,13 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         if result.code == 0 then
           local root = result.stdout:gsub('\n', '')
           git_root_cache[dir] = root
-          vim.api.nvim_set_current_dir(root)
+          set_buf_cwd(buf, root)
         else
           local base_dirs = { '/home/bastarac/onedrive' }
           for _, base in pairs(base_dirs) do
-            if buf:find(base) then
+            if name:find(base) then
               git_root_cache[dir] = base
-              vim.api.nvim_set_current_dir(base)
+              set_buf_cwd(buf, base)
             end
           end
         end

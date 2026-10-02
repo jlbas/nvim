@@ -1,6 +1,9 @@
 vim.pack.add({'https://github.com/nvim-mini/mini.nvim'})
 
-require('mini.ai').setup()
+require('mini.ai').setup({
+  -- Leave an/in/al/il to Neovim's builtin treesitter selection and line text objects
+  mappings = { around_next = 'aN', inside_next = 'iN', around_last = 'aL', inside_last = 'iL' },
+})
 require('mini.align').setup()
 -- require('mini.base16').setup()
 -- require('mini.comment').setup()

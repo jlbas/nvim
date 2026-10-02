@@ -26,6 +26,12 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+vim.api.nvim_create_autocmd({ 'TextYankPost', 'TextPutPost' }, {
+  callback = function()
+    vim.hl.hl_op()
+  end
+})
+
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
   callback = function()
     vim.cmd('wincmd =')
