@@ -1,7 +1,7 @@
 vim.pack.add({'https://github.com/nvim-mini/mini.nvim'})
 
 require('mini.ai').setup()
--- require('mini.align').setup()
+require('mini.align').setup()
 -- require('mini.base16').setup()
 -- require('mini.comment').setup()
 -- require('mini.cursorword').setup()

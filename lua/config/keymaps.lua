@@ -129,12 +129,23 @@ keymap('n', 'tl', [[<cmd>+tabmove<CR>]], 'Move tab to the right')
 keymap('n', 'th', [[<cmd>-tabmove<CR>]], 'Move tab to the left')
 keymap('n', 't;', [[<C-Tab>]], 'Go to last accessed tab')
 
+-- Git -------------------------------------------------------------------------
 local function find_conflict(dir)
   vim.cmd('silent! ' .. dir .. '\\v^[<=>|]{7}.*')
   vim.cmd('nohlsearch')
 end
 keymap({'n', 'x'}, ']x', function() find_conflict('/') end, 'Next git conflict')
 keymap({'n', 'x'}, '[x', function() find_conflict('?') end, 'Next git conflict')
+
+keymap('n', '<CR>', function()
+  if vim.bo.buftype ~= '' or vim.fn.FugitiveGitDir() == '' then
+    return utils.feedkeys('<CR>', true)
+  end
+  local ok, err = pcall(vim.cmd, '0,1Git ++curwin blame')
+  if not ok then
+    vim.notify((tostring(err):gsub('^.*Vim%b():', '')), vim.log.levels.WARN)
+  end
+end, 'Blame: open commit for the current line')
 
 -- fzf-lua ---------------------------------------------------------------
 local fzf = require('fzf-lua')

@@ -144,17 +144,3 @@ cfg.on_exit = vim.schedule_wrap(function(code, signal, client_id)
   end
 end)
 vim.lsp.config.clangd = cfg
-
-vim.system({ 'git', 'remote', 'get-url', 'origin' }, { text = true }, function(result)
-  if result.code ~= 128 and result.stdout == 'ssh://git@gitpanos.mv.usa.alcatel.com/sr/srlinux.git\n' then
-    vim.schedule(function()
-      local c = vim.lsp.config.clangd
-      c.cmd = vim.list_extend(c.cmd, { '--compile-commands-dir=build/amd64/debug/' })
-      vim.lsp.config.clangd = c
-      for _, client in ipairs(vim.lsp.get_clients({ name = 'clangd' })) do
-        client:stop()
-        vim.defer_fn(function() vim.cmd('LspStart clangd') end, 500)
-      end
-    end)
-  end
-end)

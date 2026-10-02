@@ -8,7 +8,6 @@ local parsers = {
 	'bash',
 	'c',
 	'cmake',
-	'cmake',
 	'cpp',
 	'csv',
 	'dockerfile',
