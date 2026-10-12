@@ -28,7 +28,9 @@ require('fzf-lua').setup({
     preview = {
       border = 'none',
       layout = 'flex',
+      flip_columns = 240,
       horizontal = 'right:50%',
+      vertical = 'down:45%',
       scrollbar = 'float',
     },
   },
